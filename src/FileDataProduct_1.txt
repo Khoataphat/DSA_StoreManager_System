@@ -1,0 +1,160 @@
+PC30
+ASUS Vivobook
+39
+2.5E7
+ Ryzen 7 5800H 
+16GB
+NVIDIA GeForce RTX 3050
+512GB
+LP5
+Gigabyte Gaming G5 GD
+8
+1.929E7
+Intel Core i5 11400H
+16GB
+Intel UHD Graphics 730
+512GB
+LP16
+Laptop Acer Nitro Gaming AN515-57-54MV
+56
+2.299E7
+Intel Core i5 11400H
+8
+Intel HD Graphics 630
+512 GB
+LP9
+Laptop Asus TUF Gaming FA506IHRB-HN019W
+5
+1.649E7
+AMD Ryzen 5 4600H
+8 GB
+NVIDIA GeForce GTX 1650 4GB
+512 GB
+LP7
+Laptop Asus TUF Gaming FX506LHB-HN188W
+16
+1790000.0
+Intel Core i5 10300H
+8 GB
+NVIDIA GeForce GTX 1650
+512 GB
+LP21
+Laptop Asus TUF Gaming FX517ZE-HN045W
+15
+2.599E7
+Intel Core i5 12450H
+8 GB
+Intel Iris Xe Graphics
+512 GB
+LP24
+Laptop Dell Vostro V5410 i5
+33
+2.149E7
+Intel Core i5 11320H
+8 GB
+Intel UHD Graphics
+512 GB
+LP23
+Laptop Gigabyte U4 UD-50VN823SO
+37
+1.569E7
+Intel Core i5 1155G7
+16 GB
+Intel UHD Graphics
+512 GB
+LP19
+Laptop HP Gaming Victus 16-e0175AX
+15
+1.949E7
+AMD Ryzen 5 5600H
+8 GB
+Intel Iris Xe Graphics
+512 GB
+LP15
+Laptop Lenovo IdeaPad 5 Pro 16IAH7
+27
+2.519E7
+Intel Core i7 12700H
+16 GB
+Intel HD Graphics 630
+512 GB
+LP22
+Laptop Lenovo Yoga Slim 7 Pro 14IHU5O
+19
+2.349E7
+Intel Core i5 11300H
+16 GB
+Intel UHD Graphics
+512 GB
+LP20
+Laptop MSI GF63 Thin 11UC-444VN
+19
+2.079E7
+Intel Core i5 11400H
+8 GB
+Intel Iris Xe Graphics
+512 GB
+LP8
+Laptop MSI Gaming GF63 Thin 11SC-1090VN
+59
+1.839E7
+Intel Core i5 11400H
+8 GB
+NVIDIA GeForce GTX 1650
+512 GB
+LP25
+Laptop MSI Gaming GF63 Thin 11SC-666VN
+53
+1.839E7
+Intel Core i5 11400H
+8 GB
+Intel UHD Graphics 630
+512 GB
+LP17
+Laptop MSI Gaming Katana GF66 12UCK-815VN
+22
+2.319E7
+Intel Core i5 12450H
+8 GB
+Intel Iris Xe Graphics
+512 GB
+LP4
+Lenovo Ideapad 3 15ITL6
+8
+1.069E7
+Intel Core i3 1115G4
+8GB
+Intel UHD Graphics 730
+512GB
+LP3
+Lenovo ThinkPad E14
+2
+1.5E7
+Intel Core i5 11G352
+8GB
+Intel UHD Graphics 730
+521GB
+LP6
+MSI Gaming GF63 Thin 11SC-1090VN
+6
+1.749E7
+Intel Core i5 11400H
+8GB
+NVIDIA GeForce GTX 1650
+512GB
+PC1
+PC E-Power Office 04
+16
+7090000.0
+Intel Core i3 10105
+8GB
+NVIDIA GeForce RTX 3050
+240GB
+PC2
+PC E-Power Office 05
+30
+8290000.0
+Intel Core i5 10400
+8 GB
+NVIDIA GeForce RTX 3050
+8 GB
