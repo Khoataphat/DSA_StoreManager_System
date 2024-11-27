@@ -61,7 +61,7 @@ public class Customer extends JFrame {
 
     public void loadDtatatoSale(){
         // Lấy tên sản phẩm từ nút đầu tiên trong hàng đợi giảm giá
-        String s = Run.queueSale.top().getValue().getTenMay();
+        String s = Run.queueSale.top().getValue().getTenSanPham();
         System.out.println("loadDatatoSale_line 65: " + s);
         jLabel11.setText(s);
  

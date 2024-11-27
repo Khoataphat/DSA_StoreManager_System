@@ -3,6 +3,7 @@ package GUI;
 
 
 import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import System.Product;
@@ -25,13 +26,16 @@ public class DetailProductCustomer extends javax.swing.JDialog {
         setIconImage(logo.getImage());
         setTitle("Thông tin sản phẩm");
         Product a = this.owner.getDetailProductCustomer();
-        txtMaSanPham.setText(a.getMaMay());
-        txtTenSanPham.setText(a.getTenMay());
-        txtDonGia.setText(formatter.format(a.getGia()) + "đ");
-        txtCPU.setText(a.getTenCpu());
-        txtRAM.setText(a.getRam());
-        txtROM.setText(a.getRom());
-        txtGPU.setText(a.getCardManHinh());
+        txtMaSanPham.setText(a.getMaSanPham());
+        txtTenSanPham.setText(a.getTenSanPham());
+        txtDonGia.setText(formatter.format(a.getGiaTien()) + "đ");
+        //thay đổi định dạng <---
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        txtCPU.setText(a.getNgaySanXuat().format(dateFormatter));
+        txtRAM.setText(a.getHanSuDung().format(dateFormatter));
+        //<---
+        txtROM.setText(a.getThanhPhan());
+        txtGPU.setText(a.getKhoiLuong());
         txtSoLuong.setText(Integer.toString(a.getSoLuong()));
 
     }

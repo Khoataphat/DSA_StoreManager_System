@@ -451,7 +451,7 @@ public class AccountForm extends javax.swing.JInternalFrame {
                 int checkVl = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa tài khoản này ?", "Xác nhận xóa tài khoản", JOptionPane.YES_NO_OPTION);
                 if (checkVl == JOptionPane.YES_OPTION) {
                     try {
-                        functionStack.push(new FunctionWrapper<>(new AddAccountStack(), select));
+                        functionStack.push(new FunctionWrapper<Account>(new AddAccountStack(), select));
                         Run.AccountTree.remove(select.getUser());
                         JOptionPane.showMessageDialog(this, "Xoá thành công tài khoản !");
                         loadDataToTable(Run.AccountTree);

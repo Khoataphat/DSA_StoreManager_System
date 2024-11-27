@@ -1,7 +1,7 @@
 1
 0
 ASUS Vivobook
-11
+12
 Gigabyte Gaming G5 GD
 2
 Laptop Acer Nitro Gaming AN515-57-54MV
@@ -36,6 +36,8 @@ Lenovo ThinkPad E14
 80
 MSI Gaming GF63 Thin 11SC-1090VN
 84
+Muối Cà
+0
 PC E-Power Office 04
 0
 PC E-Power Office 05

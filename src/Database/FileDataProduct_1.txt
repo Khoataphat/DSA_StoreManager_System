@@ -1,6 +1,6 @@
 PC30
 ASUS Vivobook
-39
+38
 2.5E7
 Ryzen 7 5800H
 16GB

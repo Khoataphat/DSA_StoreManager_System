@@ -81,13 +81,13 @@ public class AddProduct extends javax.swing.JDialog {
 
         jLabel4.setText("Đơn giá");
 
-        jLabel6.setText("Bộ xử lý");
+        jLabel6.setText("Ngày Sản Xuất");
 
-        jLabel7.setText("Bộ nhớ");
+        jLabel7.setText("Hạn Sử Dụng");
 
-        jLabel8.setText("Dung lượng lưu trữ");
+        jLabel8.setText("Khối Lượng");
 
-        jLabel9.setText("Card đồ hoạ");
+        jLabel9.setText("Thành Phần");
 
         btnAddProduct.setBackground(new java.awt.Color(204, 204, 255));
         btnAddProduct.setForeground(new java.awt.Color(255, 255, 255));
@@ -273,8 +273,8 @@ public class AddProduct extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin !");
         } else {
             Product pc = new Product(maMay, tenMay, soluong, dongia, cpu, ram, gpu, rom);
-             owner.functionStack.push(new FunctionWrapper<>(owner.new DelProductStack(), pc));
-            Run.ProductTree.add(pc.getTenMay(), pc);
+             owner.functionStack.push(new FunctionWrapper<Product>(owner.new DelProductStack(), pc));
+            Run.ProductTree.add(pc.getTenSanPham(), pc);
             AmountSold pc1 = new AmountSold(tenMay, 0);
             Run.AmountSoldTree.add(pc1.getMaMay(),pc1);
             JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công !");

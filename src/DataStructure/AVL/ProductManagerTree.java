@@ -2,6 +2,9 @@ package AVL;
 
 import System.Product;
 import java.util.*;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductManagerTree {
 
@@ -491,13 +494,13 @@ public class ProductManagerTree {
 
         while (left <= mid && right <= high) {
             if (!desc) {
-                if (list.get(left).getGia() <= list.get(right).getGia()) {
+                if (list.get(left).getGiaTien() <= list.get(right).getGiaTien()) {
                     b[bIdx++] = list.get(left++);
                 } else {
                     b[bIdx++] = list.get(right++);
                 }
             } else {
-                if (list.get(left).getGia() >= list.get(right).getGia()) {
+                if (list.get(left).getGiaTien() >= list.get(right).getGiaTien()) {
                     b[bIdx++] = list.get(left++);
                 } else {
                     b[bIdx++] = list.get(right++);
@@ -530,7 +533,7 @@ public class ProductManagerTree {
         List<Product> productList = new ArrayList<>();
 
         for (Product product : list) {
-            if (product.getTenMay().toLowerCase().contains(name.toLowerCase())) {
+            if (product.getTenSanPham().toLowerCase().contains(name.toLowerCase())) {
                 productList.add(product);
             }
         }
@@ -543,7 +546,7 @@ public class ProductManagerTree {
         List<Product> productList = new ArrayList<>();
 
         for (Product product : list) {
-            if (product.getMaMay().toLowerCase().contains(name.toLowerCase())) {
+            if (product.getMaSanPham().toLowerCase().contains(name.toLowerCase())) {
                 productList.add(product);
             }
         }
@@ -563,13 +566,13 @@ public class ProductManagerTree {
 
         return productList;
     }
-
+/*
     public List<Product> searchRam(String name) {
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 
         for (Product product : list) {
-            if (product.getRam().toLowerCase().contains(name.toLowerCase())) {
+            if (product.getHanSuDung().toLowerCase().contains(name.toLowerCase())) {
                 productList.add(product);
             }
         }
@@ -582,7 +585,24 @@ public class ProductManagerTree {
         List<Product> productList = new ArrayList<>();
 
         for (Product product : list) {
-            if (product.getTenCpu().toLowerCase().contains(name.toLowerCase())) {
+            if (product.getNgaySanXuat().toLowerCase().contains(name.toLowerCase())) {
+                productList.add(product);
+            }
+        }
+
+        return productList;
+    }
+ */
+    public List<Product> searchRam(String name) {
+        List<Product> list = getInOrderList();
+        List<Product> productList = new ArrayList<>();
+
+        // Giả định rằng 'name' là một ngày theo định dạng "dd/MM/yyyy"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Product product : list) {
+            // Chuyển đổi ngày hết hạn sang định dạng chuỗi để so sánh
+            if (product.getHanSuDung().format(formatter).toLowerCase().contains(name.toLowerCase())) {
                 productList.add(product);
             }
         }
@@ -590,12 +610,30 @@ public class ProductManagerTree {
         return productList;
     }
 
+    public List<Product> searchCPU(String name) {
+        List<Product> list = getInOrderList();
+        List<Product> productList = new ArrayList<>();
+
+        // Giả định rằng 'name' là một ngày theo định dạng "dd/MM/yyyy"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Product product : list) {
+            // Chuyển đổi ngày sản xuất sang định dạng chuỗi để so sánh
+            if (product.getNgaySanXuat().format(formatter).toLowerCase().contains(name.toLowerCase())) {
+                productList.add(product);
+            }
+        }
+
+        return productList;
+    }
+
+
     public List<Product> searchRom(String name) {
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 
         for (Product product : list) {
-            if (product.getRom().toLowerCase().contains(name.toLowerCase())) {
+            if (product.getThanhPhan().toLowerCase().contains(name.toLowerCase())) {
                 productList.add(product);
             }
         }
@@ -608,7 +646,7 @@ public class ProductManagerTree {
         List<Product> productList = new ArrayList<>();
 
         for (Product product : list) {
-            if (product.getCardManHinh().toLowerCase().contains(name.toLowerCase())) {
+            if (product.getKhoiLuong().toLowerCase().contains(name.toLowerCase())) {
                 productList.add(product);
             }
         }

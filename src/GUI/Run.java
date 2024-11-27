@@ -45,7 +45,7 @@ public class Run {
         Scanner scanner;
         try {
             
-            scanner = new Scanner(new File("src\\Database\\FileDataProduct_1.txt"));
+            scanner = new Scanner(new File("src\\Database\\FileDataProduct.txt"));
             System.out.println();
             addQueue(queueSale , scanner);
 
@@ -129,7 +129,7 @@ public class Run {
     public static void ReadDataProduct() {
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("src\\Database\\FileDataProduct_1.txt"));
+            scanner = new Scanner(new File("src\\Database\\FileDataProduct.txt"));
             System.out.println();
             addProduct(ProductTree, scanner);
 
@@ -151,7 +151,7 @@ public class Run {
 
             Product a = new Product(mamay, tenmay, Integer.parseInt(soluong), Double.parseDouble(dongia), boxuli, ram, card, bonho);
 
-            tree.add(a.getTenMay(), a);
+            tree.add(a.getTenSanPham(), a);
 
         }
 
@@ -254,10 +254,10 @@ public class Run {
 
         try {
             List<Product> ProductData = Run.ProductTree.getInOrderList();
-            FileWriter fw = new FileWriter("src\\Database\\FileDataProduct_1.txt");
+            FileWriter fw = new FileWriter("src\\Database\\FileDataProduct.txt");
             fw.write("");
             for (Product product : ProductData) {
-                fw.write(product.getMaMay() + "\n" + product.getTenMay() + "\n" + product.getSoLuong() + "\n" + product.getGia() + "\n" + product.getTenCpu() + "\n" + product.getRam() + "\n" + product.getCardManHinh() + "\n" + product.getRom() + "\n");
+                fw.write(product.getMaSanPham() + "\n" + product.getTenSanPham() + "\n" + product.getSoLuong() + "\n" + product.getGiaTien() + "\n" + product.getNgaySanXuat() + "\n" + product.getHanSuDung() + "\n" + product.getKhoiLuong() + "\n" + product.getThanhPhan() + "\n");
             }
             fw.close();
         } catch (IOException e) {

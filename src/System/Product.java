@@ -1,7 +1,8 @@
-
 package System;
 
 import java.util.Objects;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -9,45 +10,45 @@ import java.util.Objects;
  */
 public class Product {
 
-    private String maMay;
-    private String tenMay;
+    private String maSanPham;
+    private String tenSanPham;
     private int soLuong;
-    private double gia;
-    private String tenCpu;
-    private String ram;
-    private String cardManHinh;
-    private String Rom;
+    private double giaTien;
+    private LocalDate ngaySanXuat;
+    private LocalDate hanSuDung;
+    private String khoiLuong;
+    private String thanhPhan;
 
     public Product() {
         super();
     }
 
-    public Product(String maMay, String tenMay, int soLuong, double gia, String tenCpu, String ram, String cardManHinh, String rom) {
-        this.maMay = maMay;
-        this.tenMay = tenMay;
-        this.soLuong = soLuong;
-        this.gia = gia;
-        this.tenCpu = tenCpu;
-        this.ram = ram;
-        this.cardManHinh = cardManHinh;
-        Rom = rom;
-
+    public Product(String maSanPham, String tenSanPham, int soLuong, double giaTien,
+                   String ngaySanXuat, String hanSuDung, String khoiLuong, String thanhPhan) {
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        setSoLuong(soLuong);  // Sử dụng phương thức set
+        setGiaTien(giaTien);  // Sử dụng phương thức set
+        this.ngaySanXuat = LocalDate.parse(ngaySanXuat, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.hanSuDung = LocalDate.parse(hanSuDung, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.khoiLuong = khoiLuong;
+        this.thanhPhan = thanhPhan;
     }
 
-    public String getMaMay() {
-        return maMay;
+    public String getMaSanPham() {
+        return maSanPham;
     }
 
-    public void setMaMay(String maMay) {
-        this.maMay = maMay;
+    public void setMaSanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
     }
 
-    public String getTenMay() {
-        return tenMay;
+    public String getTenSanPham() {
+        return tenSanPham;
     }
 
-    public void setTenMay(String tenMay) {
-        this.tenMay = tenMay;
+    public void setTenSanPham(String tenSanPham) {
+        this.tenSanPham = tenSanPham;
     }
 
     public int getSoLuong() {
@@ -55,96 +56,82 @@ public class Product {
     }
 
     public void setSoLuong(int soLuong) {
+        if (soLuong < 0) {
+            throw new IllegalArgumentException("Số lượng không thể âm.");
+        }
         this.soLuong = soLuong;
     }
 
-    public double getGia() {
-        return gia;
+    public double getGiaTien() {
+        return giaTien;
     }
 
-    public void setGia(double gia) {
-        this.gia = gia;
+    public void setGiaTien(double giaTien) {
+        if (giaTien < 0) {
+            throw new IllegalArgumentException("Giá tiền không thể âm.");
+        }
+        this.giaTien = giaTien;
     }
 
-    public String getTenCpu() {
-        return tenCpu;
+    public LocalDate getNgaySanXuat() {
+        return ngaySanXuat;
     }
 
-    public void setTenCpu(String tenCpu) {
-        this.tenCpu = tenCpu;
+    public void setNgaySanXuat(LocalDate ngaySanXuat) {
+        this.ngaySanXuat = ngaySanXuat; // Nhận LocalDate trực tiếp
     }
 
-    public String getRam() {
-        return ram;
+    public LocalDate getHanSuDung() {
+        return hanSuDung;
     }
 
-    public void setRam(String ram) {
-        this.ram = ram;
+    public void setHanSuDung(LocalDate hanSuDung) {
+        this.hanSuDung = hanSuDung; // Nhận LocalDate trực tiếp
     }
 
-    public String getCardManHinh() {
-        return cardManHinh;
+    public String getKhoiLuong() {
+        return khoiLuong;
     }
 
-    public void setCardManHinh(String cardManHinh) {
-        this.cardManHinh = cardManHinh;
+    public void setKhoiLuong(String khoiLuong) {
+        this.khoiLuong = khoiLuong;
     }
 
-    public String getRom() {
-        return Rom;
+    public String getThanhPhan() {
+        return thanhPhan;
     }
 
-    public void setRom(String rom) {
-        Rom = rom;
+    public void setThanhPhan(String thanhPhan) {
+        this.thanhPhan = thanhPhan;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Product other = (Product) obj;
-        if (this.maMay != other.maMay) {
-            return false;
-        }
-        if (!Objects.equals(this.tenMay, other.tenMay)) {
-            return false;
-        }
-        if (!Objects.equals(this.soLuong, other.soLuong)) {
-            return false;
-        }
-        if (!Objects.equals(this.gia, other.gia)) {
-            return false;
-        }
-        if (!Objects.equals(this.tenCpu, other.tenCpu)) {
-            return false;
-        }
-        if (!Objects.equals(this.ram, other.ram)) {
-            return false;
-        }
-        if (!Objects.equals(this.cardManHinh, other.cardManHinh)) {
-            return false;
-        }
-        return Objects.equals(this.Rom, other.Rom);
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Product other = (Product) obj;
+        return soLuong == other.soLuong &&
+                Double.compare(other.giaTien, giaTien) == 0 &&
+                Objects.equals(maSanPham, other.maSanPham) &&
+                Objects.equals(tenSanPham, other.tenSanPham) &&
+                Objects.equals(ngaySanXuat, other.ngaySanXuat) &&
+                Objects.equals(hanSuDung, other.hanSuDung) &&
+                Objects.equals(khoiLuong, other.khoiLuong) &&
+                Objects.equals(thanhPhan, other.thanhPhan);
     }
 
     @Override
     public String toString() {
-        return "Product{"
-                + "maMay='" + maMay + '\''
-                + ", tenMay='" + tenMay + '\''
-                + ", soLuong=" + soLuong
-                + ", gia=" + gia
-                + ", tenCpu='" + tenCpu + '\''
-                + ", ram='" + ram + '\''
-                + ", cardManHinh='" + cardManHinh + '\''
-                + ", Rom='" + Rom + '\''
-                + '}';
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return "Product{" +
+                "maSanPham='" + maSanPham + '\'' +
+                ", tenSanPham='" + tenSanPham + '\'' +
+                ", soLuong=" + soLuong +
+                ", giaTien=" + giaTien +
+                ", ngaySanXuat=" + ngaySanXuat.format(formatter) +
+                ", hanSuDung=" + hanSuDung.format(formatter) +
+                ", khoiLuong='" + khoiLuong + '\'' +
+                ", thanhPhan='" + thanhPhan + '\'' +
+                '}';
     }
 }

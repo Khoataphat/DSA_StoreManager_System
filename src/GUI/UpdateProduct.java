@@ -4,6 +4,8 @@ package GUI;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -31,16 +33,19 @@ public class UpdateProduct extends javax.swing.JDialog {
         setLocationRelativeTo(null);
          txtTenSanPham.setEditable(false);
         Product a = this.owner.getProductSelect();
-        txtMaSanPham.setText(a.getMaMay());
-        txtTenSanPham.setText(a.getTenMay());
-        txtDonGia.setText(Integer.toString((int) a.getGia()));
-        txtCPU.setText(a.getTenCpu());
-        txtRAM.setText(a.getRam());
-        txtROM.setText(a.getRom());
-        txtGPU.setText(a.getCardManHinh());
+        txtMaSanPham.setText(a.getMaSanPham());
+        txtTenSanPham.setText(a.getTenSanPham());
+        txtDonGia.setText(Integer.toString((int) a.getGiaTien()));
+        //thay đổi định dạng <---
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        txtCPU.setText(a.getNgaySanXuat().format(dateFormatter));
+        txtRAM.setText(a.getHanSuDung().format(dateFormatter));
+        //<---
+        txtROM.setText(a.getThanhPhan());
+        txtGPU.setText(a.getKhoiLuong());
         txtSoLuong.setText(Integer.toString(a.getSoLuong()));
         this.p = new Product( txtMaSanPham.getText(),
-                a.getTenMay(),
+                a.getTenSanPham(),
                 Integer.parseInt(txtSoLuong.getText()),
                 Double.parseDouble(txtDonGia.getText()), 
                 txtCPU.getText(), 
@@ -314,14 +319,20 @@ public class UpdateProduct extends javax.swing.JDialog {
             if (maMay.equals("") || tenMay.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("") || txtDonGia.getText() == "" || txtSoLuong.getText() == "") {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin !");
             } else {
-                this.owner.functionStack.push(new FunctionWrapper<>(owner.new UpdProductStack(), this.p));              
-                this.owner.getProductSelect().setMaMay(maMay);           
-                this.owner.getProductSelect().setSoLuong(Integer.parseInt(soluong));
-                this.owner.getProductSelect().setGia(Integer.parseInt(dongia));
-                this.owner.getProductSelect().setTenCpu(cpu);
-                this.owner.getProductSelect().setRam(ram);
-                this.owner.getProductSelect().setCardManHinh(gpu);
-                this.owner.getProductSelect().setRom(rom);
+                this.owner.functionStack.push(new FunctionWrapper<Product>(owner.new UpdProductStack(), this.p));
+
+                // Thiết lập thông tin sản phẩm
+                this.owner.getProductSelect().setMaSanPham(maMay);
+                this.owner.getProductSelect().setSoLuong(Integer.parseInt(txtSoLuong.getText())); // Lấy giá trị từ JTextField
+                this.owner.getProductSelect().setGiaTien(Double.parseDouble(txtDonGia.getText())); // Đảm bảo sử dụng Double
+
+                // Chuyển đổi chuỗi thành LocalDate
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                this.owner.getProductSelect().setNgaySanXuat(LocalDate.parse(cpu, formatter));
+                this.owner.getProductSelect().setHanSuDung(LocalDate.parse(ram, formatter));
+
+                this.owner.getProductSelect().setKhoiLuong(gpu);
+                this.owner.getProductSelect().setThanhPhan(rom);
                 owner.loadDataToTable(Run.ProductTree);
                 try {
                     Run.WriteDataProduct();

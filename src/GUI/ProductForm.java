@@ -57,15 +57,15 @@ public class ProductForm extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Product i : acc) {
                 tblModel.addRow(new Object[]{
-                    i.getMaMay(), 
-                    i.getTenMay(),
+                    i.getMaSanPham(),
+                    i.getTenSanPham(),
                     i.getSoLuong(), 
-                    formatter.format(i.getGia()) + "đ",
-                    i.getTenCpu(),
-                    i.getRam(),
-                    i.getCardManHinh(),
-                    i.getRom(),                   
-                    Run.AmountSoldTree.get(i.getTenMay()).getAmountSold().getAmountSold()
+                    formatter.format(i.getGiaTien()) + "đ",
+                    i.getNgaySanXuat(),
+                    i.getHanSuDung(),
+                    i.getKhoiLuong(),
+                    i.getThanhPhan(),
+                    Run.AmountSoldTree.get(i.getTenSanPham()).getAmountSold().getAmountSold()
                 });
                
             }
@@ -78,7 +78,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
         @Override
         public void execute(Product product) {
-            Run.ProductTree.add(product.getTenMay(), product);
+            Run.ProductTree.add(product.getTenSanPham(), product);
             try {
                 Run.WriteDataProduct();
             } catch (IOException ex) {
@@ -92,7 +92,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
         @Override
         public void execute(Product product) {
-            Run.ProductTree.remove(product.getTenMay());
+            Run.ProductTree.remove(product.getTenSanPham());
             try {
                 Run.WriteDataProduct();
             } catch (IOException ex) {
@@ -106,13 +106,13 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
         @Override
         public void execute(Product product) {
-            Run.ProductTree.get(product.getTenMay()).getProduct().setCardManHinh(product.getCardManHinh());
-            Run.ProductTree.get(product.getTenMay()).getProduct().setGia(product.getGia());
-            Run.ProductTree.get(product.getTenMay()).getProduct().setMaMay(product.getMaMay());
-            Run.ProductTree.get(product.getTenMay()).getProduct().setRam(product.getRam());
-            Run.ProductTree.get(product.getTenMay()).getProduct().setRom(product.getRom());
-            Run.ProductTree.get(product.getTenMay()).getProduct().setSoLuong(product.getSoLuong());
-            Run.ProductTree.get(product.getTenMay()).getProduct().setTenCpu(product.getTenCpu());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setKhoiLuong(product.getKhoiLuong());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setGiaTien(product.getGiaTien());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setMaSanPham(product.getMaSanPham());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setHanSuDung(product.getHanSuDung());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setThanhPhan(product.getThanhPhan());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setSoLuong(product.getSoLuong());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setNgaySanXuat(product.getNgaySanXuat());
             
             
             try {
@@ -629,8 +629,8 @@ public class ProductForm extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Product i : result) {
                 tblModel.addRow(new Object[]{
-                    i.getMaMay(), i.getTenMay(), i.getSoLuong(), formatter.format(i.getGia()) + "đ", i.getTenCpu(), i.getRam(), i.getCardManHinh(), i.getRom(),
-                    Run.AmountSoldTree.get(i.getTenMay()).getAmountSold().getAmountSold()
+                    i.getMaSanPham(), i.getTenSanPham(), i.getSoLuong(), formatter.format(i.getGiaTien()) + "đ", i.getNgaySanXuat(), i.getHanSuDung(), i.getKhoiLuong(), i.getThanhPhan(),
+                    Run.AmountSoldTree.get(i.getTenSanPham()).getAmountSold().getAmountSold()
                 });
             }
         } catch (Exception e) {

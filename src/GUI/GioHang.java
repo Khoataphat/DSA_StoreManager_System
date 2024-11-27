@@ -77,7 +77,7 @@ public class GioHang extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (var i : ProductData) {
                 tblModel.addRow(new Object[]{
-                    i.getMaMay(), i.getTenMay(), i.getSoLuong(), formatter.format(i.getGia()) + "đ"
+                    i.getMaSanPham(), i.getTenSanPham(), i.getSoLuong(), formatter.format(i.getGiaTien()) + "đ"
                 });
             }
         } catch (Exception e) {
@@ -89,7 +89,7 @@ public class GioHang extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Product i : result) {
                 tblModel.addRow(new Object[]{
-                    i.getMaMay(), i.getTenMay(), i.getSoLuong(), formatter.format(i.getGia()) + "đ"
+                    i.getMaSanPham(), i.getTenSanPham(), i.getSoLuong(), formatter.format(i.getGiaTien()) + "đ"
                 });
             }
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class GioHang extends javax.swing.JInternalFrame {
     public Product findMayTinh(String maMay) {
         List<Product> ProductData = Run.ProductTree.getInOrderList();
         for (Product i : ProductData) {
-            if (maMay.equals(i.getMaMay())) {
+            if (maMay.equals(i.getMaSanPham())) {
                 return i;
             }
         }
@@ -116,7 +116,7 @@ public class GioHang extends javax.swing.JInternalFrame {
 
     public ChiTietPhieu findCTPhieu(String maMay) {
         for (ChiTietPhieu i : CTPhieu) {
-            if (maMay.equals(Run.ProductTree.get(i.getTenMay()).getProduct().getMaMay())) {
+            if (maMay.equals(Run.ProductTree.get(i.getTenMay()).getProduct().getMaSanPham())) {
                 return i;
             }
         }
@@ -132,7 +132,7 @@ public class GioHang extends javax.swing.JInternalFrame {
             for (int i = 0; i < CTPhieu.size(); i++) {
                 tblNhapHangmd.addRow(new Object[]{
                     i + 1,
-                    Run.ProductTree.get(CTPhieu.get(i).getTenMay()).getProduct().getMaMay(),
+                    Run.ProductTree.get(CTPhieu.get(i).getTenMay()).getProduct().getMaSanPham(),
                     CTPhieu.get(i).getTenMay(),
                     CTPhieu.get(i).getSoLuong(),
                     formatter.format(CTPhieu.get(i).getGia()) + "đ"
@@ -188,7 +188,7 @@ public class GioHang extends javax.swing.JInternalFrame {
 
     //check giảm giá, nếu nằm đầu hàng đợi thì giảm giá
     public double checkOnSale(String tenMay) {
-        if(Run.queueSale.top().getValue().getTenMay().equals(tenMay)) {
+        if(Run.queueSale.top().getValue().getTenSanPham().equals(tenMay)) {
             return 0.8;
         } else return 1.0;
     }
@@ -626,7 +626,7 @@ public class GioHang extends javax.swing.JInternalFrame {
                         
                             Product mt = Run.ProductTree.get((String) tblSanPham.getValueAt(i_row, 1)).getProduct();
 
-                            ChiTietPhieu ctp = new ChiTietPhieu(mt.getTenMay(), soluong, mt.getGia());
+                            ChiTietPhieu ctp = new ChiTietPhieu(mt.getTenSanPham(), soluong, mt.getGiaTien());
                              functionStack.push(new FunctionWrapper<>(new DelPhieuStack(),ctp ));
                             CTPhieu.add(ctp);
                         
