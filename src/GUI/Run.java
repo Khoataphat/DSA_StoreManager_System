@@ -45,7 +45,7 @@ public class Run {
         Scanner scanner;
         try {
             
-            scanner = new Scanner(new File("src\\Database\\FileDataProduct.txt"));
+            scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"));
             System.out.println();
             addQueue(queueSale , scanner);
 
@@ -54,7 +54,7 @@ public class Run {
             System.out.println(queueSale.toString());
 
         } catch (FileNotFoundException e) {
-            System.out.println("???");
+            System.out.println("ReadDatatoQueue???");
         }
     }
 
@@ -84,12 +84,12 @@ public class Run {
     public static void ReadDataPhieuMua() throws FileNotFoundException, IOException {    
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("src\\Database\\PhieuMua.txt"));
+            scanner = new Scanner(new File("src\\Database\\PhieuMua_CannedFood.txt"));
             System.out.println();
             addPhieuMua(PhieuMuaTree, scanner);
 
         } catch (FileNotFoundException e) {
-            System.out.println("???");
+            System.out.println("ReadDataPhieuMua???");
         }
     }
 
@@ -129,12 +129,12 @@ public class Run {
     public static void ReadDataProduct() {
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("src\\Database\\FileDataProduct.txt"));
+            scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"));
             System.out.println();
             addProduct(ProductTree, scanner);
 
         } catch (FileNotFoundException e) {
-            System.out.println("???");
+            System.out.println("ReadDataProduct???");
         }
     }
      public static void addProduct(ProductManagerTree tree, Scanner scanner) {
@@ -165,12 +165,12 @@ public class Run {
      public static void ReadDataAmountSold() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("src\\Database\\AmountSold.txt"));
+            scanner = new Scanner(new File("src\\Database\\AmountSold_CannedFood.txt"));
             System.out.println();
             addAmountSold(AmountSoldTree, scanner);
 
         } catch (FileNotFoundException e) {
-            System.out.println("???");
+            System.out.println("ReadDataAmountSold???");
         }
     }
      public static void addAmountSold(AmountSoldManagerTree tree, Scanner scanner) {
@@ -204,7 +204,7 @@ public class Run {
             addAccount(AccountTree, scanner);
 
         } catch (FileNotFoundException e) {
-            System.out.println("???");
+            System.out.println("ReadDataAccount???");
         }
     }
      
@@ -236,7 +236,7 @@ public class Run {
 
         try {
             List<Phieu> PhieuMuaData = Run.PhieuMuaTree.getInOrderList();
-            FileWriter fw = new FileWriter("src\\Database\\PhieuMua.txt");
+            FileWriter fw = new FileWriter("src\\Database\\PhieuMua_CannedFood.txt");
             fw.write("");
             for (Phieu a : PhieuMuaData) {
                 fw.write(a.getThoiGianTao() + "\n" + a.getPhone() + "\n" + a.getChitieuphieu().getTenMay() + "\n" + a.getChitieuphieu().getSoLuong() + "\n" + a.getChitieuphieu().getGia() + "\n" + a.getTongTien() + "\n" + a.getAddress() + "\n" + a.getUsername() + "\n");
@@ -254,7 +254,7 @@ public class Run {
 
         try {
             List<Product> ProductData = Run.ProductTree.getInOrderList();
-            FileWriter fw = new FileWriter("src\\Database\\FileDataProduct.txt");
+            FileWriter fw = new FileWriter("src\\Database\\FileDataProduct_CannedFood.txt");
             fw.write("");
             for (Product product : ProductData) {
                 fw.write(product.getMaSanPham() + "\n" + product.getTenSanPham() + "\n" + product.getSoLuong() + "\n" + product.getGiaTien() + "\n" + product.getNgaySanXuat() + "\n" + product.getHanSuDung() + "\n" + product.getKhoiLuong() + "\n" + product.getThanhPhan() + "\n");
@@ -273,7 +273,7 @@ public class Run {
 
         try {
             List<AmountSold> amountSold = Run.AmountSoldTree.getInOrderList();
-            FileWriter fw = new FileWriter("src\\Database\\AmountSold.txt");
+            FileWriter fw = new FileWriter("src\\Database\\AmountSold_CannedFood.txt");
             fw.write("");
             for (AmountSold product : amountSold) {
                 fw.write(product.getMaMay() +  "\n"+product.getAmountSold()+"\n");

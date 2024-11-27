@@ -66,7 +66,7 @@ public class AmountSold {
         return "Product{"
                 + "maMay='" + maMay + '\''
                 
-                + ",AmountSold" + AmountSold + '\''
+                + ",AmountSold=" + AmountSold + '\''
                 + '}';
     }
 }

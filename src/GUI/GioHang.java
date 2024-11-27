@@ -627,7 +627,7 @@ public class GioHang extends javax.swing.JInternalFrame {
                             Product mt = Run.ProductTree.get((String) tblSanPham.getValueAt(i_row, 1)).getProduct();
 
                             ChiTietPhieu ctp = new ChiTietPhieu(mt.getTenSanPham(), soluong, mt.getGiaTien());
-                             functionStack.push(new FunctionWrapper<>(new DelPhieuStack(),ctp ));
+                             functionStack.push(new FunctionWrapper<ChiTietPhieu>(new DelPhieuStack(),ctp ));
                             CTPhieu.add(ctp);
                         
                         loadDataToTableNhapHang();
@@ -652,7 +652,7 @@ public class GioHang extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để xoá khỏi giỏ hàng !");
         } else {
             ChiTietPhieu ctp = CTPhieu.get(i_row);
-            functionStack.push(new FunctionWrapper<>(new AddPhieuStack(),ctp ));
+            functionStack.push(new FunctionWrapper<ChiTietPhieu>(new AddPhieuStack(),ctp ));
             CTPhieu.remove(i_row);
             loadDataToTableNhapHang();
           //  textTongTien.setText(formatter.format(tinhTongTien()) + "đ");

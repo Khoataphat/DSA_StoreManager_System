@@ -33,11 +33,11 @@ public class DetailProduct extends javax.swing.JDialog {
         txtDonGia.setText(formatter.format(a.getGiaTien()) + "đ");
         //thay đổi định dạng <---
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        txtCPU.setText(a.getNgaySanXuat().format(dateFormatter));
-        txtRAM.setText(a.getHanSuDung().format(dateFormatter));
+        txtNgaySanXuat.setText(a.getNgaySanXuat().format(dateFormatter));
+        txtHanSuDung.setText(a.getHanSuDung().format(dateFormatter));
         //<---
-        txtROM.setText(a.getThanhPhan());
-        txtGPU.setText(a.getKhoiLuong());
+        txtKhoiLuong.setText(a.getThanhPhan());
+        txtThanhPhan.setText(a.getKhoiLuong());
         txtSoLuong.setText(Integer.toString(a.getSoLuong()));
 
     }
@@ -63,13 +63,13 @@ public class DetailProduct extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         txtDonGia = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtCPU = new javax.swing.JTextField();
+        txtNgaySanXuat = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtRAM = new javax.swing.JTextField();
+        txtHanSuDung = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtROM = new javax.swing.JTextField();
+        txtKhoiLuong = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtGPU = new javax.swing.JTextField();
+        txtThanhPhan = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         txtSoLuong = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -94,26 +94,26 @@ public class DetailProduct extends javax.swing.JDialog {
 
         txtDonGia.setEnabled(false);
 
-        jLabel6.setText("Bộ xử lý");
+        jLabel6.setText("Ngày Sản Xuất");
 
-        txtCPU.setEnabled(false);
+        txtNgaySanXuat.setEnabled(false);
 
-        jLabel7.setText("Bộ nhớ");
+        jLabel7.setText("Hạn Sử Dụng");
 
-        txtRAM.setEnabled(false);
+        txtHanSuDung.setEnabled(false);
 
-        jLabel8.setText("Dung lượng lưu trữ");
+        jLabel8.setText("Khối Lượng");
 
-        txtROM.setEnabled(false);
-        txtROM.addActionListener(new java.awt.event.ActionListener() {
+        txtKhoiLuong.setEnabled(false);
+        txtKhoiLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtROMActionPerformed(evt);
             }
         });
 
-        jLabel9.setText("Card đồ hoạ");
+        jLabel9.setText("Thành Phần");
 
-        txtGPU.setEnabled(false);
+        txtThanhPhan.setEnabled(false);
 
         jPanel3.setLayout(new java.awt.CardLayout());
 
@@ -139,10 +139,10 @@ public class DetailProduct extends javax.swing.JDialog {
                             .addComponent(txtSoLuong))
                         .addGap(91, 91, 91)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtROM, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtKhoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel9)
-                                .addComponent(txtGPU, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtThanhPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTenSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,12 +150,12 @@ public class DetailProduct extends javax.swing.JDialog {
                         .addGap(91, 91, 91)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtHanSuDung, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtMaSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(91, 91, 91)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCPU, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNgaySanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel2))
                 .addGap(101, 101, 101)
@@ -172,7 +172,7 @@ public class DetailProduct extends javax.swing.JDialog {
                 .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtMaSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCPU, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNgaySanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -182,7 +182,7 @@ public class DetailProduct extends javax.swing.JDialog {
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTenSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtHanSuDung, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -190,7 +190,7 @@ public class DetailProduct extends javax.swing.JDialog {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtROM, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtKhoiLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
@@ -202,7 +202,7 @@ public class DetailProduct extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtGPU, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtThanhPhan, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -272,12 +272,12 @@ public class DetailProduct extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField txtCPU;
+    private javax.swing.JTextField txtNgaySanXuat;
     private javax.swing.JTextField txtDonGia;
-    private javax.swing.JTextField txtGPU;
+    private javax.swing.JTextField txtThanhPhan;
     private javax.swing.JTextField txtMaSanPham;
-    private javax.swing.JTextField txtRAM;
-    private javax.swing.JTextField txtROM;
+    private javax.swing.JTextField txtHanSuDung;
+    private javax.swing.JTextField txtKhoiLuong;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSanPham;
     // End of variables declaration//GEN-END:variables

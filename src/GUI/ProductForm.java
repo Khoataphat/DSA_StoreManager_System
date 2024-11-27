@@ -37,7 +37,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã máy", "Tên máy", "Số lượng", "Đơn giá", "Bộ xử lí", "RAM", "Card màn hình", "Bộ nhớ","Lượng bán ra"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Khối lượng", "Thành phần","Lượng bán ra"};
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
         tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(3);
@@ -50,7 +50,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
         tblSanPham.getColumnModel().getColumn(7).setPreferredWidth(5);
      
     }
-
+/*
     public void loadDataToTable(ProductManagerTree tree) {
         try {
             List<Product> acc = Run.ProductTree.getInOrderList();
@@ -74,6 +74,50 @@ public class ProductForm extends javax.swing.JInternalFrame {
         }
 
     }
+
+ */
+
+    public void loadDataToTable(ProductManagerTree tree) {
+        try {
+            List<Product> acc = Run.ProductTree.getInOrderList(); // Fetch products
+            if (acc == null || acc.isEmpty()) {
+                System.out.println("No products found in ProductTree.");
+                return;
+            }
+
+            tblModel.setRowCount(0); // Clear existing rows
+            for (Product i : acc) {
+                try {
+                    // Check if AmountSoldTree contains the product
+                    Integer amountSold = 0; // Default value for missing entries
+                    if (Run.AmountSoldTree.get(i.getTenSanPham()) != null) {
+                        amountSold = Run.AmountSoldTree.get(i.getTenSanPham()).getAmountSold().getAmountSold();
+                    }
+
+                    // Add row to table
+                    tblModel.addRow(new Object[]{
+                            i.getMaSanPham(),
+                            i.getTenSanPham(),
+                            i.getSoLuong(),
+                            formatter.format(i.getGiaTien()) + "đ",
+                            i.getNgaySanXuat(),
+                            i.getHanSuDung(),
+                            i.getKhoiLuong(),
+                            i.getThanhPhan(),
+                            amountSold // Use the amountSold value
+                    });
+                } catch (Exception ex) {
+                    System.err.println("Error adding row for product: " + i.getTenSanPham());
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading data: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
     public class AddProductStack implements Function<Product> {
 
         @Override
