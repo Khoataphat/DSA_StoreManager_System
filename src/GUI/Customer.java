@@ -40,6 +40,7 @@ public class Customer extends JFrame {
         loadDtatatoSale();
     }
 
+/*
     //Lấy danh sách sản phẩm bán chạy
     public void loadDtatatoBestSeller(){
         //lấy danh sách sản phẩm đã bán
@@ -58,7 +59,43 @@ public class Customer extends JFrame {
           txtTop3.setText(list.get(2).getMaMay());
       
     }
+ */
+    //<----
+    // Lấy danh sách sản phẩm bán chạy
+    public void loadDtatatoBestSeller() {
+        // Lấy danh sách sản phẩm đã bán
+        List<AmountSold> list = Run.AmountSoldTree.getInOrderList();
 
+        // Sắp xếp danh sách theo số lượng bán ra
+        Run.AmountSoldTree.sortAmountSold(list, true); // hàm sortAmountSold trong file AmountSoldManagerTree, line 370
+
+        // Loại bỏ sản phẩm nào có số lượng bằng 0
+        list.removeIf(amountSold -> {
+            String maMay = amountSold.getMaMay();
+            return Run.ProductTree.search(maMay).isEmpty() ||
+                    Run.ProductTree.search(maMay).get(0).getSoLuong() == 0;
+        });
+
+        // Kiểm tra nếu danh sách không rỗng trước khi đặt giá trị vào các trường văn bản
+        if (!list.isEmpty()) {
+            if (list.size() > 0) {
+                txtTop1.setText(list.get(0).getMaMay());
+            }
+            if (list.size() > 1) {
+                txtTop2.setText(list.get(1).getMaMay());
+            }
+            if (list.size() > 2) {
+                txtTop3.setText(list.get(2).getMaMay());
+            }
+        } else {
+            // Xử lý khi danh sách rỗng (có thể đặt giá trị mặc định hoặc thông báo)
+            txtTop1.setText("Không có sản phẩm bán chạy");
+            txtTop2.setText("");
+            txtTop3.setText("");
+        }
+    }
+    //<----
+/*
     public void loadDtatatoSale(){
         // Lấy tên sản phẩm từ nút đầu tiên trong hàng đợi giảm giá
         String s = Run.queueSale.top().getValue().getTenSanPham();
@@ -66,6 +103,22 @@ public class Customer extends JFrame {
         jLabel11.setText(s);
  
     }
+
+ */
+    //<----
+    public void loadDtatatoSale() {
+        // Kiểm tra xem hàng đợi có rỗng không
+        if (!Run.queueSale.isEmpty()) {
+            // Lấy tên sản phẩm từ nút đầu tiên trong hàng đợi giảm giá
+            String s = Run.queueSale.top().getValue().getTenSanPham();
+            System.out.println("loadDatatoSale_line 65: " + s);
+            jLabel11.setText(s);
+        } else {
+            // Xử lý khi hàng đợi rỗng
+            jLabel11.setText("Không có sản phẩm nào trong hàng giảm giá");
+        }
+    }
+    //<----
 
     /**
      * This method is called from within the constructor to initialize the form.
