@@ -55,6 +55,9 @@ public class QuanLyKho extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         MainContent = new javax.swing.JPanel();
 
+        jLabel13 = new javax.swing.JLabel();
+        ThongKe = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         NavbarMenu.setBackground(new java.awt.Color(204, 204, 255));
@@ -211,6 +214,45 @@ public class QuanLyKho extends javax.swing.JFrame {
 
         NavbarMenu.add(SanPham1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 240, 40));
 
+        //<---- Thống kê của quản lý kho
+        ThongKe.setBackground(new java.awt.Color(204, 204, 255));
+        ThongKe.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ThongKe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ThongKeMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ThongKeMousePressed(evt);
+            }
+        });
+
+        jLabel13.setFont(new java.awt.Font("SF Pro Display", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("THỐNG KÊ");
+
+        javax.swing.GroupLayout ThongKeLayout = new javax.swing.GroupLayout(ThongKe);
+        ThongKe.setLayout(ThongKeLayout);
+        ThongKeLayout.setHorizontalGroup(
+                ThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ThongKeLayout.createSequentialGroup()
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabel13)
+                                .addContainerGap(75, Short.MAX_VALUE))
+        );
+        ThongKeLayout.setVerticalGroup(
+                ThongKeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(ThongKeLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel13)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        NavbarMenu.add(ThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 240, 40));
+
+
+        //<----
+
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout MainContentLayout = new javax.swing.GroupLayout(MainContent);
@@ -300,6 +342,20 @@ public class QuanLyKho extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SanPham1MousePressed
 
+    //<----- Nút và sự kiện thống kê
+    private void ThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeMouseClicked
+        // TODO add your handling code here:
+        Thongke ac = new Thongke(currentAcc);
+        MainContent.removeAll();
+        MainContent.add(ac).setVisible(true);
+    }//GEN-LAST:event_ThongKeMouseClicked
+
+    private void ThongKeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_ThongKeMousePressed
+    //<-----
+
     /**
      * @param args the command line arguments
      */
@@ -354,5 +410,8 @@ public class QuanLyKho extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JPanel ThongKe;
     // End of variables declaration//GEN-END:variables
 }
