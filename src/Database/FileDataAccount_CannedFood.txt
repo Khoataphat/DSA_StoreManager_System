@@ -13,6 +13,11 @@ kou
 123456
 Customer
 1
+Như
+nhu
+nhu123
+customer
+1234343
 Quản Lý Kho
 quanlykho
 quanlykho123

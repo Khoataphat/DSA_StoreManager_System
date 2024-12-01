@@ -173,45 +173,53 @@ public class Login extends javax.swing.JFrame {
     }
 
     public void checkLogin() {
-        String user = loginUser.getText();
-        String password = new String(passwordUser.getPassword());
+        String user = loginUser.getText().trim().toLowerCase(); // Chuyển tên đăng nhập sang chữ thường
+        String password = new String(passwordUser.getPassword()).trim(); // Đảm bảo mật khẩu không chứa khoảng trắng
 
         if (user.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-        } else {
-            try {
-                if (Run.AccountTree.search(user) != null) {
-                    if (Run.AccountTree.get(user).getAccount().getPassword().equals(password)) {
-                        String role = Run.AccountTree.get(user).getAccount().getRole();
-                        switch (role) {
-                            case "admin":
-                                new Admin(Run.AccountTree.get(user).getAccount()).setVisible(true);
-                                break;
-                            case "Quản lý kho":
-                                new QuanLyKho(Run.AccountTree.get(user).getAccount()).setVisible(true);
-                                break;
-                            case "Customer":
-                                new Customer(Run.AccountTree.get(user).getAccount()).setVisible(true);
-                                break;
-                            default:
-                                JOptionPane.showMessageDialog(this, "Quyền truy cập không hợp lệ!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                        }
+            return;
+        }
+
+        var accountNode = Run.AccountTree.get(user.toLowerCase()); // Tìm theo tên đăng nhập chữ thường
+        if (accountNode == null) {
+            JOptionPane.showMessageDialog(this, "Tên đăng nhập không tồn tại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Kiểm tra mật khẩu
+        if (accountNode.getAccount().getPassword().equals(password)) {
+            String role = accountNode.getAccount().getRole();
+            if (role != null) {
+                role = role.trim().toLowerCase(); // Chuẩn hóa role
+                switch (role) {
+                    case "admin":
+                        new Admin(accountNode.getAccount()).setVisible(true);
                         this.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Sai mật khẩu!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(this, "Tên đăng nhập không tồn tại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+                        break;
+                    case "quản lý kho":
+                        new QuanLyKho(accountNode.getAccount()).setVisible(true);
+                        this.dispose();
+                        break;
+                    case "customer":
+                        new Customer(accountNode.getAccount()).setVisible(true);
+                        this.dispose();
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(this, "Quyền truy cập không hợp lệ!", "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
+            } else {
+                JOptionPane.showMessageDialog(this, "Quyền truy cập không hợp lệ!", "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Sai mật khẩu!", "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
         }
     }
 
+
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
+
         java.awt.EventQueue.invokeLater(() -> {
             try {
                 new Login().setVisible(true);

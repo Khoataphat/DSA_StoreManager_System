@@ -41,7 +41,7 @@ public class AccountForm extends javax.swing.JInternalFrame {
         loadDataToTable(Run.AccountTree);
 
     }
-    
+
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
@@ -56,7 +56,7 @@ public class AccountForm extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Account i : AccountData) {
                 tblModel.addRow(new Object[]{
-                    i.getFullName(), i.getUser(), i.getPassword(), i.getRole(), i.getPhone()
+                        i.getFullName(), i.getUser(), i.getPassword(), i.getRole(), i.getPhone()
                 });
             }
         } catch (Exception e) {
@@ -68,7 +68,7 @@ public class AccountForm extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Account i : result) {
                 tblModel.addRow(new Object[]{
-                    i.getFullName(), i.getUser(), i.getPassword(), i.getRole(), i.getPhone()
+                        i.getFullName(), i.getUser(), i.getPassword(), i.getRole(), i.getPhone()
                 });
             }
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class AccountForm extends javax.swing.JInternalFrame {
 
         return Run.AccountTree.get((String) tblAccount.getValueAt(i_row, 1)).getAccount();
     }
-    
+
     public class AddAccountStack implements Function<Account> {
 
         @Override
@@ -91,11 +91,11 @@ public class AccountForm extends javax.swing.JInternalFrame {
             } catch (IOException ex) {
                 Logger.getLogger(AccountForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-             loadDataToTable(Run.AccountTree);
+            loadDataToTable(Run.AccountTree);
         }
-    
+
     }
-     public class DelAccountStack implements Function<Account> {
+    public class DelAccountStack implements Function<Account> {
 
         @Override
         public void execute(Account acc) {
@@ -105,26 +105,26 @@ public class AccountForm extends javax.swing.JInternalFrame {
             } catch (IOException ex) {
                 Logger.getLogger(AccountForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-             loadDataToTable(Run.AccountTree);
+            loadDataToTable(Run.AccountTree);
         }
-    
+
     }
     public class UpdAccountStack implements Function<Account> {
 
         @Override
         public void execute(Account acc) {
             Run.AccountTree.get(acc.getUser()).getAccount().setFullName(acc.getFullName());
-             Run.AccountTree.get(acc.getUser()).getAccount().setPassword(acc.getPassword());
+            Run.AccountTree.get(acc.getUser()).getAccount().setPassword(acc.getPassword());
             try {
                 Run.WriteDataAccount();
             } catch (IOException ex) {
                 Logger.getLogger(AccountForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-             loadDataToTable(Run.AccountTree);
+            loadDataToTable(Run.AccountTree);
         }
-    
+
     }
-    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -192,50 +192,50 @@ public class AccountForm extends javax.swing.JInternalFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField1)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jComboBox1, 0, 269, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(66, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(42, 42, 42)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jLabel5)
+                                                        .addComponent(jLabel4)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(jTextField1)
+                                                        .addComponent(jLabel3)
+                                                        .addComponent(jTextField2)
+                                                        .addComponent(jTextField3)
+                                                        .addComponent(jComboBox1, 0, 269, Short.MAX_VALUE)
+                                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(78, 78, 78)
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabel1)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(jLabel1)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -359,12 +359,12 @@ public class AccountForm extends javax.swing.JInternalFrame {
         jScrollPane1.setBorder(null);
 
         tblAccount.setModel(new DefaultTableModel(
-            new Object [][] {
+                new Object [][] {
 
-            },
-            new String [] {
-                "Khách hàng", "Tên đăng nhập", "Mật khẩu", "Vai trò", "Số điện thoại"
-            }
+                },
+                new String [] {
+                        "Khách hàng", "Tên đăng nhập", "Mật khẩu", "Vai trò", "Số điện thoại"
+                }
         ));
         tblAccount.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tblAccount.setGridColor(new java.awt.Color(204, 204, 204));
@@ -486,9 +486,9 @@ public class AccountForm extends javax.swing.JInternalFrame {
 
     private void btnUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUndoActionPerformed
         try {
-            FunctionWrapper<Account> funcWrapper = functionStack.pop();          
+            FunctionWrapper<Account> funcWrapper = functionStack.pop();
             funcWrapper.executeFunction();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Đã hoàn tác hết các bước gần đây");
         }
