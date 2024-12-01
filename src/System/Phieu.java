@@ -2,6 +2,8 @@
 package System;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 /**
  *
@@ -11,23 +13,23 @@ public class Phieu {
 
     private Timestamp thoiGianTao;
     private String phone;
-    private ChiTietPhieu chitieuphieu;
-    private double tongTien;
     private String address;
     private String username;
+    private List<ChiTietPhieu> phieu;
+    private double tongTien;
     private int stt;
 
     public Phieu() {
+        this.phieu = new ArrayList<>();
     }
 
-    public Phieu(Timestamp thoiGianTao, String phone, ChiTietPhieu chitietphieu, double tongTien, String address, String user) {
+    public Phieu(Timestamp thoiGianTao, String phone, String address,String user,List<ChiTietPhieu> chitietphieu, double tongTien ) {
         this.thoiGianTao = thoiGianTao;
         this.phone = phone;
-        this.chitieuphieu = chitietphieu;
-        this.tongTien = tongTien;
         this.address = address;
         this.username = user;
-
+        this.phieu = chitietphieu;
+        this.tongTien = tongTien;
     }
 
     public int getStt() {
@@ -70,12 +72,12 @@ public class Phieu {
         this.phone = phone;
     }
 
-    public ChiTietPhieu getChitieuphieu() {
-        return chitieuphieu;
+    public List<ChiTietPhieu> getPhieu() {
+        return phieu;
     }
 
-    public void setChitieuphieu(ChiTietPhieu chitieuphieu) {
-        this.chitieuphieu = chitieuphieu;
+    public void setPhieu(List<ChiTietPhieu> phieu) {
+        this.phieu = phieu;
     }
 
     public double getTongTien() {
@@ -85,7 +87,11 @@ public class Phieu {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
-
+    public void capNhatTongTien() {
+        this.tongTien = phieu.stream()
+                .mapToDouble(ct -> ct.getGia() * ct.getSoLuong())
+                .sum();
+    }
     @Override
     public int hashCode() {
         int hash = 7;

@@ -8,6 +8,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import System.Account;
 import System.Phieu;
+import System.ChiTietPhieu;
 
 import java.util.Collections;
 
@@ -54,28 +55,47 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
 
     public void loadDataToTable(List<Phieu> PhieuList) {
         try {
+            tblModel.setRowCount(0); // Xóa các hàng cũ
 
-            tblModel.setRowCount(0);
-            for (Phieu i : PhieuList) {
+            int billNumber = 1; // Biến đếm để đánh số hóa đơn
 
+            for (Phieu phieu : PhieuList) {
+                // Hiển thị thông tin đơn hàng (Phieu)
                 tblModel.addRow(new Object[]{
-                   // Run.ProductTree.get(i.getChitieuphieu().getTenMay()).getProduct().getMaMay(),
-                    i.getChitieuphieu().getTenSanPham(),
-                    i.getChitieuphieu().getSoLuong(),
-                    formatter.format(i.getChitieuphieu().getGia()) + "đ",
-                    i.getPhone(),
-                    i.getAddress(),
-                    i.getThoiGianTao()
+                        "Bill: " + billNumber, // Bill ID
+                        "SĐT: " + phieu.getPhone(), // Số điện thoại
+                        "Địa chỉ: " + phieu.getAddress(), // Địa chỉ
+                        "Thời gian: " + phieu.getThoiGianTao(), // Thời gian
+                        "", // Cột trống
+                        ""  // Cột trống
                 });
 
-                System.out.println();
+                // Hiển thị thông tin các sản phẩm (ChiTietPhieu) trong đơn hàng
+                double total = 0;
+                for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
+                    tblModel.addRow(new Object[]{
+                            "   " + ctPhieu.getTenSanPham(), // Tên sản phẩm
+                            ctPhieu.getSoLuong(),           // Số lượng
+                            formatter.format(ctPhieu.getGia()) + "đ", // Đơn giá
+                            "", "", "" // Cột trống
+                    });
+                    total += ctPhieu.getSoLuong() * ctPhieu.getGia(); // Tính tổng tiền
+                }
+
+                // Hiển thị tổng tiền của đơn hàng
+                tblModel.addRow(new Object[]{
+                        "", "", "", "Tổng:", formatter.format(total) + "đ", ""
+                });
+
+                billNumber++; // Tăng số hóa đơn
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
-   
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -183,18 +203,27 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSearchKeyPressed
 
-    private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
+    private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {
+        // Get all the purchases related to the current account
         List<Phieu> lichsumua = Run.PhieuMuaTree.search(currentAcc.getUser());
         List<Phieu> list = new ArrayList<>();
-        Collections.sort(lichsumua, new TimeComparator());
+        Collections.sort(lichsumua, new TimeComparator()); // Sort by time
 
+        // Iterate through each Phieu
         for (Phieu phieu : lichsumua) {
-            if (phieu.getChitieuphieu().getTenSanPham().contains(jTextFieldSearch.getText())) {
-                list.add(phieu);
+            for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
+                // Check if the product name matches the search query
+                if (ctPhieu.getTenSanPham().toLowerCase().contains(jTextFieldSearch.getText().toLowerCase())) {
+                    list.add(phieu);
+                    break; // Stop checking other items in this Phieu, as it's already added
+                }
             }
         }
+
+        // Update the table with the filtered list of Phieu
         loadDataToTable(list);
-    }//GEN-LAST:event_jTextFieldSearchKeyReleased
+    }
+//GEN-LAST:event_jTextFieldSearchKeyReleased
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
 

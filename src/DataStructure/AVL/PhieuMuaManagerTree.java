@@ -71,16 +71,16 @@ public class PhieuMuaManagerTree {
             return this.parent != null;
         }
 
-/* phương thức toString cũ
-        @Override
-        public String toString() {
-            return phieu.toString();
-        }
+        /* phương thức toString cũ
+                @Override
+                public String toString() {
+                    return phieu.toString();
+                }
 
- */
+         */
         @Override
         public String toString() {
-            return "Customer: " + phieu.getUsername() + ", Product: " + phieu.getChitieuphieu().getTenSanPham()+", Time: " + phieu.getChitieuphieu();
+            return "Customer: " + phieu.getUsername() + ", Time: " + phieu.getThoiGianTao();
         }
 
         private void swap(PhieuNode node) {
@@ -391,18 +391,18 @@ public class PhieuMuaManagerTree {
         return PhieuList;
     }
 
-    private List<Phieu> searchName(String name) {
+    /*private List<Phieu> searchName(String name) {
         List<Phieu> list = getInOrderList();
         List<Phieu> PhieuList = new ArrayList<>();
 
         for (Phieu phieu : list) {
-            if (phieu.getChitieuphieu().getTenSanPham().toLowerCase().contains(name.toLowerCase())) {
+            if (phieu.getPhieu().toLowerCase().contains(name.toLowerCase())) {
                 PhieuList.add(phieu);
             }
         }
 
         return PhieuList;
-    }
+    }*/
 
     private void checkDown(PhieuNode node) {
 
@@ -519,9 +519,9 @@ public class PhieuMuaManagerTree {
         }
 
     }
-// in cây nhị phân của phiếu mua
+    // in cây nhị phân của phiếu mua
     public void printTree() {
-        System.out.println("root" + (root != null ? root.getPhieu() : "null"));
+        //System.out.println("root" + (root != null ? root.getPhieu() : "null"));
         printTreeRecursive(root, "", true);
     }
 

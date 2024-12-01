@@ -11,6 +11,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import System.Account;
 import System.Phieu;
+import System.ChiTietPhieu;
 import java.util.Collections;
 import System.TimeComparator;
 
@@ -52,25 +53,26 @@ public class LichSuBan extends javax.swing.JInternalFrame {
     }
     public void loadDataToTable(List<Phieu> PhieuList) {
        try {
-          
+           if (PhieuList == null || PhieuList.isEmpty()) {
+               return;
+           }
+
             tblModel.setRowCount(0);
-            for (Phieu i : PhieuList) {
-                    
-                    tblModel.addRow(new Object[]{
-                   // Run.ProductTree.get(i.getChitieuphieu().getTenMay()).getProduct().getMaMay(),
-                    i.getChitieuphieu().getTenSanPham(),
-                    i.getChitieuphieu().getSoLuong(),
-                    formatter.format(i.getChitieuphieu().getGia()) + "đ",
-                    i.getPhone(),
-                    i.getAddress(),
-                    i.getThoiGianTao()
-                });
-                    
-                
-                System.out.println();
-            }
+           for (Phieu phieu : PhieuList) {
+               // Iterate through each item in the "phieu" list (which is a List<ChiTietPhieu>)
+               for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
+                   tblModel.addRow(new Object[]{
+                           ctPhieu.getTenSanPham(),  // Assuming you have this in ChiTietPhieu
+                           ctPhieu.getSoLuong(),
+                           formatter.format(ctPhieu.getGia()) + "đ",  // Assuming you have price in ChiTietPhieu
+                           phieu.getPhone(),
+                           phieu.getAddress(),
+                           phieu.getThoiGianTao()
+                   });
+               }
+           }
         } catch (Exception e) {
-        } 
+        }
        
     }
       
@@ -181,12 +183,16 @@ public class LichSuBan extends javax.swing.JInternalFrame {
         List<Phieu> lichsumua = Run.PhieuMuaTree.getInOrderList();
          List<Phieu> list = new ArrayList<>();
            Collections.sort(lichsumua, new TimeComparator());
-        
 
-        for(Phieu phieu : lichsumua){
-            if(phieu.getChitieuphieu().getTenSanPham().toLowerCase().contains(jTextFieldSearch.getText().toLowerCase())){
-                list.add(phieu);
-            }}
+
+        for (Phieu phieu : lichsumua) {
+            for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
+                if (ctPhieu.getTenSanPham().toLowerCase().contains(jTextFieldSearch.getText().toLowerCase())) {
+                    list.add(phieu);
+                    break;  // Exit the inner loop once a match is found for this Phieu
+                }
+            }
+        }
          loadDataToTable(list);
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
 

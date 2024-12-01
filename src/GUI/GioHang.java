@@ -575,18 +575,54 @@ public class GioHang extends javax.swing.JInternalFrame {
                 Timestamp sqlTimestamp = new Timestamp(now);
                 // Tạo đối tượng phieu để lưu lịch sử mua bán
                 try {
-                    for (ChiTietPhieu chiTietPhieu : CTPhieu) { 
-                        chiTietPhieu.setDonGia(chiTietPhieu.getGia()  * checkOnSale(chiTietPhieu.getTenSanPham()) ); // check xem có phải hàng sale không đồng thời update giá nếu sale
-                       Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham()).getAmountSold().setAmountSold(Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham()).getAmountSold().getAmountSold()+chiTietPhieu.getSoLuong());     // cập nhật amount sold (lượng bán ra) trong amountsold tree
-                        Phieu phieu = new Phieu(sqlTimestamp, txtPhoneNumber.getText(), chiTietPhieu, (double) (chiTietPhieu.getSoLuong() * chiTietPhieu.getGia()) , txtAddress.getText(), currentAcc.getUser()); // tạo đối tượng phiếu 
-                        Run.PhieuMuaTree.add(currentAcc.getUser(), phieu); // add đối tượng phiếu vào cây quản lý phiếu
-                        Run.WriteDataPhieuMua();  // ghi lại data phiếu mua vào txt sau khi cây được cập nhật
-                        Run.ProductTree.get(phieu.getChitieuphieu().getTenSanPham()).getProduct().setSoLuong(Run.ProductTree.get(phieu.getChitieuphieu().getTenSanPham()).getProduct().getSoLuong() - phieu.getChitieuphieu().getSoLuong()); // cập nhật lại số lượng sản phẩm sau khi mua bán
-                                
+                    // Tính tổng tiền cho phiếu
+                    double tongTien = 0;
+                    List<ChiTietPhieu> danhSachChiTiet = new ArrayList<>();
+
+                    for (ChiTietPhieu chiTietPhieu : CTPhieu) {
+                        // Kiểm tra hàng sale và cập nhật giá
+                        chiTietPhieu.setDonGia(chiTietPhieu.getGia() * checkOnSale(chiTietPhieu.getTenSanPham()));
+
+                        // Cập nhật lượng bán ra trong AmountSoldTree
+                        Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham())
+                                .getAmountSold()
+                                .setAmountSold(Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham())
+                                        .getAmountSold().getAmountSold() + chiTietPhieu.getSoLuong());
+
+                        // Cập nhật tổng tiền
+                        tongTien += chiTietPhieu.getSoLuong() * chiTietPhieu.getGia();
+
+                        // Thêm vào danh sách chi tiết phiếu
+                        danhSachChiTiet.add(chiTietPhieu);
+
+                        // Cập nhật số lượng sản phẩm trong ProductTree
+                        Run.ProductTree.get(chiTietPhieu.getTenSanPham())
+                                .getProduct()
+                                .setSoLuong(Run.ProductTree.get(chiTietPhieu.getTenSanPham())
+                                        .getProduct().getSoLuong() - chiTietPhieu.getSoLuong());
                     }
-                    owner.loadDtatatoBestSeller();   // cập nhật lại xem thứ tự bestseller có thay đổi không
-                    
-                    JOptionPane.showMessageDialog(this, "Đặt hàng thành công !");
+
+                    // Tạo đối tượng phiếu
+                    Phieu phieu = new Phieu(
+                            sqlTimestamp,
+                            txtPhoneNumber.getText(),
+                            txtAddress.getText(),
+                            currentAcc.getUser(),
+                            danhSachChiTiet,
+                            tongTien
+                    );
+
+                    // Thêm phiếu vào cây quản lý phiếu
+                    Run.PhieuMuaTree.add(currentAcc.getUser(), phieu);
+
+                    // Ghi dữ liệu phiếu mua vào file
+                    Run.WriteDataPhieuMua();
+
+                    // Cập nhật bestseller
+                    owner.loadDtatatoBestSeller();
+
+                    // Hiển thị thông báo thành công
+                    JOptionPane.showMessageDialog(this, "Đặt hàng thành công!");
                     try {
                         Run.WriteDataProduct();   //  ghi lại data sản phẩm vào txt sau khi cây được cập nhật
                         Run.queueSale.clear();

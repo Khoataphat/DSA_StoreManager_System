@@ -8,6 +8,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import System.Account;
 import System.Phieu;
+import System.ChiTietPhieu;
 import java.util.Collections;
 import System.TimeComparator;
 
@@ -59,14 +60,18 @@ public class Thongke extends javax.swing.JInternalFrame {
             for (Phieu i : PhieuList) {
 
                 tblModel.addRow(new Object[]{
-                   // Run.ProductTree.get(i.getChitieuphieu().getTenMay()).getProduct().getMaMay(),
-                    i.getChitieuphieu().getTenSanPham(),
-                    i.getChitieuphieu().getSoLuong(),
-                    formatter.format(i.getTongTien()) + "đ",
+                   // Run.ProductTree.get(i.getPhieu().getTenMay()).getProduct().getMaMay(),
+                        i.getPhieu().stream()
+                                .map(ctPhieu -> ctPhieu.getTenSanPham())
+                                .findFirst().orElse("N/A"),  // Get the first product name or "N/A" if no products are available
+                        i.getPhieu().stream()
+                                .mapToInt(ChiTietPhieu::getSoLuong)
+                                .sum(),
+                        formatter.format(i.getTongTien()) + "đ",
                     i.getPhone(),
                     i.getAddress(),
                     i.getThoiGianTao(),
-                 //   Integer.toString(Run.AmountSoldTree.get(Run.ProductTree.get(i.getChitieuphieu().getTenMay()).getProduct().getMaMay()).getAmountSold().getAmountSold())
+                 //   Integer.toString(Run.AmountSoldTree.get(Run.ProductTree.get(i.getPhieu().getTenMay()).getProduct().getMaMay()).getAmountSold().getAmountSold())
                 });
 
                 
@@ -405,8 +410,11 @@ public class Thongke extends javax.swing.JInternalFrame {
         Collections.sort(lichsumua, new TimeComparator());
 
         for (Phieu phieu : lichsumua) {
-            if (phieu.getChitieuphieu().getTenSanPham().contains(jTextFieldSearch.getText())) {
-                list.add(phieu);
+            for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
+                if (ctPhieu.getTenSanPham().toLowerCase().contains(jTextFieldSearch.getText().toLowerCase())) {
+                    list.add(phieu);
+                    break;
+                }
             }
         }
         loadDataToTable(list);
