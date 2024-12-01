@@ -8,26 +8,26 @@ import java.util.Objects;
  */
 public class ChiTietPhieu {
 
-    private String TenMay;
+    private String tenSanPham;
     private int soLuong;
     private double donGia;
 
     public ChiTietPhieu() {
     }
 
-    public ChiTietPhieu(String tenMay, int soLuong, double donGia) {
+    public ChiTietPhieu(String tenSanPham, int soLuong, double donGia) {
 
-        this.TenMay = tenMay;
+        this.tenSanPham = tenSanPham;
         this.soLuong = soLuong;
         this.donGia = donGia;
     }
 
-    public String getTenMay() {
-        return TenMay;
+    public String getTenSanPham() {
+        return tenSanPham;
     }
 
-    public void setTenMay(String tenMay) {
-        this.TenMay = tenMay;
+    public void setTenSanPham(String tenSanPham) {
+        this.tenSanPham = tenSanPham;
     }
 
     public int getSoLuong() {
@@ -71,12 +71,12 @@ public class ChiTietPhieu {
             return false;
         }
 
-        return Objects.equals(this.TenMay, other.TenMay);
+        return Objects.equals(this.tenSanPham, other.tenSanPham);
     }
 
     @Override
     public String toString() {
-        return "ChiTietPhieu{" + "maPhieu=" + ", TeMay=" + TenMay + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
+        return "ChiTietPhieu{" + "maPhieu=" + ", TeMay=" + tenSanPham + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
     }
 
 }

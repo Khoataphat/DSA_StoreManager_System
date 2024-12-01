@@ -60,7 +60,7 @@ public class Thongke extends javax.swing.JInternalFrame {
 
                 tblModel.addRow(new Object[]{
                    // Run.ProductTree.get(i.getChitieuphieu().getTenMay()).getProduct().getMaMay(),
-                    i.getChitieuphieu().getTenMay(),
+                    i.getChitieuphieu().getTenSanPham(),
                     i.getChitieuphieu().getSoLuong(),
                     formatter.format(i.getTongTien()) + "đ",
                     i.getPhone(),
@@ -405,7 +405,7 @@ public class Thongke extends javax.swing.JInternalFrame {
         Collections.sort(lichsumua, new TimeComparator());
 
         for (Phieu phieu : lichsumua) {
-            if (phieu.getChitieuphieu().getTenMay().contains(jTextFieldSearch.getText())) {
+            if (phieu.getChitieuphieu().getTenSanPham().contains(jTextFieldSearch.getText())) {
                 list.add(phieu);
             }
         }

@@ -1,8 +1,3 @@
-Ronaldo
-CR7
-123456
-customer
-0999999999
 Admin
 admin
 admin123

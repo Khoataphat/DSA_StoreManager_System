@@ -58,7 +58,7 @@ public class LichSuBan extends javax.swing.JInternalFrame {
                     
                     tblModel.addRow(new Object[]{
                    // Run.ProductTree.get(i.getChitieuphieu().getTenMay()).getProduct().getMaMay(),
-                    i.getChitieuphieu().getTenMay(),
+                    i.getChitieuphieu().getTenSanPham(),
                     i.getChitieuphieu().getSoLuong(),
                     formatter.format(i.getChitieuphieu().getGia()) + "đ",
                     i.getPhone(),
@@ -184,7 +184,7 @@ public class LichSuBan extends javax.swing.JInternalFrame {
         
 
         for(Phieu phieu : lichsumua){
-            if(phieu.getChitieuphieu().getTenMay().toLowerCase().contains(jTextFieldSearch.getText().toLowerCase())){
+            if(phieu.getChitieuphieu().getTenSanPham().toLowerCase().contains(jTextFieldSearch.getText().toLowerCase())){
                 list.add(phieu);
             }}
          loadDataToTable(list);

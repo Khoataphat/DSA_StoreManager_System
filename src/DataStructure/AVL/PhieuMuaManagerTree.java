@@ -80,7 +80,7 @@ public class PhieuMuaManagerTree {
  */
         @Override
         public String toString() {
-            return "Customer: " + phieu.getUsername() + ", Product: " + phieu.getChitieuphieu().getTenMay()+", Time: " + phieu.getChitieuphieu();
+            return "Customer: " + phieu.getUsername() + ", Product: " + phieu.getChitieuphieu().getTenSanPham()+", Time: " + phieu.getChitieuphieu();
         }
 
         private void swap(PhieuNode node) {
@@ -396,7 +396,7 @@ public class PhieuMuaManagerTree {
         List<Phieu> PhieuList = new ArrayList<>();
 
         for (Phieu phieu : list) {
-            if (phieu.getChitieuphieu().getTenMay().toLowerCase().contains(name.toLowerCase())) {
+            if (phieu.getChitieuphieu().getTenSanPham().toLowerCase().contains(name.toLowerCase())) {
                 PhieuList.add(phieu);
             }
         }

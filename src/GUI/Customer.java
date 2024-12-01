@@ -115,7 +115,7 @@ public class Customer extends JFrame {
             jLabel11.setText(s);
         } else {
             // Xử lý khi hàng đợi rỗng
-            jLabel11.setText("Không có sản phẩm nào trong hàng giảm giá");
+            jLabel11.setText("Không có sản phẩm giảm giá");
         }
     }
     //<----

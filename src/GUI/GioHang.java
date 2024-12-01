@@ -60,7 +60,7 @@ public class GioHang extends javax.swing.JInternalFrame {
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã máy", "Tên máy", "Số lượng", "Đơn giá"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá"};
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
         tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(5);
@@ -116,7 +116,7 @@ public class GioHang extends javax.swing.JInternalFrame {
 
     public ChiTietPhieu findCTPhieu(String maMay) {
         for (ChiTietPhieu i : CTPhieu) {
-            if (maMay.equals(Run.ProductTree.get(i.getTenMay()).getProduct().getMaSanPham())) {
+            if (maMay.equals(Run.ProductTree.get(i.getTenSanPham()).getProduct().getMaSanPham())) {
                 return i;
             }
         }
@@ -132,12 +132,12 @@ public class GioHang extends javax.swing.JInternalFrame {
             for (int i = 0; i < CTPhieu.size(); i++) {
                 tblNhapHangmd.addRow(new Object[]{
                     i + 1,
-                    Run.ProductTree.get(CTPhieu.get(i).getTenMay()).getProduct().getMaSanPham(),
-                    CTPhieu.get(i).getTenMay(),
+                    Run.ProductTree.get(CTPhieu.get(i).getTenSanPham()).getProduct().getMaSanPham(),
+                    CTPhieu.get(i).getTenSanPham(),
                     CTPhieu.get(i).getSoLuong(),
                     formatter.format(CTPhieu.get(i).getGia()) + "đ"
                 });
-                sum +=  checkOnSale(CTPhieu.get(i).getTenMay()) * CTPhieu.get(i).getGia() * CTPhieu.get(i).getSoLuong() ;
+                sum +=  checkOnSale(CTPhieu.get(i).getTenSanPham()) * CTPhieu.get(i).getGia() * CTPhieu.get(i).getSoLuong() ;
                 
             }
         } catch (Exception e) {
@@ -188,9 +188,12 @@ public class GioHang extends javax.swing.JInternalFrame {
 
     //check giảm giá, nếu nằm đầu hàng đợi thì giảm giá
     public double checkOnSale(String tenMay) {
+        /*
         if(Run.queueSale.top().getValue().getTenSanPham().equals(tenMay)) {
             return 0.8;
         } else return 1.0;
+         */
+        return 1.0;
     }
   
 
@@ -573,12 +576,12 @@ public class GioHang extends javax.swing.JInternalFrame {
                 // Tạo đối tượng phieu để lưu lịch sử mua bán
                 try {
                     for (ChiTietPhieu chiTietPhieu : CTPhieu) { 
-                        chiTietPhieu.setDonGia(chiTietPhieu.getGia()  * checkOnSale(chiTietPhieu.getTenMay()) ); // check xem có phải hàng sale không đồng thời update giá nếu sale
-                       Run.AmountSoldTree.get(chiTietPhieu.getTenMay()).getAmountSold().setAmountSold(Run.AmountSoldTree.get(chiTietPhieu.getTenMay()).getAmountSold().getAmountSold()+chiTietPhieu.getSoLuong());     // cập nhật amount sold (lượng bán ra) trong amountsold tree                
+                        chiTietPhieu.setDonGia(chiTietPhieu.getGia()  * checkOnSale(chiTietPhieu.getTenSanPham()) ); // check xem có phải hàng sale không đồng thời update giá nếu sale
+                       Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham()).getAmountSold().setAmountSold(Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham()).getAmountSold().getAmountSold()+chiTietPhieu.getSoLuong());     // cập nhật amount sold (lượng bán ra) trong amountsold tree
                         Phieu phieu = new Phieu(sqlTimestamp, txtPhoneNumber.getText(), chiTietPhieu, (double) (chiTietPhieu.getSoLuong() * chiTietPhieu.getGia()) , txtAddress.getText(), currentAcc.getUser()); // tạo đối tượng phiếu 
                         Run.PhieuMuaTree.add(currentAcc.getUser(), phieu); // add đối tượng phiếu vào cây quản lý phiếu
                         Run.WriteDataPhieuMua();  // ghi lại data phiếu mua vào txt sau khi cây được cập nhật
-                        Run.ProductTree.get(phieu.getChitieuphieu().getTenMay()).getProduct().setSoLuong(Run.ProductTree.get(phieu.getChitieuphieu().getTenMay()).getProduct().getSoLuong() - phieu.getChitieuphieu().getSoLuong()); // cập nhật lại số lượng sản phẩm sau khi mua bán
+                        Run.ProductTree.get(phieu.getChitieuphieu().getTenSanPham()).getProduct().setSoLuong(Run.ProductTree.get(phieu.getChitieuphieu().getTenSanPham()).getProduct().getSoLuong() - phieu.getChitieuphieu().getSoLuong()); // cập nhật lại số lượng sản phẩm sau khi mua bán
                                 
                     }
                     owner.loadDtatatoBestSeller();   // cập nhật lại xem thứ tự bestseller có thay đổi không
@@ -613,6 +616,7 @@ public class GioHang extends javax.swing.JInternalFrame {
 
     private void addProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductActionPerformed
         // Xử lý frondend thao tác người dùng thêm sản phẩm vào giỏ hàng add dần sản phẩm vào ArrayList<ChiTietPhieu> CTPhieu
+
         int i_row = tblSanPham.getSelectedRow();
         if (i_row == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để nhập hàng !");
@@ -620,18 +624,19 @@ public class GioHang extends javax.swing.JInternalFrame {
             int soluong;
             try {
                 soluong = Integer.parseInt(txtSoLuong.getText().trim());
+                System.out.println("line 624: " + soluong);
                 if (soluong > 0) {
                     if (soluong <= Run.ProductTree.get((String) tblSanPham.getValueAt(i_row, 1)).getProduct().getSoLuong()) {
-                        System.out.println("sinh");
+                        System.out.println("sinh-Gio hang");
                         
                             Product mt = Run.ProductTree.get((String) tblSanPham.getValueAt(i_row, 1)).getProduct();
 
                             ChiTietPhieu ctp = new ChiTietPhieu(mt.getTenSanPham(), soluong, mt.getGiaTien());
-                             functionStack.push(new FunctionWrapper<ChiTietPhieu>(new DelPhieuStack(),ctp ));
+                            functionStack.push(new FunctionWrapper<ChiTietPhieu>(new DelPhieuStack(),ctp ));
                             CTPhieu.add(ctp);
                         
                         loadDataToTableNhapHang();
-                       // textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+                        textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
                     } else {
                         JOptionPane.showMessageDialog(this, "Vượt quá lượng tồn kho");
                     }
@@ -643,6 +648,51 @@ public class GioHang extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng ở dạng số nguyên!");
             }
         }
+
+        /*
+        //<-----
+        // Xử lý thao tác người dùng thêm sản phẩm vào giỏ hàng
+        int selectedRow = tblSanPham.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm để nhập hàng !");
+            return;
+        }
+
+        String productId = (String) tblSanPham.getValueAt(selectedRow, 1);
+        Product product = Run.ProductTree.get(productId).getProduct();
+
+        int quantity;
+        try {
+            quantity = Integer.parseInt(txtSoLuong.getText().trim());
+
+            // Kiểm tra số lượng nhập vào
+            if (quantity <= 0) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng lớn hơn 0");
+                return;
+            }
+
+            // Kiểm tra tồn kho
+            if (quantity > product.getSoLuong()) {
+                JOptionPane.showMessageDialog(this, "Vượt quá lượng tồn kho");
+                return;
+            }
+
+            // Thêm sản phẩm vào giỏ hàng
+            ChiTietPhieu ctp = new ChiTietPhieu(product.getTenSanPham(), quantity, product.getGiaTien());
+            functionStack.push(new FunctionWrapper<>(new DelPhieuStack(), ctp));
+            CTPhieu.add(ctp);
+
+            // Cập nhật giao diện
+            loadDataToTableNhapHang();
+            textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng ở dạng số nguyên!");
+        }
+        //<-----
+
+         */
     }//GEN-LAST:event_addProductActionPerformed
 
     private void deleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductActionPerformed
@@ -655,7 +705,7 @@ public class GioHang extends javax.swing.JInternalFrame {
             functionStack.push(new FunctionWrapper<ChiTietPhieu>(new AddPhieuStack(),ctp ));
             CTPhieu.remove(i_row);
             loadDataToTableNhapHang();
-          //  textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+            textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
         }
     }//GEN-LAST:event_deleteProductActionPerformed
 
@@ -673,7 +723,7 @@ public class GioHang extends javax.swing.JInternalFrame {
                     if (soLuong > 0) {
                         CTPhieu.get(i_row).setSoLuong(soLuong);
                         loadDataToTableNhapHang();
-                      //  textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+                        textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
                     } else {
                         JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng lớn hơn 0");
                     }

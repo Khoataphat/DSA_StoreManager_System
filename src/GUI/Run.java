@@ -199,7 +199,7 @@ public class Run {
      public static void ReadDataAccount() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("src\\Database\\FileDataAccount_1.txt"));
+            scanner = new Scanner(new File("src\\Database\\FileDataAccount_CannedFood.txt"));
             System.out.println();
             addAccount(AccountTree, scanner);
 
@@ -239,7 +239,7 @@ public class Run {
             FileWriter fw = new FileWriter("src\\Database\\PhieuMua_CannedFood.txt");
             fw.write("");
             for (Phieu a : PhieuMuaData) {
-                fw.write(a.getThoiGianTao() + "\n" + a.getPhone() + "\n" + a.getChitieuphieu().getTenMay() + "\n" + a.getChitieuphieu().getSoLuong() + "\n" + a.getChitieuphieu().getGia() + "\n" + a.getTongTien() + "\n" + a.getAddress() + "\n" + a.getUsername() + "\n");
+                fw.write(a.getThoiGianTao() + "\n" + a.getPhone() + "\n" + a.getChitieuphieu().getTenSanPham() + "\n" + a.getChitieuphieu().getSoLuong() + "\n" + a.getChitieuphieu().getGia() + "\n" + a.getTongTien() + "\n" + a.getAddress() + "\n" + a.getUsername() + "\n");
             }
             fw.close();
         } catch (IOException e) {
@@ -293,7 +293,7 @@ public class Run {
         List<Account> AccountData = Run.AccountTree.getInOrderList();
         try {
 
-            FileWriter fw = new FileWriter("src\\Database\\FileDataAccount_1.txt");
+            FileWriter fw = new FileWriter("src\\Database\\FileDataAccount_CannedFood.txt");
             fw.write("");
             for (Account acc : AccountData) {
                 fw.write(acc.getFullName() + "\n" + acc.getUser() + "\n" + acc.getPassword() + "\n" + acc.getRole() + "\n" + acc.getPhone() + "\n");
