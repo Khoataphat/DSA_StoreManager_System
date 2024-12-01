@@ -6,7 +6,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.UIManager;
@@ -38,13 +40,13 @@ public class Run {
     public static AccountManagerTree AccountTree = new AccountManagerTree();
     public static PhieuMuaManagerTree PhieuMuaTree = new PhieuMuaManagerTree();
     public static AmountSoldManagerTree AmountSoldTree = new AmountSoldManagerTree();
-    
+
     public static SortedLinkedPriorityQueue<Integer, Product> queueSale = new SortedLinkedPriorityQueue();
-    
-    public static void ReadDatatoQueue() throws FileNotFoundException, IOException {    
+
+    public static void ReadDatatoQueue() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
-            
+
             scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"));
             System.out.println();
             addQueue(queueSale , scanner);
@@ -76,12 +78,12 @@ public class Run {
 
         }
 
-        
+
     }
 // đọc dữ liệu phiếu mua và add vào cây phiếu mua
-    
-    
-    public static void ReadDataPhieuMua() throws FileNotFoundException, IOException {    
+
+
+    public static void ReadDataPhieuMua() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
             scanner = new Scanner(new File("src\\Database\\PhieuMua_CannedFood.txt"));
@@ -94,38 +96,67 @@ public class Run {
     }
 
     public static void addPhieuMua(PhieuMuaManagerTree tree, Scanner scanner) {
-
         while (scanner.hasNext()) {
-            String time = scanner.nextLine();
-            String phone = scanner.nextLine();
-            String tenMay = scanner.nextLine();
-            String soluong = scanner.nextLine();
-            String dongia = scanner.nextLine();
-            String tongtien = scanner.nextLine();
-            String address = scanner.nextLine();
-            String user = scanner.nextLine();
-            ChiTietPhieu a = new ChiTietPhieu(tenMay, Integer.parseInt(soluong), Double.parseDouble(dongia));
+            // Read order metadata
+            String time = scanner.nextLine();  // Order time
+            String phone = scanner.nextLine();  // Customer phone
+            String totalStr = scanner.nextLine();  // Total price for the bill
+            String address = scanner.nextLine();  // Customer address
+            String user = scanner.nextLine();  // Customer username (e.g., "khoa")
 
-            Phieu b = new Phieu(Timestamp.valueOf(time), phone, a, Double.parseDouble(tongtien), address, user);
+            // List to hold ChiTietPhieu objects for the current order
+            List<ChiTietPhieu> chiTietPhieuList = new ArrayList<>();
+            double totalPrice = 0.0;  // Accumulated total price for the order
 
-            tree.add(user, b);
+            // Read products until we hit "------"
+            while (scanner.hasNext()) {
+                String productName = scanner.nextLine();
+                if (productName.equals("------")) {
+                    break;
+                }
 
+                String quantityStr = scanner.nextLine();
+                String priceStr = scanner.nextLine();
+
+                try {
+                    int quantity = Integer.parseInt(quantityStr);
+                    double price = Double.parseDouble(priceStr);
+
+                    // Create a ChiTietPhieu object for the product
+                    ChiTietPhieu chiTietPhieu = new ChiTietPhieu(productName, quantity, price);
+                    chiTietPhieuList.add(chiTietPhieu);
+
+                    // Accumulate the total price
+                    totalPrice += quantity * price;
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input for quantity or price. Skipping this product.");
+                    continue;  // Skip invalid products
+                }
+            }
+            // Parse the total price from the input (for verification purposes)
+            double inputTotalPrice;
+            try {
+                inputTotalPrice = Double.parseDouble(totalStr);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid total price in input. Skipping this bill.");
+                continue;
+            }
+            if (Math.abs(inputTotalPrice - totalPrice) > 0.01) {
+                System.out.println("Warning: Calculated total price does not match input total price.");
+            }
+            // Create a Phieu object with the order data
+            Phieu phieu = new Phieu(Timestamp.valueOf(time), phone, address, user, chiTietPhieuList, inputTotalPrice);
+
+            // Add the Phieu object to the tree with the username as the key
+            tree.add(user, phieu);
         }
 
-
-        System.out.println("-Size: " + tree.size());
+        // After processing all the input, print the size and tree structure
+        System.out.println("- Size: " + tree.size());
         tree.printTree();
     }
-
-
-
-    
-    
-    
 //đọc dữ liệu Product và add vào cây product
-    
-    
-    
     public static void ReadDataProduct() {
         Scanner scanner;
         try {
@@ -230,22 +261,45 @@ public class Run {
    
 
    // lấy dữ liệu từ cây Phiếu mua ghi ra file txt
-    
+
 
     public static void WriteDataPhieuMua() throws FileNotFoundException, IOException {
+        // Get the list of all Phieu objects
+        List<Phieu> PhieuMuaData = Run.PhieuMuaTree.getInOrderList();
+
+        // Initialize the FileWriter with the desired path
+        FileWriter fw = new FileWriter("src\\Database\\PhieuMua_CannedFood.txt");
 
         try {
-            List<Phieu> PhieuMuaData = Run.PhieuMuaTree.getInOrderList();
-            FileWriter fw = new FileWriter("src\\Database\\PhieuMua_CannedFood.txt");
-            fw.write("");
+            // Loop through each Phieu object and write its data to the file
             for (Phieu a : PhieuMuaData) {
-                fw.write(a.getThoiGianTao() + "\n" + a.getPhone() + "\n" + a.getChitieuphieu().getTenSanPham() + "\n" + a.getChitieuphieu().getSoLuong() + "\n" + a.getChitieuphieu().getGia() + "\n" + a.getTongTien() + "\n" + a.getAddress() + "\n" + a.getUsername() + "\n");
+                // Write Phieu's main data first
+                fw.write(a.getThoiGianTao() + "\n");
+                fw.write(a.getPhone() + "\n");
+                fw.write(a.getTongTien() + "\n");
+                fw.write(a.getAddress() + "\n");
+                fw.write(a.getUsername() + "\n");
+
+                // Loop through each ChiTietPhieu in the Phieu's list and write its data
+                for (ChiTietPhieu chiTiet : a.getPhieu()) {
+                    fw.write(chiTiet.getTenSanPham() + "\n");
+                    fw.write(chiTiet.getSoLuong() + "\n");
+                    fw.write(chiTiet.getGia() + "\n");
+                }
+
+                // Add a separator between different Phieu records
+                fw.write("------\n");
             }
+
+            // Close the FileWriter after writing
             fw.close();
         } catch (IOException e) {
-            System.out.println(e);
+            // Handle exception by printing the error message
+            System.out.println("Error writing data: " + e.getMessage());
+            throw e;  // Rethrow the exception after logging
         }
     }
+
 
     // lấy dữ liệu từ cây Product ghi ra file txt
     

@@ -3,6 +3,11 @@ admin
 admin123
 admin
 0939393939
+Banh
+banh
+banh123
+customer
+123
 Đăng Khoa
 khoa
 khoa123
@@ -10,7 +15,7 @@ Customer
 0368961224
 kou
 kou
-123456
+kou123
 Customer
 1
 Như

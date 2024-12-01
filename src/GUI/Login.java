@@ -33,6 +33,8 @@ public class Login extends javax.swing.JFrame {
         loginUser = new javax.swing.JTextField();
         passwordUser = new javax.swing.JPasswordField();
         eyeIcon = new javax.swing.JLabel();
+        lineUnderUsername = new javax.swing.JLabel(); // Dòng trắng dưới username
+        lineUnderPassword = new javax.swing.JLabel(); // Dòng trắng dưới password
         JPaneLogin = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -76,6 +78,11 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(loginUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 260, 30));
 
+        // Dòng trắng dưới username
+        lineUnderUsername.setOpaque(true);
+        lineUnderUsername.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(lineUnderUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 260, 1));
+
         passwordUser.setBackground(new java.awt.Color(13, 39, 51));
         passwordUser.setForeground(new java.awt.Color(255, 255, 255));
         passwordUser.setBorder(null);
@@ -86,6 +93,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(passwordUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 260, 30));
+
+        // Dòng trắng dưới password
+        lineUnderPassword.setOpaque(true);
+        lineUnderPassword.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(lineUnderPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 260, 1));
 
         eyeIcon.setIcon(new ImageIcon(getClass().getResource("/Icon/eye_closed.png")));
         eyeIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -173,25 +185,24 @@ public class Login extends javax.swing.JFrame {
     }
 
     public void checkLogin() {
-        String user = loginUser.getText().trim().toLowerCase(); // Chuyển tên đăng nhập sang chữ thường
-        String password = new String(passwordUser.getPassword()).trim(); // Đảm bảo mật khẩu không chứa khoảng trắng
+        String user = loginUser.getText().trim().toLowerCase();
+        String password = new String(passwordUser.getPassword()).trim();
 
         if (user.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        var accountNode = Run.AccountTree.get(user.toLowerCase()); // Tìm theo tên đăng nhập chữ thường
+        var accountNode = Run.AccountTree.get(user.toLowerCase());
         if (accountNode == null) {
             JOptionPane.showMessageDialog(this, "Tên đăng nhập không tồn tại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        // Kiểm tra mật khẩu
         if (accountNode.getAccount().getPassword().equals(password)) {
             String role = accountNode.getAccount().getRole();
             if (role != null) {
-                role = role.trim().toLowerCase(); // Chuẩn hóa role
+                role = role.trim().toLowerCase();
                 switch (role) {
                     case "admin":
                         new Admin(accountNode.getAccount()).setVisible(true);
@@ -215,7 +226,6 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sai mật khẩu!", "Cảnh báo!", JOptionPane.WARNING_MESSAGE);
         }
     }
-
 
     public static void main(String args[]) throws UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
@@ -241,4 +251,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField loginUser;
     private javax.swing.JPasswordField passwordUser;
+    private javax.swing.JLabel lineUnderUsername;
+    private javax.swing.JLabel lineUnderPassword;
 }
