@@ -27,6 +27,10 @@ public class UpdateAccount extends javax.swing.JDialog {
         Account acc = this.owner.getAccountSelect();
         txtfullname.setText(acc.getFullName());
         txtusername.setText(acc.getUser());
+        //Banh
+        cmbRole.setSelectedItem(acc.getRole());
+        txtPhone.setText(acc.getPhone());
+
         txtusername.setEditable(false);
         txtPassword.setText(acc.getPassword());
         acc1 = new Account(txtfullname.getText(),txtusername.getText(),  txtPassword.getText(), acc.getRole());
@@ -60,6 +64,11 @@ public class UpdateAccount extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
+        //Banh
+        jLabel5 = new javax.swing.JLabel();
+        cmbRole = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sửa tài khoản");
@@ -69,19 +78,19 @@ public class UpdateAccount extends javax.swing.JDialog {
 
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         jLabel2.setText("Họ và tên");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 110, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 110, -1));
 
         txtfullname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtfullnameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtfullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 298, 38));
+        jPanel1.add(txtfullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 298, 38));
 
         jLabel3.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         jLabel3.setText("Tên đăng nhập");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 24));
-        jPanel1.add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 298, 38));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, 24));
+        jPanel1.add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 298, 38));
 
         btnupdate.setBackground(new java.awt.Color(204, 204, 255));
         btnupdate.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
@@ -99,7 +108,22 @@ public class UpdateAccount extends javax.swing.JDialog {
                 btnupdateActionPerformed(evt);
             }
         });
-        jPanel1.add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 140, 38));
+        //Banh
+        jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
+        jLabel5.setText("Vai trò");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, -1, -1));
+
+        cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "Customer", "Quản lý kho" }));
+        jPanel1.add(cmbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 300, 40));
+
+        jLabel6.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
+        jLabel6.setText("Số điện thoại");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, -1));
+
+        txtPhone.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
+        jPanel1.add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, 300, 40));
+
+        jPanel1.add(btnupdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 140, 38));
 
         btnClose.setBackground(new java.awt.Color(255, 51, 51));
         btnClose.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
@@ -111,7 +135,7 @@ public class UpdateAccount extends javax.swing.JDialog {
                 btnCloseActionPerformed(evt);
             }
         });
-        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 140, 38));
+        jPanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 480, 140, 38));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -140,8 +164,8 @@ public class UpdateAccount extends javax.swing.JDialog {
 
         jLabel4.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
         jLabel4.setText("Mật khẩu");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 300, 40));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, 300, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,7 +175,7 @@ public class UpdateAccount extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE).addGap(20)
         );
 
         pack();
@@ -170,15 +194,18 @@ public class UpdateAccount extends javax.swing.JDialog {
         // TODO add your handling code here:
         String fullName = txtfullname.getText();
         String user = txtusername.getText();
-        String role = owner.getAccountSelect().getRole();
-       
-         owner.functionStack.push(new FunctionWrapper<>(owner.new UpdAccountStack(), this.acc1));   
+        //Banh
+        String role = (String) cmbRole.getSelectedItem();
+        String phone = txtPhone.getText();
         String password = txtPassword.getText();
-        
+
         owner.getAccountSelect().setFullName(fullName);
         owner.getAccountSelect().setUser(user);
         owner.getAccountSelect().setPassword(password);
         owner.getAccountSelect().setRole(role);
+        owner.getAccountSelect().setPhone(phone);
+
+        owner.functionStack.push(new FunctionWrapper<>(owner.new UpdAccountStack(), this.acc1));
         this.dispose();
         owner.loadDataToTable(Run.AccountTree);
         JOptionPane.showMessageDialog(this, "Cập nhật thành công !");
@@ -206,5 +233,10 @@ public class UpdateAccount extends javax.swing.JDialog {
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtfullname;
     private javax.swing.JTextField txtusername;
+    //Banh
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JComboBox<String> cmbRole;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
 }

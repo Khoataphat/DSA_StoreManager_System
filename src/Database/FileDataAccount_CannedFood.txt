@@ -13,11 +13,11 @@ khoa
 khoa123
 Customer
 0368961224
-kou
+kou1
 kou
 kou123
-Customer
-1
+Quản lý kho
+123
 Như
 nhu
 nhu123
