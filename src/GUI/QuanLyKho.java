@@ -1,13 +1,24 @@
 
 package GUI;
 
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
+
 import System.Account;
+
+//<----
+import javaswingdev.drawer.DrawerItem;
+import java.awt.Color;
+import javaswingdev.drawer.Drawer;
+import javaswingdev.drawer.DrawerController;
+import javaswingdev.drawer.EventDrawer;
+import javax.swing.ImageIcon;
+//<----
 
 /**
  *
@@ -16,6 +27,7 @@ import System.Account;
 public class QuanLyKho extends javax.swing.JFrame {
 
     private Account currentAcc;
+    private DrawerController drawer;
 
     /**
      * Creates new form Admin
@@ -31,6 +43,36 @@ public class QuanLyKho extends javax.swing.JFrame {
         ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
         setIconImage(logo.getImage());
         setTitle("Group 11 Store");
+/*
+        //<----
+        drawer = Drawer.newDrawer(this)
+                .background(new Color(90, 90, 90))
+                .closeOnPress(true)
+                .backgroundTransparent(0.3f)
+                .leftDrawer(true)
+                .enableScroll(true)
+                .enableScrollUI(false)
+                .headerHeight(160)
+                .header(new Header())
+                .space(3)
+                .addChild(new DrawerItem("User ").icon(new ImageIcon(getClass().getResource("/icon/user.png"))).build())
+                .addChild(new DrawerItem("Contacts").icon(new ImageIcon(getClass().getResource("/icon/cont.png"))).build())
+                .addChild(new DrawerItem("Report").icon(new ImageIcon(getClass().getResource("/icon/report.png"))).build())
+                .addChild(new DrawerItem("Income").icon(new ImageIcon(getClass().getResource("/icon/income.png"))).build())
+                .addChild(new DrawerItem("Expense").icon(new ImageIcon(getClass().getResource("/icon/expense.png"))).build())
+                .addChild(new DrawerItem("Datas").icon(new ImageIcon(getClass().getResource("/icon/data.png"))).build())
+                .addFooter(new DrawerItem("Exit").icon(new ImageIcon(getClass().getResource("/icon/exit.png"))).build())
+                .event(new EventDrawer() {
+                    @Override
+                    public void selected(int index, DrawerItem item) {
+                        if(drawer.isShow()){
+                            drawer.hide();
+                        }
+                    }
+                })
+                .build();
+        //<----
+ */
     }
 
     /**
@@ -57,7 +99,47 @@ public class QuanLyKho extends javax.swing.JFrame {
 
         jLabel13 = new javax.swing.JLabel();
         ThongKe = new javax.swing.JPanel();
+/*
+        //<----
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("|||");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 943, Short.MAX_VALUE)
+                                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jButton1)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE))
+                                .addContainerGap())
+        );
+        //<----
+
+ */
+/*
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         NavbarMenu.setBackground(new java.awt.Color(204, 204, 255));
@@ -249,7 +331,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         );
 
         NavbarMenu.add(ThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 240, 40));
-
+        */
 
         //<----
 
@@ -283,6 +365,145 @@ public class QuanLyKho extends javax.swing.JFrame {
         );
 
         pack();
+
+
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(1400, 800)); // Kích thước tổng thể
+
+        // Navbar Menu
+        NavbarMenu.setBackground(new Color(204, 204, 255));
+        NavbarMenu.setLayout(new BoxLayout(NavbarMenu, BoxLayout.Y_AXIS));
+
+        // SanPham Panel
+        SanPham.setBackground(new Color(204, 204, 255));
+        SanPham.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        SanPham.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        SanPham.setPreferredSize(new Dimension(240, 40));
+        SanPham.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                SanPhamMouseClicked(evt);
+            }
+        });
+
+        // Name User
+        NameUser.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        NameUser.setForeground(Color.WHITE);
+        NameUser.setHorizontalAlignment(SwingConstants.CENTER);
+        NameUser.setText("Quản lý kho");
+        NavbarMenu.add(NameUser);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        // Greeting Label
+        jLabel8.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        jLabel8.setForeground(Color.WHITE);
+        jLabel8.setText("Xin chào");
+        NavbarMenu.add(jLabel8);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        // SanPham1 Panel
+        SanPham1.setBackground(new Color(204, 204, 255));
+        SanPham1.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        SanPham1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        SanPham1.setPreferredSize(new Dimension(240, 40));
+        SanPham1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                SanPham1MouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        jLabel2.setForeground(Color.WHITE);
+        jLabel2.setText("SẢN PHẨM");
+
+        SanPham1.setLayout(new BorderLayout());
+        SanPham1.add(jLabel2, BorderLayout.CENTER);
+        NavbarMenu.add(SanPham1);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        // ThongKe Panel
+        ThongKe.setBackground(new Color(204, 204, 255));
+        ThongKe.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ThongKe.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        ThongKe.setPreferredSize(new Dimension(240, 40));
+        ThongKe.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                ThongKeMouseClicked(evt);
+            }
+        });
+
+        jLabel13.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        jLabel13.setForeground(Color.WHITE);
+        jLabel13.setText("THỐNG KÊ");
+
+        ThongKe.setLayout(new BorderLayout());
+        ThongKe.add(jLabel13, BorderLayout.CENTER);
+        NavbarMenu.add(ThongKe);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        jLabel1.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        jLabel1.setForeground(Color.WHITE);
+        jLabel1.setText("Lịch sử bán");
+
+        SanPham.setLayout(new BorderLayout());
+        SanPham.add(jLabel1, BorderLayout.CENTER);
+        NavbarMenu.add(SanPham);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách giữa các nút
+
+        // Change Info Panel
+        changeInfo.setBackground(new Color(204, 204, 255));
+        changeInfo.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        changeInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        changeInfo.setPreferredSize(new Dimension(1, 1));
+        changeInfo.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                changeInfoMouseClicked(evt);
+            }
+        });
+
+        jLabel9.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        jLabel9.setForeground(Color.WHITE);
+        jLabel9.setText("Thông tin");
+
+        changeInfo.setLayout(new BorderLayout());
+        changeInfo.add(jLabel9, BorderLayout.CENTER);
+        NavbarMenu.add(changeInfo);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        // DangXuat Panel
+        DangXuat.setBackground(new Color(204, 204, 255));
+        DangXuat.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        DangXuat.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        DangXuat.setPreferredSize(new Dimension(240, 40));
+        DangXuat.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                DangXuatMouseClicked(evt);
+            }
+        });
+
+        jLabel5.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        jLabel5.setForeground(Color.WHITE);
+        jLabel5.setText("ĐĂNG XUẤT");
+
+        DangXuat.setLayout(new BorderLayout());
+        DangXuat.add(jLabel5, BorderLayout.CENTER);
+        NavbarMenu.add(DangXuat);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách giữa các nút
+
+        // MainContent Panel
+        MainContent.setBackground(Color.WHITE);
+        MainContent.setLayout(new BorderLayout());
+
+        // Layout chính
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(NavbarMenu, BorderLayout.WEST);
+        getContentPane().add(MainContent, BorderLayout.CENTER);
+
+        pack();
+        setLocationRelativeTo(null); // Đặt cửa sổ ở giữa màn hình
+
+
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void SanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SanPhamMouseClicked
@@ -345,7 +566,7 @@ public class QuanLyKho extends javax.swing.JFrame {
     //<----- Nút và sự kiện thống kê
     private void ThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeMouseClicked
         // TODO add your handling code here:
-        Thongke ac = new Thongke(currentAcc);
+        ThongKeQuanLyKho ac = new ThongKeQuanLyKho(currentAcc);
         MainContent.removeAll();
         MainContent.add(ac).setVisible(true);
     }//GEN-LAST:event_ThongKeMouseClicked
@@ -356,6 +577,19 @@ public class QuanLyKho extends javax.swing.JFrame {
     }//GEN-LAST:event_ThongKeMousePressed
     //<-----
 
+/*
+    //<-----
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (drawer.isShow()) {
+            drawer.hide();
+        } else {
+            drawer.show();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+    //<-----
+ */
+
+
     /**
      * @param args the command line arguments
      */
@@ -363,7 +597,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

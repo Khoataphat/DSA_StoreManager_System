@@ -37,7 +37,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Khối lượng", "Thành phần","Lượng bán ra"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng","Đã bán"};
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
         tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(3);
@@ -99,12 +99,13 @@ public class ProductForm extends javax.swing.JInternalFrame {
                             i.getMaSanPham(),
                             i.getTenSanPham(),
                             i.getSoLuong(),
+                            amountSold,
                             formatter.format(i.getGiaTien()) + "đ",
                             i.getNgaySanXuat(),
                             i.getHanSuDung(),
                             i.getKhoiLuong(),
-                            i.getThanhPhan(),
-                            amountSold // Use the amountSold value
+                            i.getThanhPhan()
+                             // Use the amountSold value
                     });
                 } catch (Exception ex) {
                     System.err.println("Error adding row for product: " + i.getTenSanPham());

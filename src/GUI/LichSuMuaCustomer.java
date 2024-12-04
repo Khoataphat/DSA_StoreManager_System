@@ -80,6 +80,7 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
                             "", "", "" // Cột trống
                     });
                     total += ctPhieu.getSoLuong() * ctPhieu.getGia(); // Tính tổng tiền
+
                 }
 
                 // Hiển thị tổng tiền của đơn hàng

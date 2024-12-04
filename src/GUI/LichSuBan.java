@@ -45,7 +45,7 @@ public class LichSuBan extends javax.swing.JInternalFrame {
     }
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{ "Tên máy", "Số lượng", "Đơn giá", "số điện thoại đặt hàng","địa chỉ","time"};
+        String[] headerTbl = new String[]{ "Tên sản phẩm", "Số lượng", "Đơn giá", "số điện thoại đặt hàng","địa chỉ","time"};
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
        
