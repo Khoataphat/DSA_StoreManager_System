@@ -80,9 +80,11 @@ public class PhieuMuaManagerTree {
          */
         @Override
         public String toString() {
-            return "Customer: " + phieu.getUsername() + ", Time: " + phieu.getThoiGianTao();
+            // Gọi phương thức getChiTietPhieu() để lấy chi tiết phiếu
+            return "Customer: " + phieu.getUsername() +
+                    ", Time: " + phieu.getThoiGianTao() +
+                    ", Details: " + phieu.getPhieu(); // Thêm chi tiết phiếu
         }
-
         private void swap(PhieuNode node) {
             String tempKey = this.key;
             Phieu tempPhieu = this.phieu;
