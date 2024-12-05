@@ -6,11 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import System.Account;
@@ -63,7 +60,7 @@ public class Run {
     public static void addQueue(SortedLinkedPriorityQueue<Integer, Product> queue, Scanner scanner) {
 
         while (scanner.hasNext()) {
-            String mamay = scanner.nextLine();
+            String maSanPham = scanner.nextLine();
             String tenmay = scanner.nextLine();
             String soluong = scanner.nextLine();
             String dongia = scanner.nextLine();
@@ -72,7 +69,7 @@ public class Run {
             String card = scanner.nextLine();
             String bonho = scanner.nextLine();
 
-            Product a = new Product(mamay, tenmay, Integer.parseInt(soluong), Double.parseDouble(dongia), boxuli, ram, card, bonho);
+            Product a = new Product(maSanPham, tenmay, Integer.parseInt(soluong), Double.parseDouble(dongia), boxuli, ram, card, bonho);
 
             queue.add(a, 30, queue); //mức độ ưu tiên cho tất cả sản phẩm là 30
 
@@ -153,7 +150,7 @@ public class Run {
         }
 
         // After processing all the input, print the size and tree structure
-        System.out.println("- Size: " + tree.size());
+        System.out.println("- Size - Phieu Mua: " + tree.size());
         tree.printTree();
     }
 //đọc dữ liệu Product và add vào cây product
@@ -186,7 +183,7 @@ public class Run {
 
         }
 
-        System.out.println("-Size: " + tree.size());
+        System.out.println("-Size - Product: " + tree.size());
         tree.printTree();
     }
      
@@ -217,7 +214,7 @@ public class Run {
 
         }
 
-        System.out.println("-Size: " + tree.size());
+        System.out.println("-Size - AmountSold: " + tree.size());
         tree.printTree();
     }
 
@@ -254,7 +251,7 @@ public class Run {
 
         }
 
-        System.out.println("-Size: " + tree.size());
+        System.out.println("-Size - Account: " + tree.size());
         tree.printTree();
     }
 
@@ -366,6 +363,53 @@ public class Run {
         }
     }
 
+    // Lớp để lưu thông tin sản phẩm không khớp
+    public static class MismatchInfo {
+        String productName;
+        int boughtQuantity;
+        int soldQuantity;
+
+        public MismatchInfo(String productName, int boughtQuantity, int soldQuantity) {
+            this.productName = productName;
+            this.boughtQuantity = boughtQuantity;
+            this.soldQuantity = soldQuantity;
+        }
+    }
+
+    public static List<MismatchInfo> checkQuantityMatch() {
+        List<MismatchInfo> mismatchedProducts = new ArrayList<>();
+        HashMap<String, Integer> totalBoughtQuantities = new HashMap<>();
+        HashSet<String> checkedProducts = new HashSet<>();
+        List<Phieu> phieuList = PhieuMuaTree.getInOrderList();
+
+        // Tổng hợp số lượng mua cho mỗi sản phẩm
+        for (Phieu phieu : phieuList) {
+            for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
+                String productName = ctPhieu.getTenSanPham();
+                int boughtQuantity = ctPhieu.getSoLuong();
+
+                totalBoughtQuantities.put(productName, totalBoughtQuantities.getOrDefault(productName, 0) + boughtQuantity);
+            }
+        }
+
+        // So sánh với số lượng bán
+        for (Map.Entry<String, Integer> entry : totalBoughtQuantities.entrySet()) {
+            String productName = entry.getKey();
+            int totalBoughtQuantity = entry.getValue();
+
+            // Lấy số lượng bán từ cây AmountSold
+            AmountSoldManagerTree.AmountSoldNode amountSold = AmountSoldTree.get(productName);
+            int soldQuantity = (amountSold != null) ? amountSold.getAmountSold().getAmountSold() : 0;
+
+            // Kiểm tra sự không khớp
+            if (soldQuantity != totalBoughtQuantity) {
+                mismatchedProducts.add(new MismatchInfo(productName, totalBoughtQuantity, soldQuantity));
+            }
+        }
+
+        return mismatchedProducts;
+    }
+
     public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
         ReadDataAccount(); // dọc dữ liệu
@@ -373,6 +417,17 @@ public class Run {
         ReadDataPhieuMua(); // dọc dữ liệu
         ReadDataAmountSold(); // dọc dữ liệu
         ReadDatatoQueue();
+
+        // Kiểm tra số lượng mua và bán
+        List<MismatchInfo> mismatchedProducts = checkQuantityMatch();
+        if (!mismatchedProducts.isEmpty()) {
+            System.out.println("Số lượng mua không khớp với số lượng bán cho các sản phẩm sau:");
+            for (MismatchInfo info : mismatchedProducts) {
+                System.out.printf("- %s: Số lượng mua = %d, Số lượng bán = %d%n", info.productName, info.boughtQuantity, info.soldQuantity);
+            }
+            return; // Dừng chương trình nếu có sản phẩm không khớp
+        }
+
         Login login = new Login(); 
         login.setVisible(true);   // khởi tạo jframe Login
 

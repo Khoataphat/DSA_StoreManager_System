@@ -1,26 +1,26 @@
 Bánh Hỏi Tây Ninh
-10
-Bánh Kẹo Tây Ninh
-3
-Bánh Tráng Tây Ninh
-4
-Bánh Xèo Tây Ninh
 1
+Bánh Kẹo Tây Ninh
+1
+Bánh Tráng Tây Ninh
+6
+Bánh Xèo Tây Ninh
+6
 Chè Bắp Tây Ninh
-4
+1
 Chả Giò Tây Ninh
-7
+4
 Gỏi Cuốn Tây Ninh
 0
 Muối Ớt Tây Ninh
-10
+5
 Mắm Tôm Tây Ninh
 1
 Nước Mắm Tây Ninh
-6
+5
 Trứng Muối Tây Ninh
 4
 Xôi Gấc Tây Ninh
-1
+3
 Đăng Khoa
 1
