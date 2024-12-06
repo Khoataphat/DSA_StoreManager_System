@@ -16,7 +16,7 @@ Customer
 kou1
 kou
 kou123
-Quản lý kho
+Customer
 123
 Như
 nhu

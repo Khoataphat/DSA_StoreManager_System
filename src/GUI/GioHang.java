@@ -609,7 +609,8 @@ public class GioHang extends javax.swing.JInternalFrame {
                             txtAddress.getText(),
                             currentAcc.getUser(),
                             danhSachChiTiet,
-                            tongTien
+                            tongTien,
+                            1
                     );
 
                     // Thêm phiếu vào cây quản lý phiếu

@@ -3,6 +3,7 @@
 123000.0
 13
 banh
+5
 Bánh Hỏi Tây Ninh
 1
 18000.0
@@ -15,6 +16,7 @@ Chả Giò Tây Ninh
 141000.0
 Banh
 banh
+3
 Xôi Gấc Tây Ninh
 1
 25000.0
@@ -30,6 +32,7 @@ Nước Mắm Tây Ninh
 15000.0
 13
 banh
+2
 Bánh Kẹo Tây Ninh
 1
 15000.0
@@ -39,6 +42,7 @@ Bánh Kẹo Tây Ninh
 45000.0
 13
 banh
+5
 Chè Bắp Tây Ninh
 1
 20000.0
@@ -51,6 +55,7 @@ Trứng Muối Tây Ninh
 45000.0
 123
 khoa
+5
 Bánh Tráng Tây Ninh
 1
 15000.0
@@ -63,6 +68,7 @@ Mắm Tôm Tây Ninh
 154000.0
 13
 khoa
+6
 Chả Giò Tây Ninh
 1
 35000.0
@@ -78,6 +84,7 @@ Muối Ớt Tây Ninh
 1.0E7
 23
 khoa
+6
 Đăng Khoa
 1
 1.0E7
@@ -87,6 +94,7 @@ khoa
 25000.0
 319
 khoa
+5
 Muối Ớt Tây Ninh
 1
 25000.0
@@ -96,6 +104,7 @@ Muối Ớt Tây Ninh
 30000.0
 KTX Khu B
 khoa
+5
 Bánh Xèo Tây Ninh
 1
 30000.0
@@ -105,6 +114,7 @@ Bánh Xèo Tây Ninh
 75000.0
 KTX
 khoa
+1
 Bánh Tráng Tây Ninh
 5
 15000.0
@@ -114,6 +124,7 @@ Bánh Tráng Tây Ninh
 200000.0
 KTX Khu B
 khoa
+5
 Bánh Xèo Tây Ninh
 5
 30000.0
@@ -126,6 +137,7 @@ Xôi Gấc Tây Ninh
 50000.0
 nhà chị Hồng
 kou
+6
 Trứng Muối Tây Ninh
 1
 25000.0

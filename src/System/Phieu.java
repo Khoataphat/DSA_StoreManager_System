@@ -17,29 +17,31 @@ public class Phieu {
     private String username;
     private List<ChiTietPhieu> phieu;
     private double tongTien;
-    private int stt;
-
+    private int tracking;
+    //Banh private int stt;
+/*
     public Phieu() {
         this.phieu = new ArrayList<>();
     }
-
-    public Phieu(Timestamp thoiGianTao, String phone, String address,String user,List<ChiTietPhieu> chitietphieu, double tongTien ) {
+*/
+    public Phieu(Timestamp thoiGianTao, String phone, String address,String user,List<ChiTietPhieu> chitietphieu, double tongTien, int tracking) {
         this.thoiGianTao = thoiGianTao;
         this.phone = phone;
         this.address = address;
         this.username = user;
         this.phieu = chitietphieu;
         this.tongTien = tongTien;
+        this.tracking = tracking;
     }
-
-    public int getStt() {
+//Banh----------------------------------------------------------------
+/*    public int getStt() {
         return stt;
     }
 
     public void setStt(int stt) {
         this.stt = stt;
     }
-
+*/
     public String getUsername() {
         return username;
     }
@@ -87,6 +89,32 @@ public class Phieu {
     public void setTongTien(double tongTien) {
         this.tongTien = tongTien;
     }
+//Banh------------------------------------------------
+    public int getTracking() {
+        return tracking;
+    }
+    public void setTracking(int tracking) {
+        this.tracking = tracking;
+    }
+    public String getTrackingStatus(){
+        switch (tracking) {
+            case 1:
+                return "Đang chờ xử lý";
+            case 2:
+                return "Đã được xác nhận";
+            case 3:
+                return "Đang chuẩn bị";
+            case 4:
+                return "Đang vận chuyển";
+            case 5:
+                return "Đã nhận hàng";
+            case 6:
+                return "Đã hủy";
+            default:
+                return "Đang chờ xử lý";
+        }
+    }
+//----------------------------------------------------------------
     public void capNhatTongTien() {
         this.tongTien = phieu.stream()
                 .mapToDouble(ct -> ct.getGia() * ct.getSoLuong())
@@ -115,7 +143,7 @@ public class Phieu {
 
     @Override
     public String toString() {
-        return "Phieu{" + "Phone=" + phone+ ", thoiGianTao=" + thoiGianTao + ", nguoiMua" + ", CTPhieu=" + ", tongTien=" + tongTien + '}';
+        return "Phieu{" + "Phone=" + phone+ ", thoiGianTao=" + thoiGianTao + ", nguoiMua" + username + ", tongTien=" + tongTien + ", tracking=" + tracking + '}';
     }
 
 }

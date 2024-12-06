@@ -100,6 +100,7 @@ public class Run {
             String totalStr = scanner.nextLine();  // Total price for the bill
             String address = scanner.nextLine();  // Customer address
             String user = scanner.nextLine();  // Customer username (e.g., "khoa")
+            String tracking = scanner.nextLine(); //tracking tình trạng đơn
 
             // List to hold ChiTietPhieu objects for the current order
             List<ChiTietPhieu> chiTietPhieuList = new ArrayList<>();
@@ -143,7 +144,7 @@ public class Run {
                 System.out.println("Warning: Calculated total price does not match input total price.");
             }
             // Create a Phieu object with the order data
-            Phieu phieu = new Phieu(Timestamp.valueOf(time), phone, address, user, chiTietPhieuList, inputTotalPrice);
+            Phieu phieu = new Phieu(Timestamp.valueOf(time), phone, address, user, chiTietPhieuList, inputTotalPrice, Integer.parseInt(tracking));
 
             // Add the Phieu object to the tree with the username as the key
             tree.add(user, phieu);
@@ -276,6 +277,7 @@ public class Run {
                 fw.write(a.getTongTien() + "\n");
                 fw.write(a.getAddress() + "\n");
                 fw.write(a.getUsername() + "\n");
+                fw.write(a.getTracking() + "\n");
 
                 // Loop through each ChiTietPhieu in the Phieu's list and write its data
                 for (ChiTietPhieu chiTiet : a.getPhieu()) {

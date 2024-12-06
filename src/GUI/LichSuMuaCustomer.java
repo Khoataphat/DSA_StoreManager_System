@@ -4,14 +4,13 @@ package GUI;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import System.Account;
 import System.Phieu;
 import System.ChiTietPhieu;
-
 import java.util.Collections;
-
 import System.TimeComparator;
 
 /**
@@ -66,6 +65,7 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
                         "SĐT: " + phieu.getPhone(), // Số điện thoại
                         "Địa chỉ: " + phieu.getAddress(), // Địa chỉ
                         "Thời gian: " + phieu.getThoiGianTao(), // Thời gian
+                        "Trạng thái đơn hàng: " + phieu.getTrackingStatus(), //Tracking
                         "", // Cột trống
                         ""  // Cột trống
                 });
@@ -114,6 +114,9 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSanPham = new javax.swing.JTable();
 
+//Banh------------------------------------------------
+        btnEditTracking = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -131,7 +134,22 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
                 jTextFieldSearchKeyReleased(evt);
             }
         });
-        jPanel3.add(jTextFieldSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 960, 40));
+        jPanel3.add(jTextFieldSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 300, 40));
+
+//Banh------------------------------------------------
+        btnEditTracking.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8_edit_40px.png"))); // NOI18N
+        btnEditTracking.setText("Sửa");
+        btnEditTracking.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEditTracking.setFocusable(false);
+        btnEditTracking.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEditTracking.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnEditTracking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditTrackingActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnEditTracking, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 130, 40));
+
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8_reset_25px_1.png"))); // NOI18N
         jButton7.setText("Làm mới");
@@ -200,6 +218,54 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+//Banh------------------------------------------------
+    public Phieu getPhieuSelect() {
+        int selectedRow = tblSanPham.getSelectedRow();
+
+        // Kiểm tra nếu không có dòng nào được chọn
+        if (selectedRow == -1) {
+            throw new IllegalStateException("Vui lòng chọn một dòng trong bảng.");
+        }
+
+        // Lấy thông tin từ cột đầu tiên của dòng đã chọn (Bill ID)
+        String billInfo = (String) tblSanPham.getValueAt(selectedRow, 0);
+
+        // Kiểm tra nếu không phải là hàng đại diện cho "Bill: [số]"
+        if (!billInfo.startsWith("Bill: ")) {
+            throw new IllegalStateException("Vui lòng chọn dòng đại diện cho hóa đơn.");
+        }
+
+        // Trích xuất số hóa đơn từ chuỗi "Bill: [số]"
+        int billNumber = Integer.parseInt(billInfo.replace("Bill: ", "").trim());
+
+        List<Phieu> lichsumua = Run.PhieuMuaTree.search(currentAcc.getUser());
+        Collections.sort(lichsumua, new TimeComparator()); // Sort by time
+
+        // Lấy phiếu tương ứng với số hóa đơn (dựa vào thứ tự xuất hiện trong bảng)
+        if (billNumber > 0 && billNumber <= lichsumua.size()) {
+            return lichsumua.get(billNumber - 1); // Vì `billNumber` bắt đầu từ 1, nên trừ đi 1 để lấy chỉ số
+        }
+
+        // Nếu không tìm thấy, ném ngoại lệ
+        throw new IllegalStateException("Không tìm thấy phiếu tương ứng với hóa đơn.");
+    }
+    //Banh--------------------------------------
+    private void btnEditTrackingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditTrackingActionPerformed
+        // TODO add your handling code here:
+        if (tblSanPham.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn phiếu cần chỉnh sửa trạng thái!");
+        } else {
+            if(getPhieuSelect().getTracking() == 6){
+                JOptionPane.showMessageDialog(this, "Đơn hàng đã bị hủy. Xin vui lòng liên hệ Admin!");
+            }else if (getPhieuSelect().getTracking() == 5) {
+                JOptionPane.showMessageDialog(this, "Đơn hàng đã được giao hàng. Không thể cập nhập trạng thái.");
+            } else {
+                UpdateTrackingCustomer u = new UpdateTrackingCustomer(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled,currentAcc);
+                u.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_btnEditTrackingActionPerformed
+
     private void jTextFieldSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSearchKeyPressed
@@ -249,5 +315,6 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextFieldSearch;
     private javax.swing.JTable tblSanPham;
+    private javax.swing.JButton btnEditTracking;
     // End of variables declaration//GEN-END:variables
 }

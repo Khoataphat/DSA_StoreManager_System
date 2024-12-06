@@ -83,6 +83,7 @@ public class PhieuMuaManagerTree {
             // Gọi phương thức getChiTietPhieu() để lấy chi tiết phiếu
             return "Customer: " + phieu.getUsername() +
                     ", Time: " + phieu.getThoiGianTao() +
+                    ", tracking: " + phieu.getTracking() +
                     ", Details: " + phieu.getPhieu(); // Thêm chi tiết phiếu
         }
         private void swap(PhieuNode node) {
