@@ -233,6 +233,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
     private Account currentAcc;
     private DefaultTableModel tblModel;
     private DefaultTableModel tblBestSellers;
+    private DefaultTableModel tblStockWarning;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public ThongKeQuanLyKho() {
@@ -252,6 +253,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         loadDataProduct();
         loadDataDoanhSo(lichsumua);
         loadDataBestSeller();
+        checkStockLevels();
     }
 
     public final void initTable() {
@@ -260,19 +262,25 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Khởi tạo bảng cho lịch sử bán hàng
+// Khởi tạo bảng cho lịch sử bán hàng
         tblModel = createTableModel(new String[]{"Tên sản phẩm", "Số lượng", "Tổng giá", "Số điện thoại", "Địa chỉ"});
         tblSanPham.setModel(tblModel);
         JScrollPane jScrollPane1 = new JScrollPane(tblSanPham);
         tblSanPham.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
-        // Khởi tạo bảng cho sản phẩm bán chạy
+// Khởi tạo bảng cho sản phẩm bán chạy
         tblBestSellers = createTableModel(new String[]{"Sản phẩm bán chạy", "Số lượng bán"});
         JTable tblBestSellersTable = new JTable(tblBestSellers);
         JScrollPane jScrollPane2 = new JScrollPane(tblBestSellersTable);
         tblBestSellersTable.setPreferredScrollableViewportSize(new Dimension(300, 200));
 
-        // Thêm các panel thông tin lên trên cùng
+// Khởi tạo bảng cho cảnh báo tồn kho
+        tblStockWarning = createTableModel(new String[]{"Tên sản phẩm", "Số lượng tồn"});
+        JTable tblStockWarningTable = new JTable(tblStockWarning);
+        JScrollPane jScrollPane3 = new JScrollPane(tblStockWarningTable);
+        tblStockWarningTable.setPreferredScrollableViewportSize(new Dimension(300, 200));
+
+// Thêm các panel thông tin lên trên cùng
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 0.3; // Chiếm 30% không gian cho jPanel9
@@ -291,21 +299,30 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         gbc.weighty = 0.1; // Chiếm 10% không gian cho chiều cao
         jPanel1.add(jPanel11, gbc); // Tổng đơn
 
-        // Thiết lập vị trí cho bảng lịch sử bán hàng
+// Thiết lập vị trí cho bảng lịch sử bán hàng
         gbc.gridx = 0;
         gbc.gridy = 1; // Đặt xuống hàng dưới
-        gbc.weightx = 0.7; // Chiếm 70% không gian cho bảng lịch sử bán hàng
-        gbc.weighty = 0.9; // Chiếm 90% không gian cho chiều cao
+        gbc.weightx = 1.0; // Chiếm toàn bộ không gian chiều rộng
+        gbc.weighty = 0.5; // Chiếm 50% không gian chiều cao
         gbc.gridwidth = 3; // Chiếm toàn bộ chiều rộng
         jPanel1.add(jScrollPane1, gbc);
 
-        // Thiết lập vị trí cho bảng sản phẩm bán chạy
+// Thiết lập vị trí cho bảng sản phẩm bán chạy
         gbc.gridx = 0;
         gbc.gridy = 2; // Đặt xuống hàng dưới
-        gbc.weightx = 0.3; // Chiếm 30% không gian cho bảng sản phẩm bán chạy
-        gbc.weighty = 0.3; // Chiếm 30% không gian cho chiều cao
-        gbc.gridwidth = 3; // Chiếm toàn bộ chiều rộng
+        gbc.weightx = 0.5; // Chiếm 50% không gian cho bảng sản phẩm bán chạy
+        gbc.weighty = 0.25; // Chiếm 25% không gian cho chiều cao
+        gbc.gridwidth = 1; // Chiếm 1 cột
         jPanel1.add(jScrollPane2, gbc);
+
+// Thiết lập vị trí cho bảng cảnh báo tồn kho
+        gbc.gridx = 1;
+        gbc.gridy = 2; // Cùng hàng với bảng sản phẩm bán chạy
+        gbc.weightx = 0.5; // Chiếm 50% không gian cho bảng cảnh báo tồn kho
+        gbc.weighty = 0.25; // Chiếm 25% không gian cho chiều cao
+        gbc.gridwidth = 1; // Chiếm 1 cột
+        jPanel1.add(jScrollPane3, gbc);
+
 
     }
 
@@ -348,6 +365,8 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         }
     }
 
+
+//<-----
     public class BestSellingProductFinder {
         public static List<AmountSold> findBestSellingProducts(List<AmountSold> products) {
             List<AmountSold> bestSellingProducts = new ArrayList<>();
@@ -383,6 +402,26 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
             e.printStackTrace(); // Log lỗi
         }
     }
+
+    // check số lượng hàng tồn kho
+    public void checkStockLevels() {
+        List<Product> products = Run.ProductTree.getInOrderList(); // Giả sử bạn có danh sách sản phẩm
+
+        tblStockWarning.setRowCount(0); // Đặt lại dữ liệu bảng
+        for (Product product : products) {
+            int stockQuantity = product.getSoLuong(); // Giả sử có phương thức getSoLuong()
+
+            if (stockQuantity < 10) {
+                tblStockWarning.addRow(new Object[]{
+                        product.getTenSanPham(),
+                        stockQuantity
+                });
+            }
+        }
+    }
+
+//<-----
+
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -379,7 +379,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         SanPham.setBackground(new Color(204, 204, 255));
         SanPham.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SanPham.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        SanPham.setPreferredSize(new Dimension(240, 40));
+        SanPham.setPreferredSize(new Dimension(240, 1));
         SanPham.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 SanPhamMouseClicked(evt);
@@ -405,12 +405,13 @@ public class QuanLyKho extends javax.swing.JFrame {
         SanPham1.setBackground(new Color(204, 204, 255));
         SanPham1.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SanPham1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        SanPham1.setPreferredSize(new Dimension(240, 40));
+        SanPham1.setPreferredSize(new Dimension(240, 1));
         SanPham1.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 SanPham1MouseClicked(evt);
             }
         });
+
 
         jLabel2.setFont(new Font("SF Pro Display", Font.BOLD, 18));
         jLabel2.setForeground(Color.WHITE);
@@ -425,7 +426,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         ThongKe.setBackground(new Color(204, 204, 255));
         ThongKe.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ThongKe.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        ThongKe.setPreferredSize(new Dimension(240, 40));
+        ThongKe.setPreferredSize(new Dimension(240, 1));
         ThongKe.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 ThongKeMouseClicked(evt);
@@ -440,7 +441,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         ThongKe.add(jLabel13, BorderLayout.CENTER);
         NavbarMenu.add(ThongKe);
         NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
-
+/*
         jLabel1.setFont(new Font("SF Pro Display", Font.BOLD, 18));
         jLabel1.setForeground(Color.WHITE);
         jLabel1.setText("Lịch sử bán");
@@ -450,11 +451,13 @@ public class QuanLyKho extends javax.swing.JFrame {
         NavbarMenu.add(SanPham);
         NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách giữa các nút
 
+ */
+
         // Change Info Panel
         changeInfo.setBackground(new Color(204, 204, 255));
         changeInfo.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         changeInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        changeInfo.setPreferredSize(new Dimension(1, 1));
+        changeInfo.setPreferredSize(new Dimension(240, 1));
         changeInfo.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 changeInfoMouseClicked(evt);
@@ -474,7 +477,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         DangXuat.setBackground(new Color(204, 204, 255));
         DangXuat.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         DangXuat.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        DangXuat.setPreferredSize(new Dimension(240, 40));
+        DangXuat.setPreferredSize(new Dimension(240, 1));
         DangXuat.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
                 DangXuatMouseClicked(evt);

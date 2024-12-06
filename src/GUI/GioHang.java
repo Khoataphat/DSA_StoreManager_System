@@ -187,13 +187,13 @@ public class GioHang extends javax.swing.JInternalFrame {
     }
 
     //check giảm giá, nếu nằm đầu hàng đợi thì giảm giá
-    public double checkOnSale(String tenMay) {
-        /*
-        if(Run.queueSale.top().getValue().getTenSanPham().equals(tenMay)) {
+    public double checkOnSale(String tenSanPham) {
+
+        if(Run.queueSale.top().getValue().getTenSanPham().equals(tenSanPham)) {
             return 0.8;
         } else return 1.0;
-         */
-        return 1.0;
+
+        //return 1.0;
     }
   
 
