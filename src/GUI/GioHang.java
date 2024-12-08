@@ -609,12 +609,17 @@ public class GioHang extends javax.swing.JInternalFrame {
                             txtAddress.getText(),
                             currentAcc.getUser(),
                             danhSachChiTiet,
-                            tongTien,
-                            1
+                            tongTien
                     );
 
                     // Thêm phiếu vào cây quản lý phiếu
                     Run.PhieuMuaTree.add(currentAcc.getUser(), phieu);
+
+                    //<-----
+                    // Cập nhật trạng thái tracking
+                    phieu.setTracking(1); // Đặt giá trị tracking bằng 1
+                    //<-----
+
 
                     // Ghi dữ liệu phiếu mua vào file
                     Run.WriteDataPhieuMua();

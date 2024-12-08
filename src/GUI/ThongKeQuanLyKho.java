@@ -8,6 +8,8 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -444,7 +446,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
 
             // Tính mức tối thiểu
             double minStockLevel = dailyConsumption * leadTimeDays;
-
+            BigDecimal minStockLevelRounded = BigDecimal.valueOf(minStockLevel).setScale(2, RoundingMode.HALF_UP); // Làm tròn đến 2 chữ số thập phân
             // Kiểm tra số lượng tồn kho
             if (stockQuantity < minStockLevel) {
                 tblCombinedWarning.addRow(new Object[]{

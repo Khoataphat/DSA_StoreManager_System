@@ -33,6 +33,20 @@ public class Phieu {
         this.tongTien = tongTien;
         this.tracking = tracking;
     }
+    //<--------
+    public Phieu(Timestamp thoiGianTao, String phone, String address,String user,List<ChiTietPhieu> chitietphieu, double tongTien) {
+        this.thoiGianTao = thoiGianTao;
+        this.phone = phone;
+        this.address = address;
+        this.username = user;
+        this.phieu = chitietphieu;
+        this.tongTien = tongTien;
+    }
+
+    public Phieu(int tracking) {
+        this.tracking = tracking;
+    }
+    //<--------
 //Banh----------------------------------------------------------------
 /*    public int getStt() {
         return stt;
