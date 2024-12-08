@@ -6,6 +6,8 @@ package PriorityQueue;
 
 import System.Product;
 
+import java.time.LocalDate;
+
 public class SortedLinkedPriorityQueue<K extends Comparable, E> {
 
     private NodeProduct<K, E> head;
@@ -71,9 +73,19 @@ public class SortedLinkedPriorityQueue<K extends Comparable, E> {
     }
     
      public static void add(Product product, int a, SortedLinkedPriorityQueue<Integer,Product> productSortedLinkedPriorityQueue){
-        if(product.getSoLuong() > a){
-            productSortedLinkedPriorityQueue.insert(product.getSoLuong(),product);
-        }
+             // Kiểm tra số lượng sản phẩm
+             if (product.getSoLuong() > a) {
+                 // Kiểm tra ngày hết hạn
+                 LocalDate today = LocalDate.now();
+                 if (product.getHanSuDung().isBefore(today.plusDays(30))) { // Nếu hạn sử dụng còn dưới 30 ngày
+                     productSortedLinkedPriorityQueue.insert(product.getSoLuong(), product);
+                     System.out.println("Sản phẩm " + product.getTenSanPham() + " đã được thêm vào hàng đợi do sắp hết hạn sử dụng.");
+                 } else {
+                     System.out.println("Sản phẩm " + product.getTenSanPham() + " không sắp hết hạn sử dụng.");
+                 }
+             } else {
+                 System.out.println("Sản phẩm " + product.getTenSanPham() + " không đủ số lượng để thêm vào hàng đợi.");
+             }
     }
      
      

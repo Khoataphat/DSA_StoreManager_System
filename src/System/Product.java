@@ -1,5 +1,7 @@
 package System;
 
+import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Objects;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,6 +21,11 @@ public class Product {
     private String khoiLuong;
     private String thanhPhan;
 
+    //<-----
+    private LocalDate ngayNhapKho;
+    private int soNgayGiaoHang;
+    //<-----
+
     public Product() {
         super();
     }
@@ -34,6 +41,23 @@ public class Product {
         this.khoiLuong = khoiLuong;
         this.thanhPhan = thanhPhan;
     }
+
+    //<--------
+    public Product(String maSanPham, String tenSanPham, int soLuong, double giaTien,
+                   LocalDate ngaySanXuat, LocalDate hanSuDung, String khoiLuong, String thanhPhan, LocalDate ngayNhapKho, int soNgayGiaoHang) {
+        this.maSanPham = maSanPham;
+        this.tenSanPham = tenSanPham;
+        setSoLuong(soLuong);  // Sử dụng phương thức set
+        setGiaTien(giaTien);  // Sử dụng phương thức set
+        this.ngaySanXuat = ngaySanXuat;
+        this.hanSuDung = hanSuDung;
+        this.khoiLuong = khoiLuong;
+        this.thanhPhan = thanhPhan;
+        this.ngayNhapKho = ngayNhapKho;
+        this.soNgayGiaoHang = soNgayGiaoHang;
+
+    }
+    //<--------
 
     public String getMaSanPham() {
         return maSanPham;
@@ -105,6 +129,22 @@ public class Product {
         this.thanhPhan = thanhPhan;
     }
 
+    //<-----
+    public void setNgayNhapKho(LocalDate ngayNhapKho) {
+        this.ngayNhapKho = ngayNhapKho;
+    }
+    public LocalDate getNgayNhapKho() {
+        return ngayNhapKho;
+    }
+    public void setSoNgayGiaoHang(Integer soNgayGiaoHang) {
+        this.soNgayGiaoHang = soNgayGiaoHang;
+    }
+    public Integer getSoNgayGiaoHang() {
+        return soNgayGiaoHang;
+    }
+
+    //<-----
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -134,4 +174,40 @@ public class Product {
                 ", thanhPhan='" + thanhPhan + '\'' +
                 '}';
     }
+
+    //<-------
+    public double getDailyConsumption(List<Phieu> phieuList) {
+        int totalSold = 0;
+
+        // Nếu ngày nhập kho không được thiết lập, trả về 0
+        if (ngayNhapKho == null) {
+            return 0;
+        }
+
+        LocalDate currentDate = LocalDate.now();
+
+        // Sử dụng ngày nhập kho làm ngày bán đầu tiên
+        long daysSinceFirstSale = ChronoUnit.DAYS.between(ngayNhapKho, currentDate);
+        System.out.println("ngayNhapKho:" + ngayNhapKho);
+        System.out.println("currentDate: "+currentDate);
+        System.out.println("daysSinceFirstSale: "+daysSinceFirstSale);
+        for (Phieu phieu : phieuList) {
+            for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
+                if (ctPhieu.getTenSanPham().equals(this.tenSanPham)) {
+                    totalSold += ctPhieu.getSoLuong();
+                }
+            }
+        }
+        System.out.println("totalSold: "+totalSold);
+
+        if (daysSinceFirstSale == 0) {
+            return totalSold; // Nếu chưa có ngày bán, trả về tổng đã bán
+        }
+        System.out.println("totalSold / (int) daysSinceFirstSale: " +totalSold / daysSinceFirstSale);
+        double dailyConsumption = (double) totalSold / (int) daysSinceFirstSale;
+        return dailyConsumption; // Tính mức tiêu thụ hàng ngày
+
+    }
+
+    //<-------
 }

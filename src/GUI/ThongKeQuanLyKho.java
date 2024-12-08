@@ -9,6 +9,8 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -233,7 +235,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
     private Account currentAcc;
     private DefaultTableModel tblModel;
     private DefaultTableModel tblBestSellers;
-    private DefaultTableModel tblStockWarning;
+    private DefaultTableModel tblCombinedWarning;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public ThongKeQuanLyKho() {
@@ -253,7 +255,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         loadDataProduct();
         loadDataDoanhSo(lichsumua);
         loadDataBestSeller();
-        checkStockLevels();
+        checkStockAndExpiry();
     }
 
     public final void initTable() {
@@ -275,10 +277,10 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         tblBestSellersTable.setPreferredScrollableViewportSize(new Dimension(300, 200));
 
 // Khởi tạo bảng cho cảnh báo tồn kho
-        tblStockWarning = createTableModel(new String[]{"Tên sản phẩm", "Số lượng tồn"});
-        JTable tblStockWarningTable = new JTable(tblStockWarning);
+        tblCombinedWarning = createTableModel(new String[]{"Sản phẩm cần nhập", "Lý do"});
+        JTable tblStockWarningTable = new JTable(tblCombinedWarning);
         JScrollPane jScrollPane3 = new JScrollPane(tblStockWarningTable);
-        tblStockWarningTable.setPreferredScrollableViewportSize(new Dimension(300, 200));
+        tblStockWarningTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
 
 // Thêm các panel thông tin lên trên cùng
         gbc.gridx = 0;
@@ -403,18 +405,61 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         }
     }
 
-    // check số lượng hàng tồn kho
-    public void checkStockLevels() {
-        List<Product> products = Run.ProductTree.getInOrderList(); // Giả sử bạn có danh sách sản phẩm
+    // Kiểm tra số lượng và hạn sử dụng
+    public void checkStockAndExpiry() {
+        List<Product> products = Run.ProductTree.getInOrderList(); // Lấy danh sách sản phẩm
+        List<Phieu> phieulist = Run.PhieuMuaTree.getInOrderList();
 
-        tblStockWarning.setRowCount(0); // Đặt lại dữ liệu bảng
+        tblCombinedWarning.setRowCount(0); // Đặt lại dữ liệu bảng
+        LocalDate currentDate = LocalDate.now();
+
         for (Product product : products) {
-            int stockQuantity = product.getSoLuong(); // Giả sử có phương thức getSoLuong()
+            int stockQuantity = product.getSoLuong(); // Số lượng tồn kho
+            LocalDate expiryDate = product.getHanSuDung(); // Hạn sử dụng
 
-            if (stockQuantity < 10) {
-                tblStockWarning.addRow(new Object[]{
+            // Kiểm tra hạn sử dụng hợp lệ
+            if (expiryDate == null) {
+                tblCombinedWarning.addRow(new Object[]{
                         product.getTenSanPham(),
-                        stockQuantity
+                        "Hạn sử dụng không hợp lệ."
+                });
+                continue; // Bỏ qua sản phẩm này
+            }
+
+            // Lấy thông tin tiêu thụ
+            double dailyConsumption = product.getDailyConsumption(phieulist); // Tiêu thụ hàng ngày
+            int leadTimeDays = product.getSoNgayGiaoHang(); // Số ngày giao hàng
+
+            long daysUntilExpiry = ChronoUnit.DAYS.between(currentDate, expiryDate);
+            long totalShelfLife = ChronoUnit.DAYS.between(product.getNgaySanXuat(), expiryDate); // Tổng thời gian sử dụng
+
+            // Kiểm tra tổng thời gian sử dụng hợp lệ
+            if (totalShelfLife <= 0) {
+                tblCombinedWarning.addRow(new Object[]{
+                        product.getTenSanPham(),
+                        "Thông tin ngày sản xuất hoặc hạn sử dụng không hợp lệ."
+                });
+                continue; // Bỏ qua sản phẩm này
+            }
+
+            // Tính mức tối thiểu
+            double minStockLevel = dailyConsumption * leadTimeDays;
+
+            // Kiểm tra số lượng tồn kho
+            if (stockQuantity < minStockLevel) {
+                tblCombinedWarning.addRow(new Object[]{
+                        product.getTenSanPham(),
+                        "Số lượng hàng tồn kho còn lại: " + stockQuantity + " (Mức tối thiểu: " + minStockLevel + ")"
+                });
+            }
+            System.out.println("dailyConsumption: " + dailyConsumption + " leadTimeDays: " + leadTimeDays );
+            System.out.println("Số lượng hàng tồn kho còn lại: " + stockQuantity + " (Mức tối thiểu: " + minStockLevel);
+
+            // Kiểm tra hạn sử dụng
+            if (daysUntilExpiry <= (0.3 * totalShelfLife)) {
+                tblCombinedWarning.addRow(new Object[]{
+                        product.getTenSanPham(),
+                        "Hạn sử dụng sắp hết: " + daysUntilExpiry + " ngày (30% hạn sử dụng)"
                 });
             }
         }

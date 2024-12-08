@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -47,35 +49,54 @@ public class Run {
             scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"));
             System.out.println();
             addQueue(queueSale , scanner);
+            //Thêm sản phẩm mẫu vào hàng đợi
 
             //in ra hàng đợi
             System.out.println("Hàng đợi sản phẩm: ");
             System.out.println(queueSale.toString());
+            System.out.println("Số lượng sản phẩm trong hàng đợi: " + queueSale.size());
 
         } catch (FileNotFoundException e) {
             System.out.println("ReadDatatoQueue???");
         }
+
+
     }
 
     public static void addQueue(SortedLinkedPriorityQueue<Integer, Product> queue, Scanner scanner) {
+        //<-----
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         while (scanner.hasNext()) {
-            String maSanPham = scanner.nextLine();
-            String tenmay = scanner.nextLine();
-            String soluong = scanner.nextLine();
-            String dongia = scanner.nextLine();
-            String boxuli = scanner.nextLine();
-            String ram = scanner.nextLine();
-            String card = scanner.nextLine();
-            String bonho = scanner.nextLine();
+            try {
+                String maSanPham = scanner.nextLine();
+                String tenSanPham = scanner.nextLine();
+                String soLuong = scanner.nextLine();
+                String donGia = scanner.nextLine();
+                LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
+                LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
+                String thanhPhan = scanner.nextLine();
+                String khoiLuong = scanner.nextLine();
+                LocalDate ngayNhapKHo = LocalDate.parse(scanner.nextLine(), formatter);
+                String soNgayGiaoHang = scanner.nextLine();
 
-            Product a = new Product(maSanPham, tenmay, Integer.parseInt(soluong), Double.parseDouble(dongia), boxuli, ram, card, bonho);
+                // In ra thông tin sản phẩm đọc được
+                System.out.println("Đang thêm sản phẩm: " + maSanPham + ", " + tenSanPham + ", " + soLuong);
 
-            queue.add(a, 30, queue); //mức độ ưu tiên cho tất cả sản phẩm là 30
+                Product a = new Product(maSanPham, tenSanPham, Integer.parseInt(soLuong),
+                        Double.parseDouble(donGia), ngaySanXuat,
+                        hanSuDung, thanhPhan, khoiLuong,
+                        ngayNhapKHo, Integer.parseInt(soNgayGiaoHang));
 
+                queue.add(a, 30, queue); // 30 là số lượng hàng trong kho, nếu lớn hơn 30 thì sẽ sale
+                System.out.println("Sản phẩm đã được thêm vào hàng đợi: " + a);
+                System.out.println("Số lượng sản phẩm trong hàng đợi hiện tại: " + queue.size());
+            } catch (Exception e) {
+                System.out.println("Lỗi khi đọc sản phẩm: " + e.getMessage());
+            }
         }
 
-
+        //<-----
     }
 // đọc dữ liệu phiếu mua và add vào cây phiếu mua
 
@@ -167,18 +188,20 @@ public class Run {
         }
     }
      public static void addProduct(ProductManagerTree tree, Scanner scanner) {
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         while (scanner.hasNext()) {
+            String maSanPham = scanner.nextLine();
+            String tenSanPham = scanner.nextLine();
+            String soLuong = scanner.nextLine();
+            String donGia = scanner.nextLine();
+            LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
+            LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
+            String thanhPhan = scanner.nextLine();
+            String khoiLuong = scanner.nextLine();
+            LocalDate ngayNhapKHo = LocalDate.parse(scanner.nextLine(), formatter);
+            String soNgayGiaoHang = scanner.nextLine();
 
-        while (scanner.hasNext()) {
-            String mamay = scanner.nextLine();
-            String tenmay = scanner.nextLine();
-            String soluong = scanner.nextLine();
-            String dongia = scanner.nextLine();
-            String boxuli = scanner.nextLine();
-            String ram = scanner.nextLine();
-            String card = scanner.nextLine();
-            String bonho = scanner.nextLine();
-
-            Product a = new Product(mamay, tenmay, Integer.parseInt(soluong), Double.parseDouble(dongia), boxuli, ram, card, bonho);
+            Product a = new Product(maSanPham, tenSanPham, Integer.parseInt(soLuong), Double.parseDouble(donGia), ngaySanXuat, hanSuDung, thanhPhan, khoiLuong, ngayNhapKHo, Integer.parseInt(soNgayGiaoHang));
 
             tree.add(a.getTenSanPham(), a);
 
