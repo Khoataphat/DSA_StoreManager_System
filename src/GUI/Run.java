@@ -73,11 +73,14 @@ public class Run {
                 String tenSanPham = scanner.nextLine();
                 String soLuong = scanner.nextLine();
                 String donGia = scanner.nextLine();
-                LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
-                LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
+                //LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
+                //LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
+                String ngaySanXuat  = scanner.nextLine();
+                String hanSuDung = scanner.nextLine();
                 String thanhPhan = scanner.nextLine();
                 String khoiLuong = scanner.nextLine();
-                LocalDate ngayNhapKHo = LocalDate.parse(scanner.nextLine(), formatter);
+                //LocalDate ngayNhapKHo = LocalDate.parse(scanner.nextLine(), formatter);
+                String ngayNhapKHo = scanner.nextLine();
                 String soNgayGiaoHang = scanner.nextLine();
 
                 // In ra thông tin sản phẩm đọc được
@@ -188,17 +191,20 @@ public class Run {
         }
     }
      public static void addProduct(ProductManagerTree tree, Scanner scanner) {
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
          while (scanner.hasNext()) {
             String maSanPham = scanner.nextLine();
             String tenSanPham = scanner.nextLine();
             String soLuong = scanner.nextLine();
             String donGia = scanner.nextLine();
-            LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
-            LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
+            //LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
+            //LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
+             String ngaySanXuat = scanner.nextLine();
+             String hanSuDung = scanner.nextLine();
             String thanhPhan = scanner.nextLine();
             String khoiLuong = scanner.nextLine();
-            LocalDate ngayNhapKHo = LocalDate.parse(scanner.nextLine(), formatter);
+            //LocalDate ngayNhapKHo = LocalDate.parse(scanner.nextLine(), formatter);
+             String ngayNhapKHo = scanner.nextLine();
             String soNgayGiaoHang = scanner.nextLine();
 
             Product a = new Product(maSanPham, tenSanPham, Integer.parseInt(soLuong), Double.parseDouble(donGia), ngaySanXuat, hanSuDung, thanhPhan, khoiLuong, ngayNhapKHo, Integer.parseInt(soNgayGiaoHang));

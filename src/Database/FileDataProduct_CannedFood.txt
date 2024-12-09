@@ -6,14 +6,18 @@ Bánh Hỏi Tây Ninh
 2025-03-30
 Bánh Hỏi, Thịt Heo, Hành Phi,...
 200g
+2023-11-21
+11
 TH12
 Bánh Kẹo Tây Ninh
-18
+19
 15000.0
 2023-11-01
 2025-05-01
 Đường, Bột Gạo, Đậu,...
 200g
+2023-11-11
+10
 TH2
 Bánh Tráng Tây Ninh
 11
@@ -22,6 +26,8 @@ Bánh Tráng Tây Ninh
 2025-01-30
 Bánh Tráng, Đường, Dừa Nạo,...
 100g
+2023-04-30
+15
 TH6
 Bánh Xèo Tây Ninh
 11
@@ -30,6 +36,8 @@ Bánh Xèo Tây Ninh
 2024-11-30
 Bột Gạo, Thịt, Tôm, Rau,...
 300g
+2023-08-01
+10
 TH9
 Chè Bắp Tây Ninh
 6
@@ -38,6 +46,8 @@ Chè Bắp Tây Ninh
 2025-01-20
 Bắp, Đường, Nước Cốt Dừa,...
 300g
+2023-12-23
+7
 TH4
 Chả Giò Tây Ninh
 3
@@ -46,6 +56,8 @@ Chả Giò Tây Ninh
 2024-12-05
 Thịt, Bánh Tráng, Rau,...
 500g
+2023-05-18
+8
 TH7
 Gỏi Cuốn Tây Ninh
 14
@@ -54,6 +66,8 @@ Gỏi Cuốn Tây Ninh
 2025-02-28
 Bánh Tráng, Tôm, Rau, Thịt,...
 250g
+2023-12-23
+12
 TH1
 Muối Ớt Tây Ninh
 6
@@ -62,6 +76,8 @@ Muối Ớt Tây Ninh
 2024-12-01
 Muối, Ớt, Bột Ngọt,...
 10g
+2023-12-02
+13
 TH3
 Mắm Tôm Tây Ninh
 14
@@ -70,6 +86,8 @@ Mắm Tôm Tây Ninh
 2024-11-15
 Mắm Tôm, Gia Vị,...
 200ml
+2023-03-21
+15
 TH5
 Nước Mắm Tây Ninh
 6
@@ -78,22 +96,18 @@ Nước Mắm Tây Ninh
 2025-05-01
 Cá, Muối, Gia Vị,...
 500ml
-UTFH
-Sửa Ông Thọ
-100
-1.0E7
-2003-10-04
-2025-01-01
-Sửa Cô Gái Hà Lan
-50kg
+2023-12-23
+12
 TH11
 Trứng Muối Tây Ninh
-10
+11
 25000.0
 2023-12-01
 2024-12-01
 Trứng, Muối, Gia Vị,...
 6 quả
+2023-12-23
+22
 TH8
 Xôi Gấc Tây Ninh
 13
@@ -102,6 +116,8 @@ Xôi Gấc Tây Ninh
 2024-12-15
 Gạo, Gấc, Đậu Phộng,...
 400g
+2023-10-23
+23
 BHR4
 Đăng Khoa
 0
@@ -110,3 +126,15 @@ BHR4
 2223-10-04
 Con người
 50kg
+2003-10-04
+1
+UTFH
+Sửa Ông Thọ
+100
+1.0E7
+2003-10-04
+2025-01-01
+Sửa Cô Gái Hà Lan
+50kg
+2003-10-04
+1

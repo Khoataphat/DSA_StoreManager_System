@@ -44,16 +44,19 @@ public class Product {
 
     //<--------
     public Product(String maSanPham, String tenSanPham, int soLuong, double giaTien,
-                   LocalDate ngaySanXuat, LocalDate hanSuDung, String khoiLuong, String thanhPhan, LocalDate ngayNhapKho, int soNgayGiaoHang) {
+                   String ngaySanXuat, String hanSuDung, String khoiLuong, String thanhPhan, String ngayNhapKho, int soNgayGiaoHang) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         setSoLuong(soLuong);  // Sử dụng phương thức set
         setGiaTien(giaTien);  // Sử dụng phương thức set
-        this.ngaySanXuat = ngaySanXuat;
-        this.hanSuDung = hanSuDung;
+        //this.ngaySanXuat = ngaySanXuat;
+        //this.hanSuDung = hanSuDung;
+        this.ngaySanXuat = LocalDate.parse(ngaySanXuat, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.hanSuDung = LocalDate.parse(hanSuDung, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.khoiLuong = khoiLuong;
         this.thanhPhan = thanhPhan;
-        this.ngayNhapKho = ngayNhapKho;
+        //this.ngayNhapKho = ngayNhapKho;
+        this.ngayNhapKho = LocalDate.parse(ngayNhapKho, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.soNgayGiaoHang = soNgayGiaoHang;
 
     }

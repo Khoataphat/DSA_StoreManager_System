@@ -448,7 +448,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
             double minStockLevel = dailyConsumption * leadTimeDays;
             BigDecimal minStockLevelRounded = BigDecimal.valueOf(minStockLevel).setScale(2, RoundingMode.HALF_UP); // Làm tròn đến 2 chữ số thập phân
             // Kiểm tra số lượng tồn kho
-            if (stockQuantity < minStockLevel) {
+            if (stockQuantity < minStockLevelRounded.doubleValue()) {
                 tblCombinedWarning.addRow(new Object[]{
                         product.getTenSanPham(),
                         "Số lượng hàng tồn kho còn lại: " + stockQuantity + " (Mức tối thiểu: " + minStockLevel + ")"
