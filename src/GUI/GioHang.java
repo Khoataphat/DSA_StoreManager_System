@@ -862,57 +862,45 @@ public class GioHang extends javax.swing.JInternalFrame {
         String priceOption = jComboBox2.getSelectedItem().toString(); // Lấy lựa chọn lọc giá
         String weightOption = jComboBoxWeight.getSelectedItem().toString(); // Lấy lựa chọn lọc khối lượng
 
-        // Lấy danh sách sản phẩm ban đầu
-        List<Product> products = Run.ProductTree.getInOrderList();
+        // Tạo bản sao mutable của danh sách sản phẩm
+        List<Product> products = new ArrayList<>(Run.ProductTree.getInOrderList());
 
-        // 1. Lọc theo từ khóa tìm kiếm
-        if (!searchKeyword.isEmpty()) {
-            products = products.stream()
-                    .filter(p -> p.getTenSanPham().toLowerCase().contains(searchKeyword))
-                    .toList();
-        }
+        // Áp dụng các bộ lọc đồng thời
+        products = products.stream()
+                .filter(p -> {
+                    // Điều kiện 1: Lọc theo từ khóa tìm kiếm
+                    boolean matchesSearch = searchKeyword.isEmpty() || p.getTenSanPham().toLowerCase().contains(searchKeyword);
 
-        // 2. Lọc theo giá
-        switch (priceOption) {
-            case "Giá cao -> thấp":
-                products.sort((p1, p2) -> Double.compare(p2.getGiaTien(), p1.getGiaTien()));
-                break;
-            case "Giá thấp -> cao":
-                products.sort((p1, p2) -> Double.compare(p1.getGiaTien(), p2.getGiaTien()));
-                break;
-        }
-
-        // 3. Lọc theo khối lượng
-        switch (weightOption) {
-            case "Khối lượng cao -> thấp":
-                products.sort((p1, p2) -> {
-                    try {
-                        double weight1 = convertToGrams(p1.getThanhPhan());
-                        double weight2 = convertToGrams(p2.getThanhPhan());
-                        return Double.compare(weight2, weight1);
-                    } catch (IllegalArgumentException e) {
-                        System.err.println("Lỗi dữ liệu: " + e.getMessage());
-                        return 0;
+                    // Điều kiện 2: Lọc theo giá
+                    boolean matchesPrice = true;
+                    if (priceOption.equals("Giá cao -> thấp")) {
+                        matchesPrice = p.getGiaTien() >= 0; // Điều kiện giả định (có thể bổ sung thêm logic)
+                    } else if (priceOption.equals("Giá thấp -> cao")) {
+                        matchesPrice = p.getGiaTien() >= 0; // Điều kiện giả định (có thể bổ sung thêm logic)
                     }
-                });
-                break;
-            case "Khối lượng thấp -> cao":
-                products.sort((p1, p2) -> {
+
+                    // Điều kiện 3: Lọc theo khối lượng
+                    boolean matchesWeight = true;
                     try {
-                        double weight1 = convertToGrams(p1.getThanhPhan());
-                        double weight2 = convertToGrams(p2.getThanhPhan());
-                        return Double.compare(weight1, weight2);
-                    } catch (IllegalArgumentException e) {
-                        System.err.println("Lỗi dữ liệu: " + e.getMessage());
-                        return 0;
+                        double weight = convertToGrams(p.getThanhPhan());
+                        if (weightOption.equals("Khối lượng cao -> thấp")) {
+                            matchesWeight = weight >= 0; // Điều kiện giả định
+                        } else if (weightOption.equals("Khối lượng thấp -> cao")) {
+                            matchesWeight = weight >= 0; // Điều kiện giả định
+                        }
+                    } catch (Exception e) {
+                        matchesWeight = false; // Không khớp nếu có lỗi
                     }
-                });
-                break;
-        }
+
+                    // Sản phẩm phải thỏa mãn cả 3 điều kiện
+                    return matchesSearch && matchesPrice && matchesWeight;
+                })
+                .toList(); // Kết quả cuối cùng sau khi lọc
 
         // Hiển thị kết quả đã lọc
         loadDataToTableSearch(products);
     }
+
 
 
 //    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
