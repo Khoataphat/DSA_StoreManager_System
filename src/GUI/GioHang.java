@@ -1,6 +1,7 @@
 
 package GUI;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -31,13 +32,16 @@ public class GioHang extends javax.swing.JInternalFrame {
     private Account currentAcc;
     private Customer owner;
     Stack<FunctionWrapper<ChiTietPhieu>> functionStack = new Stack<>();
-     
+    private javax.swing.JComboBox<String> jComboBoxWeight;
+    private javax.swing.JButton jButtonWeight;
+
     /**
      * Creates new form NhapHang
      */
     private DefaultTableModel tblModel;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     private ArrayList<ChiTietPhieu> CTPhieu;
+
 
     private GioHang() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -205,7 +209,7 @@ public class GioHang extends javax.swing.JInternalFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
+        jComboBoxWeight = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -235,7 +239,7 @@ public class GioHang extends javax.swing.JInternalFrame {
         jButton3 = new javax.swing.JButton();
         btnDetail = new javax.swing.JButton();
         btnDetail1 = new javax.swing.JButton();
-
+        jButtonWeight = new javax.swing.JButton();
         setBorder(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -389,14 +393,14 @@ public class GioHang extends javax.swing.JInternalFrame {
             }
         });
 
-        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8_reset_25px_1.png"))); // NOI18N
-        btnReset.setText("Làm mới");
-        btnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnResetActionPerformed(evt);
-            }
-        });
+//        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8_reset_25px_1.png"))); // NOI18N
+//        btnReset.setText("Làm mới");
+//        btnReset.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+//        btnReset.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                btnResetActionPerformed(evt);
+//            }
+//        });
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)), "Lọc"));
@@ -422,34 +426,45 @@ public class GioHang extends javax.swing.JInternalFrame {
                 jComboBox2VetoableChange(evt);
             }
         });
-
+        jComboBoxWeight.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+                "Mặc định", "Khối lượng cao -> thấp", "Khối lượng thấp -> cao"
+        }));
+        
         jButton3.setText("Lọc");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-
+        jButtonWeight.setText("Lọc");
+        jButtonWeight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonWeightActionPerformed(evt); // Gọi sự kiện lọc
+            }
+        });
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE) // Thêm ComboBoxWeight
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE) // Thêm ButtonWeight
+                                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
-                .addContainerGap())
+                jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonWeight, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -459,7 +474,7 @@ public class GioHang extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(txtSearch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                //.addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -469,8 +484,8 @@ public class GioHang extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                   // .addComponent(btnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -561,6 +576,62 @@ public class GioHang extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonWeightActionPerformed(java.awt.event.ActionEvent evt) {
+        filterProducts();
+        String luaChon = jComboBoxWeight.getSelectedItem().toString(); // Lấy lựa chọn từ ComboBox
+        List<Product> result = Run.ProductTree.getInOrderList(); // Lấy danh sách sản phẩm
+
+        switch (luaChon) {
+            case "Mặc định":
+                break;
+            case "Khối lượng cao -> thấp":
+                result.sort((p1, p2) -> {
+                    try {
+                        double weight1 = convertToGrams(p1.getThanhPhan()); // Chuyển đổi khối lượng
+                        double weight2 = convertToGrams(p2.getThanhPhan());
+                        return Double.compare(weight2, weight1); // So sánh giảm dần
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Lỗi dữ liệu: " + e.getMessage());
+                        return 0;
+                    }
+                });
+                break;
+            case "Khối lượng thấp -> cao":
+                result.sort((p1, p2) -> {
+                    try {
+                        double weight1 = convertToGrams(p1.getThanhPhan());
+                        double weight2 = convertToGrams(p2.getThanhPhan());
+                        return Double.compare(weight1, weight2); // So sánh tăng dần
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Lỗi dữ liệu: " + e.getMessage());
+                        return 0;
+                    }
+                });
+                break;
+        }
+
+        loadDataToTableSearch(result); // Cập nhật dữ liệu vào bảng
+    }
+
+    private double convertToGrams(String thanhPhan) {
+        thanhPhan = thanhPhan.toLowerCase().trim(); // Đưa chuỗi về chữ thường và loại bỏ khoảng trắng
+
+        double value = 0;
+        if (thanhPhan.endsWith("kg")) {
+            value = Double.parseDouble(thanhPhan.replace("kg", "").trim()) * 1000; // Chuyển từ kg sang gram
+        } else if (thanhPhan.endsWith("g")) {
+            value = Double.parseDouble(thanhPhan.replace("g", "").trim()); // Chuyển đổi từ gram
+        } else {
+            throw new IllegalArgumentException("Đơn vị không hợp lệ trong khoiLuong: " + thanhPhan);
+        }
+
+        return value;
+    }
+
+
+
+
 
     private void btnNhapHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapHangActionPerformed
         if (CTPhieu.isEmpty()) { 
@@ -777,17 +848,77 @@ public class GioHang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        filterProducts();
         DefaultTableModel tblsp = (DefaultTableModel) tblSanPham.getModel();
+        
 
         String textSearch = txtSearch.getText();
 
         loadDataToTableSearch(Run.ProductTree.search(textSearch));
     }//GEN-LAST:event_txtSearchKeyReleased
 
-    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        txtSearch.setText("");
-        loadDataToTableProduct(Run.ProductTree);
-    }//GEN-LAST:event_btnResetActionPerformed
+    private void filterProducts() {
+        String searchKeyword = txtSearch.getText().toLowerCase().trim(); // Lấy từ khóa tìm kiếm
+        String priceOption = jComboBox2.getSelectedItem().toString(); // Lấy lựa chọn lọc giá
+        String weightOption = jComboBoxWeight.getSelectedItem().toString(); // Lấy lựa chọn lọc khối lượng
+
+        // Lấy danh sách sản phẩm ban đầu
+        List<Product> products = Run.ProductTree.getInOrderList();
+
+        // 1. Lọc theo từ khóa tìm kiếm
+        if (!searchKeyword.isEmpty()) {
+            products = products.stream()
+                    .filter(p -> p.getTenSanPham().toLowerCase().contains(searchKeyword))
+                    .toList();
+        }
+
+        // 2. Lọc theo giá
+        switch (priceOption) {
+            case "Giá cao -> thấp":
+                products.sort((p1, p2) -> Double.compare(p2.getGiaTien(), p1.getGiaTien()));
+                break;
+            case "Giá thấp -> cao":
+                products.sort((p1, p2) -> Double.compare(p1.getGiaTien(), p2.getGiaTien()));
+                break;
+        }
+
+        // 3. Lọc theo khối lượng
+        switch (weightOption) {
+            case "Khối lượng cao -> thấp":
+                products.sort((p1, p2) -> {
+                    try {
+                        double weight1 = convertToGrams(p1.getThanhPhan());
+                        double weight2 = convertToGrams(p2.getThanhPhan());
+                        return Double.compare(weight2, weight1);
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Lỗi dữ liệu: " + e.getMessage());
+                        return 0;
+                    }
+                });
+                break;
+            case "Khối lượng thấp -> cao":
+                products.sort((p1, p2) -> {
+                    try {
+                        double weight1 = convertToGrams(p1.getThanhPhan());
+                        double weight2 = convertToGrams(p2.getThanhPhan());
+                        return Double.compare(weight1, weight2);
+                    } catch (IllegalArgumentException e) {
+                        System.err.println("Lỗi dữ liệu: " + e.getMessage());
+                        return 0;
+                    }
+                });
+                break;
+        }
+
+        // Hiển thị kết quả đã lọc
+        loadDataToTableSearch(products);
+    }
+
+
+//    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+//        txtSearch.setText("");
+//        loadDataToTableProduct(Run.ProductTree);
+//    }//GEN-LAST:event_btnResetActionPerformed
 
     private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
         // TODO add your handling code here:
@@ -811,7 +942,9 @@ public class GioHang extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnDetailActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {
+        filterProducts();
+    //GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
