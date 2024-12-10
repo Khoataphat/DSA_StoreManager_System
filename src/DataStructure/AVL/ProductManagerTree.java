@@ -261,6 +261,12 @@ public class ProductManagerTree {
 
         return root.size();
     }
+    public Product find(String key) {
+        // Lấy node dựa trên key
+        ProductNode node = get(key);
+        // Trả về đối tượng Product của node, hoặc null nếu không tìm thấy
+        return node != null ? node.getProduct() : null;
+    }
 
     /* @description:
         - Đây là hàm quan trọng cần được thực hiện trước mỗi lần add(...) vì nếu trong cây đã có node chứa key đó thì việc thêm vào một giá trị tương tự là không cần thiết.

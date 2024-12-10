@@ -339,7 +339,7 @@ public class Run {
             FileWriter fw = new FileWriter("src\\Database\\FileDataProduct_CannedFood.txt");
             fw.write("");
             for (Product product : ProductData) {
-                fw.write(product.getMaSanPham() + "\n" + product.getTenSanPham() + "\n" + product.getSoLuong() + "\n" + product.getGiaTien() + "\n" + product.getNgaySanXuat() + "\n" + product.getHanSuDung() + "\n" + product.getKhoiLuong() + "\n" + product.getThanhPhan() + "\n");
+                fw.write(product.getMaSanPham() + "\n" + product.getTenSanPham() + "\n" + product.getSoLuong() + "\n" + product.getGiaTien() + "\n" + product.getNgaySanXuat() + "\n" + product.getHanSuDung() + "\n" + product.getKhoiLuong() + "\n" + product.getThanhPhan() + "\n" + product.getNgayNhapKho() + "\n" + product.getSoNgayGiaoHang() + "\n");
             }
             fw.close();
         } catch (IOException e) {
@@ -418,8 +418,9 @@ public class Run {
             for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
                 String productName = ctPhieu.getTenSanPham();
                 int boughtQuantity = ctPhieu.getSoLuong();
-
-                totalBoughtQuantities.put(productName, totalBoughtQuantities.getOrDefault(productName, 0) + boughtQuantity);
+                if ( phieu.getTracking() == 6) {
+                    totalBoughtQuantities.put(productName, totalBoughtQuantities.getOrDefault(productName, 0) + boughtQuantity);
+                }
             }
         }
 

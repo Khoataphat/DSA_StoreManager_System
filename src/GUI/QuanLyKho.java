@@ -85,7 +85,7 @@ public class QuanLyKho extends javax.swing.JFrame {
     private void initComponents() {
 
         NavbarMenu = new javax.swing.JPanel();
-        SanPham = new javax.swing.JPanel();
+        PhieuHuy = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         DangXuat = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -376,13 +376,13 @@ public class QuanLyKho extends javax.swing.JFrame {
         NavbarMenu.setLayout(new BoxLayout(NavbarMenu, BoxLayout.Y_AXIS));
 
         // SanPham Panel
-        SanPham.setBackground(new Color(204, 204, 255));
-        SanPham.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        SanPham.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        SanPham.setPreferredSize(new Dimension(240, 1));
-        SanPham.addMouseListener(new MouseAdapter() {
+        PhieuHuy.setBackground(new Color(204, 204, 255));
+        PhieuHuy.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        PhieuHuy.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        PhieuHuy.setPreferredSize(new Dimension(240, 1));
+        PhieuHuy.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent evt) {
-                SanPhamMouseClicked(evt);
+                PhieuHuyMouseClicked(evt);
             }
         });
 
@@ -441,17 +441,16 @@ public class QuanLyKho extends javax.swing.JFrame {
         ThongKe.add(jLabel13, BorderLayout.CENTER);
         NavbarMenu.add(ThongKe);
         NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
-/*
+
         jLabel1.setFont(new Font("SF Pro Display", Font.BOLD, 18));
         jLabel1.setForeground(Color.WHITE);
-        jLabel1.setText("Lịch sử bán");
+        jLabel1.setText("Đơn hàng bị hủy");
 
-        SanPham.setLayout(new BorderLayout());
-        SanPham.add(jLabel1, BorderLayout.CENTER);
-        NavbarMenu.add(SanPham);
+        PhieuHuy.setLayout(new BorderLayout());
+        PhieuHuy.add(jLabel1, BorderLayout.CENTER);
+        NavbarMenu.add(PhieuHuy);
         NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách giữa các nút
 
- */
 
         // Change Info Panel
         changeInfo.setBackground(new Color(204, 204, 255));
@@ -509,13 +508,13 @@ public class QuanLyKho extends javax.swing.JFrame {
 
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SanPhamMouseClicked
-        LichSuBan ac = new LichSuBan(currentAcc);
+    private void PhieuHuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuHuyMouseClicked
+        PhieuHuy ac = new PhieuHuy(currentAcc);
         MainContent.removeAll();
         MainContent.add(ac).setVisible(true);
-    }//GEN-LAST:event_SanPhamMouseClicked
+    }//GEN-LAST:event_PhieuHuyMouseClicked
 
-    private void SanPhamMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SanPhamMousePressed
+    private void PhieuHuyMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuHuyMousePressed
 
     }//GEN-LAST:event_SanPhamMousePressed
 
@@ -639,7 +638,7 @@ public class QuanLyKho extends javax.swing.JFrame {
     private javax.swing.JPanel MainContent;
     private javax.swing.JLabel NameUser;
     private javax.swing.JPanel NavbarMenu;
-    private javax.swing.JPanel SanPham;
+    private javax.swing.JPanel PhieuHuy;
     private javax.swing.JPanel SanPham1;
     private javax.swing.JPanel changeInfo;
     private javax.swing.JLabel jLabel1;

@@ -1,9 +1,9 @@
 Bánh Hỏi Tây Ninh
-1
+3
 Bánh Kẹo Tây Ninh
-2
+1
 Bánh Tráng Tây Ninh
-6
+2
 Bánh Xèo Tây Ninh
 6
 Chè Bắp Tây Ninh

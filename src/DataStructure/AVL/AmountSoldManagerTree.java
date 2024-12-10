@@ -208,6 +208,12 @@ public class AmountSoldManagerTree {
 
         return root.findMax().getAmountSold();
     }
+    public AmountSold find(String key) {
+        // Lấy node dựa trên key
+        AmountSoldNode node = get(key);
+        // Trả về đối tượng AmountSold của node, hoặc null nếu không tìm thấy
+        return node != null ? node.getAmountSold() : null;
+    }
 
     public int size() {
         if (isEmpty()) {
@@ -216,6 +222,7 @@ public class AmountSoldManagerTree {
 
         return root.size();
     }
+
 
     public boolean isContain(String key) {
         return isContain(root, key);

@@ -192,12 +192,12 @@ public class GioHang extends javax.swing.JInternalFrame {
 
     //check giảm giá, nếu nằm đầu hàng đợi thì giảm giá
     public double checkOnSale(String tenSanPham) {
-
-        if(Run.queueSale.top().getValue().getTenSanPham().equals(tenSanPham)) {
+        // Kiểm tra nếu top() trả về null
+        if (Run.queueSale.top() != null && Run.queueSale.top().getValue().getTenSanPham().equals(tenSanPham)) {
             return 0.8;
-        } else return 1.0;
-
-        //return 1.0;
+        } else {
+            return 1.0;
+        }
     }
   
 
@@ -680,17 +680,12 @@ public class GioHang extends javax.swing.JInternalFrame {
                             txtAddress.getText(),
                             currentAcc.getUser(),
                             danhSachChiTiet,
-                            tongTien
+                            tongTien,
+                            1
                     );
 
                     // Thêm phiếu vào cây quản lý phiếu
                     Run.PhieuMuaTree.add(currentAcc.getUser(), phieu);
-
-                    //<-----
-                    // Cập nhật trạng thái tracking
-                    phieu.setTracking(1); // Đặt giá trị tracking bằng 1
-                    //<-----
-
 
                     // Ghi dữ liệu phiếu mua vào file
                     Run.WriteDataPhieuMua();
@@ -717,8 +712,8 @@ public class GioHang extends javax.swing.JInternalFrame {
                     txtSoLuong.setText("1");                                        // đưa giao diện giỏ hàng về mặc định 
                     textTongTien.setText(0 + "đ");                                    // đưa giao diện giỏ hàng về mặc định
                 } catch (Exception e) {
-                    JOptionPane.showConfirmDialog(this, "Đã xảy ra lỗi !");
-                }
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);                }
 
             }
         } else {

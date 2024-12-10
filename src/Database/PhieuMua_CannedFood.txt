@@ -32,7 +32,7 @@ Nước Mắm Tây Ninh
 15000.0
 13
 banh
-2
+7
 Bánh Kẹo Tây Ninh
 1
 15000.0
@@ -49,6 +49,39 @@ Chè Bắp Tây Ninh
 Trứng Muối Tây Ninh
 1
 25000.0
+------
+2024-12-09 08:53:06.691
+123
+18000.0
+testcase
+banh
+1
+Bánh Hỏi Tây Ninh
+1
+18000.0
+------
+2024-12-09 08:58:41.573
+123
+18000.0
+testcase1
+banh
+7
+Bánh Hỏi Tây Ninh
+1
+18000.0
+------
+2024-12-09 09:08:44.132
+123
+48000.0
+testcase2
+banh
+7
+Bánh Hỏi Tây Ninh
+1
+18000.0
+Bánh Xèo Tây Ninh
+1
+30000.0
 ------
 2024-12-03 12:39:44.859
 23
@@ -68,7 +101,7 @@ Mắm Tôm Tây Ninh
 154000.0
 13
 khoa
-6
+7
 Chả Giò Tây Ninh
 1
 35000.0
@@ -84,7 +117,7 @@ Muối Ớt Tây Ninh
 1.0E7
 23
 khoa
-6
+7
 Đăng Khoa
 1
 1.0E7
@@ -114,7 +147,7 @@ Bánh Xèo Tây Ninh
 75000.0
 KTX
 khoa
-1
+7
 Bánh Tráng Tây Ninh
 5
 15000.0
@@ -145,12 +178,32 @@ Trứng Muối Tây Ninh
 1
 25000.0
 ------
+2024-12-09 08:37:50.809
+1
+15000.0
+1
+khoa
+1
+Bánh Tráng Tây Ninh
+1
+15000.0
+------
+2024-12-09 08:47:25.352
+0123
+30000.0
+test
+khoa
+7
+Bánh Xèo Tây Ninh
+1
+30000.0
+------
 2024-12-03 18:34:52.714
 0000833
 50000.0
 nhà chị Hồng
 kou
-6
+7
 Trứng Muối Tây Ninh
 1
 25000.0

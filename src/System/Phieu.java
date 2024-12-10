@@ -34,15 +34,6 @@ public class Phieu {
         this.tracking = tracking;
     }
     //<--------
-    public Phieu(Timestamp thoiGianTao, String phone, String address,String user,List<ChiTietPhieu> chitietphieu, double tongTien) {
-        this.thoiGianTao = thoiGianTao;
-        this.phone = phone;
-        this.address = address;
-        this.username = user;
-        this.phieu = chitietphieu;
-        this.tongTien = tongTien;
-    }
-
     public Phieu(int tracking) {
         this.tracking = tracking;
     }
@@ -124,6 +115,8 @@ public class Phieu {
                 return "Đã nhận hàng";
             case 6:
                 return "Đã hủy";
+            case 7:
+                return "Đã hoàn hàng về kho";
             default:
                 return "Đang chờ xử lý";
         }
