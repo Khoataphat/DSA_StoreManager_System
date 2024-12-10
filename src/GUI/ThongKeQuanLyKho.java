@@ -238,6 +238,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
     private DefaultTableModel tblModel;
     private DefaultTableModel tblBestSellers;
     private DefaultTableModel tblCombinedWarning;
+    private DefaultTableModel tblPurchaseStatus;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public ThongKeQuanLyKho() {
@@ -258,6 +259,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         loadDataDoanhSo(lichsumua);
         loadDataBestSeller();
         checkStockAndExpiry();
+        loadDataPhieuMua();
     }
 
     public final void initTable() {
@@ -270,19 +272,19 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         tblModel = createTableModel(new String[]{"Tên sản phẩm", "Số lượng", "Tổng giá", "Số điện thoại", "Địa chỉ"});
         tblSanPham.setModel(tblModel);
         JScrollPane jScrollPane1 = new JScrollPane(tblSanPham);
-        tblSanPham.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        tblSanPham.setPreferredScrollableViewportSize(new Dimension(500, 150)); // Điều chỉnh kích thước
 
 // Khởi tạo bảng cho sản phẩm bán chạy
         tblBestSellers = createTableModel(new String[]{"Sản phẩm bán chạy", "Số lượng bán"});
         JTable tblBestSellersTable = new JTable(tblBestSellers);
         JScrollPane jScrollPane2 = new JScrollPane(tblBestSellersTable);
-        tblBestSellersTable.setPreferredScrollableViewportSize(new Dimension(300, 200));
+        tblBestSellersTable.setPreferredScrollableViewportSize(new Dimension(300, 150)); // Điều chỉnh kích thước
 
 // Khởi tạo bảng cho cảnh báo tồn kho
         tblCombinedWarning = createTableModel(new String[]{"Sản phẩm cần nhập", "Lý do"});
         JTable tblStockWarningTable = new JTable(tblCombinedWarning);
         JScrollPane jScrollPane3 = new JScrollPane(tblStockWarningTable);
-        tblStockWarningTable.setPreferredScrollableViewportSize(new Dimension(600, 200));
+        tblStockWarningTable.setPreferredScrollableViewportSize(new Dimension(600, 150)); // Điều chỉnh kích thước
 
 // Thêm các panel thông tin lên trên cùng
         gbc.gridx = 0;
@@ -307,7 +309,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         gbc.gridx = 0;
         gbc.gridy = 1; // Đặt xuống hàng dưới
         gbc.weightx = 1.0; // Chiếm toàn bộ không gian chiều rộng
-        gbc.weighty = 0.5; // Chiếm 50% không gian chiều cao
+        gbc.weighty = 0.4; // Chiếm 40% không gian chiều cao
         gbc.gridwidth = 3; // Chiếm toàn bộ chiều rộng
         jPanel1.add(jScrollPane1, gbc);
 
@@ -315,7 +317,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         gbc.gridx = 0;
         gbc.gridy = 2; // Đặt xuống hàng dưới
         gbc.weightx = 0.5; // Chiếm 50% không gian cho bảng sản phẩm bán chạy
-        gbc.weighty = 0.25; // Chiếm 25% không gian cho chiều cao
+        gbc.weighty = 0.2; // Chiếm 20% không gian cho chiều cao
         gbc.gridwidth = 1; // Chiếm 1 cột
         jPanel1.add(jScrollPane2, gbc);
 
@@ -323,9 +325,23 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         gbc.gridx = 1;
         gbc.gridy = 2; // Cùng hàng với bảng sản phẩm bán chạy
         gbc.weightx = 0.5; // Chiếm 50% không gian cho bảng cảnh báo tồn kho
-        gbc.weighty = 0.25; // Chiếm 25% không gian cho chiều cao
+        gbc.weighty = 0.2; // Chiếm 20% không gian cho chiều cao
         gbc.gridwidth = 1; // Chiếm 1 cột
         jPanel1.add(jScrollPane3, gbc);
+
+// Khởi tạo bảng cho trạng thái phiếu mua
+        tblPurchaseStatus = createTableModel(new String[]{" ", "Trạng thái"});
+        JTable tblPurchaseStatusTable = new JTable(tblPurchaseStatus);
+        JScrollPane jScrollPanePurchaseStatus = new JScrollPane(tblPurchaseStatusTable);
+        tblPurchaseStatusTable.setPreferredScrollableViewportSize(new Dimension(300, 150)); // Điều chỉnh kích thước
+
+// Thiết lập vị trí cho bảng trạng thái phiếu mua
+        gbc.gridx = 0;
+        gbc.gridy = 3; // Đặt xuống hàng dưới
+        gbc.weightx = 1.0; // Chiếm toàn bộ không gian chiều rộng
+        gbc.weighty = 0.5; // Chiếm 50% không gian chiều cao
+        gbc.gridwidth = 3; // Chiếm toàn bộ chiều rộng
+        jPanel1.add(jScrollPanePurchaseStatus, gbc);
 
 
     }
@@ -465,6 +481,63 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
                 });
             }
         }
+    }
+
+    public void loadDataPhieuMua(){
+        List<Phieu> phieuList = Run.PhieuMuaTree.getInOrderList(); // Lấy danh sách phiếu mua
+        tblPurchaseStatus.setRowCount(0); // Đặt lại dữ liệu bảng
+
+        int soDonDaNhan = 0;
+        int soDonBiHuy = 0;
+        int soDonChoXuLy = 0;
+        int soDonDaDuocXacNhan = 0;
+        int soDonDangChuanBi = 0;
+        int soDonDangVanChuyen = 0;
+
+        // Đếm trạng thái đơn hàng
+        for (Phieu phieu : phieuList) {
+            String status = phieu.getTrackingStatus();
+            switch (status) {
+                case "Đã nhận hàng":
+                    soDonDaNhan++;
+                    break;
+                case "Đã hủy":
+                    soDonBiHuy++;
+                    break;
+                case "Đang chờ xử lý":
+                    soDonChoXuLy++;
+                    break;
+                case "Đã được xác nhận":
+                    soDonDaDuocXacNhan++;
+                    break;
+                case "Đang chuẩn bị":
+                    soDonDangChuanBi++;
+                    break;
+                case "Đang vận chuyển":
+                    soDonDangVanChuyen++;
+                    break;
+            }
+        }
+
+        // Thêm một dòng tổng hợp trạng thái đơn hàng
+        tblPurchaseStatus.addRow(new Object[]{
+                "Tổng số đơn đã nhận:", soDonDaNhan
+        });
+        tblPurchaseStatus.addRow(new Object[]{
+                "Tổng số đơn đã hủy:", soDonBiHuy
+        });
+        tblPurchaseStatus.addRow(new Object[]{
+                "Số đơn đang chờ xử lý:", soDonChoXuLy
+        });
+        tblPurchaseStatus.addRow(new Object[]{
+                "Số đơn đã được xác nhận:", soDonDaDuocXacNhan
+        });
+        tblPurchaseStatus.addRow(new Object[]{
+                "Số đơn đang chuẩn bị:", soDonDangChuanBi
+        });
+        tblPurchaseStatus.addRow(new Object[]{
+                "Số đơn đang vận chuyển:", soDonDangVanChuyen
+        });
     }
 
 //<-----
