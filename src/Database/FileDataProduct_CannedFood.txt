@@ -98,14 +98,24 @@ Cá, Muối, Gia Vị,...
 500g
 2023-11-21
 11
-UTFH
-Sửa Ông Thọ
+UTFH12
+Sữa Ông Thọ
 100
 1.0E7
 2003-10-04
 2025-01-01
-Sửa Cô Gái Hà Lan
-50kg
+Đường, sữa bột, chất béo sữa, whey bột, dầu thực vật, lactoza, lecithin đậu nành, ...
+400g
+2023-11-21
+11
+TH19
+Sữa Cô Gái Hà Lan
+0
+25000.0
+2023-11-21
+2025-01-01
+Vitamin nhóm B, Canxi, Carbonhydrates, Magie, Phốt pho, Kali, Protein, Riboflavin , Kẽm, ...
+14g
 2023-11-21
 11
 TH11
@@ -134,7 +144,7 @@ BHR4
 1.0E7
 2003-10-04
 2223-10-04
-Con người
+Máu, Tóc, Móng, Da,...
 50kg
 2023-11-21
 11

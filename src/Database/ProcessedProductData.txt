@@ -1,0 +1,101 @@
+Bánh Hỏi Tây Ninh
+    Bánh Hỏi
+    Thịt Heo
+    Hành Phi
+    ...
+
+Bánh Kẹo Tây Ninh
+    Đường
+    Bột Gạo
+    Đậu
+    ...
+
+Bánh Tráng Tây Ninh
+    Bánh Tráng
+    Đường
+    Dừa Nạo
+    ...
+
+Bánh Xèo Tây Ninh
+    Bột Gạo
+    Thịt
+    Tôm
+    Rau
+    ...
+
+Chè Bắp Tây Ninh
+    Bắp
+    Đường
+    Nước Cốt Dừa
+    ...
+
+Chả Giò Tây Ninh
+    Thịt
+    Bánh Tráng
+    Rau
+    ...
+
+Gỏi Cuốn Tây Ninh
+    Bánh Tráng
+    Tôm
+    Rau
+    Thịt
+    ...
+
+Muối Ớt Tây Ninh
+    Muối
+    Ớt
+    Bột Ngọt
+    ...
+
+Mắm Tôm Tây Ninh
+    Mắm Tôm
+    Gia Vị
+    ...
+
+Nước Mắm Tây Ninh
+    Cá
+    Muối
+    Gia Vị
+    ...
+
+Sữa Ông Thọ
+    Đường
+    sữa bột
+    chất béo sữa
+    whey bột
+    dầu thực vật
+    lactoza
+    lecithin đậu nành
+    ...
+
+Sữa Cô Gái Hà Lan
+    Vitamin nhóm B
+    Canxi
+    Carbonhydrates
+    Magie
+    Phốt pho
+    Kali
+    Protein
+    Riboflavin
+    Kẽm
+    ...
+
+Trứng Muối Tây Ninh
+    Trứng
+    Muối
+    Gia Vị
+    ...
+
+Xôi Gấc Tây Ninh
+    Gạo
+    Gấc
+    Đậu Phộng
+    ...
+
+Đăng Khoa
+    Máu
+    Tóc
+    Móng
+    Da
+    ...

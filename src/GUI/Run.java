@@ -2,13 +2,12 @@
 package GUI;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -190,35 +189,64 @@ public class Run {
             System.out.println("ReadDataProduct???");
         }
     }
-     public static void addProduct(ProductManagerTree tree, Scanner scanner) {
-         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-         while (scanner.hasNext()) {
-            String maSanPham = scanner.nextLine();
-            String tenSanPham = scanner.nextLine();
-            String soLuong = scanner.nextLine();
-            String donGia = scanner.nextLine();
-            //LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
-            //LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
-             String ngaySanXuat = scanner.nextLine();
-             String hanSuDung = scanner.nextLine();
-            String thanhPhan = scanner.nextLine();
-            String khoiLuong = scanner.nextLine();
-            //LocalDate ngayNhapKHo = LocalDate.parse(scanner.nextLine(), formatter);
-             String ngayNhapKHo = scanner.nextLine();
-            String soNgayGiaoHang = scanner.nextLine();
+    public static void addProduct(ProductManagerTree tree, Scanner scanner) {
+        while (scanner.hasNext()) {
+            try {
+                String maSanPham = scanner.nextLine();
+                String tenSanPham = scanner.nextLine();
+                int soLuong = Integer.parseInt(scanner.nextLine());
+                double donGia = Double.parseDouble(scanner.nextLine());
 
-            Product a = new Product(maSanPham, tenSanPham, Integer.parseInt(soLuong), Double.parseDouble(donGia), ngaySanXuat, hanSuDung, thanhPhan, khoiLuong, ngayNhapKHo, Integer.parseInt(soNgayGiaoHang));
+                // Xử lý ngày sản xuất
+                String ngaySanXuatString = scanner.nextLine().trim();
+                LocalDate ngaySanXuat = null;
+                try {
+                    ngaySanXuat = LocalDate.parse(ngaySanXuatString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    System.out.println("Ngày sản xuất: " + ngaySanXuat);
+                } catch (DateTimeParseException e) {
+                    System.err.println("Lỗi chuyển đổi ngày sản xuất: " + e.getMessage());
+                }
 
-            tree.add(a.getTenSanPham(), a);
+                // Xử lý hạn sử dụng
+                String hanSuDungString = scanner.nextLine().trim();
+                LocalDate hanSuDung = null;
+                try {
+                    hanSuDung = LocalDate.parse(hanSuDungString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    System.out.println("Hạn sử dụng: " + hanSuDung);
+                } catch (DateTimeParseException e) {
+                    System.err.println("Lỗi chuyển đổi hạn sử dụng: " + e.getMessage());
+                }
 
+                String thanhPhan = scanner.nextLine();
+                String khoiLuong = scanner.nextLine();
+                String ngayNhapKhoString = scanner.nextLine().trim();
+                LocalDate ngayNhapKho = null;
+                try {
+                    ngayNhapKho = LocalDate.parse(ngayNhapKhoString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    System.out.println("Ngày nhập kho: " + ngayNhapKho);
+                } catch (DateTimeParseException e) {
+                    System.err.println("Lỗi chuyển đổi ngày nhập kho: " + e.getMessage());
+                }
+
+                int soNgayGiaoHang = Integer.parseInt(scanner.nextLine());
+
+                Product a = new Product(maSanPham, tenSanPham, soLuong, donGia,
+                        ngaySanXuat.toString(), hanSuDung.toString(), thanhPhan, khoiLuong,
+                        ngayNhapKho.toString(), soNgayGiaoHang);
+
+                tree.add(a.getTenSanPham(), a);
+
+            } catch (NumberFormatException e) {
+                System.err.println("Lỗi khi chuyển đổi số: " + e.getMessage());
+            } catch (Exception e) {
+                System.err.println("Lỗi khi đọc sản phẩm: " + e.getMessage());
+            }
         }
-
-        System.out.println("-Size - Product: " + tree.size());
-        tree.printTree();
     }
-     
-     
-     // đọc dữ liệu lượng bán ra từ file text và add vào cây AmountSold
+
+
+
+    // đọc dữ liệu lượng bán ra từ file text và add vào cây AmountSold
      
      public static void ReadDataAmountSold() throws FileNotFoundException, IOException {
         Scanner scanner;
@@ -462,7 +490,73 @@ public class Run {
 
         Login login = new Login(); 
         login.setVisible(true);   // khởi tạo jframe Login
+        String inputFilePath = "src/Database/FileDataProduct_CannedFood.txt"; // Đường dẫn file gốc
+        String outputFilePath = "src/Database/ProcessedProductData.txt";     // Đường dẫn file kết quả
+        try {
+            processProducts(inputFilePath, outputFilePath);
+            System.out.println("Dữ liệu đã được xử lý và lưu vào file: " + outputFilePath);
+        } catch (IOException e) {
+            System.err.println("Lỗi xử lý file: " + e.getMessage());
+        }
+    }
 
-        
+    /**
+     * Xử lý sản phẩm và ghi ra file kết quả
+     *
+     * @param inputPath  Đường dẫn file đầu vào
+     * @param outputPath Đường dẫn file đầu ra
+     * @throws IOException Nếu có lỗi trong quá trình xử lý
+     */
+    public static void processProducts(String inputPath, String outputPath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputPath));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
+
+            String line;
+            String currentProduct = null;
+
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+
+                if (line.isEmpty()) {
+                    continue; // Bỏ qua dòng trống
+                }
+
+                // Nếu là tên sản phẩm
+                if (isProductName(line)) {
+                    // Ghi tên sản phẩm
+                    if (currentProduct != null) {
+                        writer.write("\n");
+                    }
+                    currentProduct = line;
+                    writer.write(currentProduct + "\n");
+                } else if (isIngredientsLine(line)) {
+                    // Tách thành phần và ghi
+                    String[] ingredients = line.split(","); // Thành phần phân cách bằng dấu phẩy
+                    for (String ingredient : ingredients) {
+                        writer.write("    " + ingredient.trim() + "\n");
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Xác định nếu dòng là tên sản phẩm
+     *
+     * @param line Dòng cần kiểm tra
+     * @return true nếu dòng là tên sản phẩm
+     */
+    private static boolean isProductName(String line) {
+        return Character.isUpperCase(line.charAt(0)) && !line.contains(",") && !line.matches(".*\\d.*");
+    }
+
+    /**
+     * Xác định nếu dòng là thành phần
+     *
+     * @param line Dòng cần kiểm tra
+     * @return true nếu dòng chứa thành phần
+     */
+    private static boolean isIngredientsLine(String line) {
+        return line.contains(",") && !line.matches(".*\\d.*"); // Thành phần chứa dấu phẩy, không chứa số
     }
 }
