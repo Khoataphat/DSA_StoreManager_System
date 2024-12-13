@@ -2,6 +2,7 @@
 package GUI;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -386,6 +387,7 @@ public class GioHang extends javax.swing.JInternalFrame {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         txtSearch1.setToolTipText("Nhập thành phần cần tìm");
+
         btnSearchComponent.setText("Tìm thành phần");
         btnSearchComponent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -393,27 +395,26 @@ public class GioHang extends javax.swing.JInternalFrame {
             }
 
             private void btnSearchComponentActionPerformed(java.awt.event.ActionEvent evt) {
-                String component = txtSearch1.getText().trim().toLowerCase();
-                if (component.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Vui lòng nhập thành phần cần tìm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                String components = txtSearch1.getText().trim().toLowerCase();
+                if (components.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập các thành phần cần tìm!", "Thông báo", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
-                // Tìm sản phẩm theo thành phần
-                List<Product> result = searchProductsByComponent(component);
+                // Gọi hàm tìm kiếm sử dụng đồ thị
+                List<Product> result = Run.searchProductsByComponentsInGraph(components, Run.productGraph, Run.ProductTree.getInOrderList());
                 if (result.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Không tìm thấy sản phẩm chứa thành phần: " + component, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Không tìm thấy sản phẩm chứa các thành phần: " + components, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    loadDataToTableSearch(result);
+                    loadDataToTableSearch(result); // Hiển thị kết quả lên bảng
                 }
             }
-
             /**
-             * Tìm sản phẩm theo thành phần trong đồ thị
-             *
-             * @param component Thành phần cần tìm
-             * @return Danh sách sản phẩm chứa thành phần
-             */
+                     * Tìm sản phẩm theo thành phần trong đồ thị
+                     *
+                     * @param component Thành phần cần tìm
+                     * @return Danh sách sản phẩm chứa thành phần
+                     */
             /**
              * Tìm sản phẩm theo nhiều thành phần
              *
@@ -458,6 +459,24 @@ public class GioHang extends javax.swing.JInternalFrame {
 
 
         });
+        txtSearch1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearch1KeyReleased(evt);
+            }
+
+            private void txtSearch1KeyReleased(java.awt.event.KeyEvent evt) {
+                String textSearch = txtSearch1.getText().trim();
+
+                // Nếu ô tìm kiếm trống, load lại bảng dữ liệu chưa lọc
+                if (textSearch.isEmpty()) {
+                    loadDataToTableProduct(Run.ProductTree);  // Đây là cây sản phẩm gốc chưa bị lọc
+                } else {
+                    // Nếu ô tìm kiếm có giá trị, thực hiện tìm kiếm
+                    loadDataToTableSearch(Run.searchProductsByComponentsInGraph(textSearch, Run.productGraph, Run.ProductTree.getInOrderList()));
+                }
+            }
+        });
+
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -865,6 +884,7 @@ public class GioHang extends javax.swing.JInternalFrame {
 
         loadDataToTableSearch(Run.ProductTree.search(textSearch));
     }//GEN-LAST:event_txtSearchKeyReleased
+
 
 
 //    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed

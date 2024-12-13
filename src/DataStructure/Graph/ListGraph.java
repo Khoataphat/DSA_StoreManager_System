@@ -8,10 +8,21 @@ import java.util.*;
  */
 
 public class ListGraph extends AbstractGraph {
+  private Map<Integer, String> vertexNames = new HashMap<>();
 
   // Data Field
   /** An array of Lists to contain the edges that
       originate with each vertex. */
+  public void addVertex(int vertex, String name) {
+    if (!vertexNames.containsKey(vertex)) {
+      vertexNames.put(vertex, name);
+      System.out.println("Đã thêm tên \"" + name + "\" cho đỉnh: " + vertex);
+    }
+  }
+  public String getVertexName(int vertex) {
+    return vertexNames.getOrDefault(vertex, ""); // Trả về tên hoặc chuỗi rỗng nếu không tìm thấy
+  }
+
   private List<Edge>[] edges;
 
   /** Construct a graph with the specified number of
@@ -19,6 +30,7 @@ public class ListGraph extends AbstractGraph {
       @param numV The number of vertices
       @param directed The directionality flag
    */
+
   public ListGraph(int numV, boolean directed) {
     super(numV, directed);
     edges = new List[numV];
@@ -33,8 +45,16 @@ public class ListGraph extends AbstractGraph {
       @return true if there is an edge from source to dest
    */
   public boolean isEdge(int source, int dest) {
-    return edges[source].contains(new Edge(source, dest));
+    // Kiểm tra nếu cạnh tồn tại trong danh sách các cạnh
+    for (Edge edge : edges[source]) {
+      if (edge.getDest() == dest) {
+        return true;
+      }
+    }
+    return false;
   }
+
+
 
   /** Insert a new edge into the graph.
       @param edge The new edge

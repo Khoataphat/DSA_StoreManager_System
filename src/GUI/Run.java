@@ -1,6 +1,8 @@
 
 package GUI;
 
+import DataStructure.Graph.Edge;
+import DataStructure.Graph.ListGraph;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import java.io.*;
@@ -40,6 +42,7 @@ public class Run {
     public static AmountSoldManagerTree AmountSoldTree = new AmountSoldManagerTree();
 
     public static SortedLinkedPriorityQueue<Integer, Product> queueSale = new SortedLinkedPriorityQueue();
+    public static ListGraph productGraph = new ListGraph(1000, false);
 
     public static void ReadDatatoQueue() throws FileNotFoundException, IOException {
         Scanner scanner;
@@ -47,7 +50,7 @@ public class Run {
 
             scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"));
             System.out.println();
-            addQueue(queueSale , scanner);
+            addQueue(queueSale, scanner);
             //Thêm sản phẩm mẫu vào hàng đợi
 
             //in ra hàng đợi
@@ -74,7 +77,7 @@ public class Run {
                 String donGia = scanner.nextLine();
                 //LocalDate ngaySanXuat = LocalDate.parse(scanner.nextLine(), formatter);
                 //LocalDate hanSuDung = LocalDate.parse(scanner.nextLine(), formatter);
-                String ngaySanXuat  = scanner.nextLine();
+                String ngaySanXuat = scanner.nextLine();
                 String hanSuDung = scanner.nextLine();
                 String thanhPhan = scanner.nextLine();
                 String khoiLuong = scanner.nextLine();
@@ -177,18 +180,20 @@ public class Run {
         System.out.println("- Size - Phieu Mua: " + tree.size());
         tree.printTree();
     }
-//đọc dữ liệu Product và add vào cây product
+
+    //đọc dữ liệu Product và add vào cây product
     public static void ReadDataProduct() {
         Scanner scanner;
         try {
             scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"));
             System.out.println();
-            addProduct(ProductTree, scanner);
-
+            addProduct(ProductTree, scanner); // Vẫn giữ cây
+            convertTreeToGraph(ProductTree, productGraph); // Chuyển sang đồ thị
         } catch (FileNotFoundException e) {
             System.out.println("ReadDataProduct???");
         }
     }
+
     public static void addProduct(ProductManagerTree tree, Scanner scanner) {
         while (scanner.hasNext()) {
             try {
@@ -245,10 +250,9 @@ public class Run {
     }
 
 
-
     // đọc dữ liệu lượng bán ra từ file text và add vào cây AmountSold
-     
-     public static void ReadDataAmountSold() throws FileNotFoundException, IOException {
+
+    public static void ReadDataAmountSold() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
             scanner = new Scanner(new File("src\\Database\\AmountSold_CannedFood.txt"));
@@ -259,7 +263,8 @@ public class Run {
             System.out.println("ReadDataAmountSold???");
         }
     }
-     public static void addAmountSold(AmountSoldManagerTree tree, Scanner scanner) {
+
+    public static void addAmountSold(AmountSoldManagerTree tree, Scanner scanner) {
 
         while (scanner.hasNext()) {
             String mamay = scanner.nextLine();
@@ -276,13 +281,11 @@ public class Run {
         tree.printTree();
     }
 
-    
-     
-     //đọc dữ liệu account từ file text và add vào cây Account
-     
-     
-     
-     public static void ReadDataAccount() throws FileNotFoundException, IOException {
+
+    //đọc dữ liệu account từ file text và add vào cây Account
+
+
+    public static void ReadDataAccount() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
             scanner = new Scanner(new File("src\\Database\\FileDataAccount_CannedFood.txt"));
@@ -293,7 +296,7 @@ public class Run {
             System.out.println("ReadDataAccount???");
         }
     }
-     
+
     public static void addAccount(AccountManagerTree tree, Scanner scanner) {
 
         while (scanner.hasNext()) {
@@ -313,9 +316,8 @@ public class Run {
         tree.printTree();
     }
 
-   
 
-   // lấy dữ liệu từ cây Phiếu mua ghi ra file txt
+    // lấy dữ liệu từ cây Phiếu mua ghi ra file txt
 
 
     public static void WriteDataPhieuMua() throws FileNotFoundException, IOException {
@@ -358,8 +360,8 @@ public class Run {
 
 
     // lấy dữ liệu từ cây Product ghi ra file txt
-    
-    
+
+
     public static void WriteDataProduct() throws FileNotFoundException, IOException {
 
         try {
@@ -374,11 +376,11 @@ public class Run {
             System.out.println(e);
         }
     }
-    
-    
+
+
     // lấy dữ liệu từ cây Lượng bán ra ghi ra file txt
-    
-    
+
+
     public static void WriteDataAmountSold() throws FileNotFoundException, IOException {
 
         try {
@@ -386,7 +388,7 @@ public class Run {
             FileWriter fw = new FileWriter("src\\Database\\AmountSold_CannedFood.txt");
             fw.write("");
             for (AmountSold product : amountSold) {
-                fw.write(product.getMaMay() +  "\n"+product.getAmountSold()+"\n");
+                fw.write(product.getMaMay() + "\n" + product.getAmountSold() + "\n");
             }
             fw.close();
         } catch (IOException e) {
@@ -394,11 +396,10 @@ public class Run {
         }
     }
 
-    
+
     // lấy dữ liệu từ cây Account ghi ra file txt
-    
-    
-    
+
+
     public static void WriteDataAccount() throws FileNotFoundException, IOException {
         List<Account> AccountData = Run.AccountTree.getInOrderList();
         try {
@@ -414,7 +415,6 @@ public class Run {
         }
     }
 
-  
 
     private static <T> void print(List<T> list) {
         for (T t : list) {
@@ -438,7 +438,7 @@ public class Run {
     public static List<MismatchInfo> checkQuantityMatch() {
         List<MismatchInfo> mismatchedProducts = new ArrayList<>();
         HashMap<String, Integer> totalBoughtQuantities = new HashMap<>();
-        HashSet<String> checkedProducts = new HashSet<>();
+
         List<Phieu> phieuList = PhieuMuaTree.getInOrderList();
 
         // Tổng hợp số lượng mua cho mỗi sản phẩm
@@ -446,7 +446,7 @@ public class Run {
             for (ChiTietPhieu ctPhieu : phieu.getPhieu()) {
                 String productName = ctPhieu.getTenSanPham();
                 int boughtQuantity = ctPhieu.getSoLuong();
-                if ( phieu.getTracking() == 6) {
+                if (phieu.getTracking() == 6) {
                     totalBoughtQuantities.put(productName, totalBoughtQuantities.getOrDefault(productName, 0) + boughtQuantity);
                 }
             }
@@ -470,6 +470,90 @@ public class Run {
         return mismatchedProducts;
     }
 
+    public static void convertTreeToGraph(ProductManagerTree tree, ListGraph graph) {
+        List<Product> products = tree.getInOrderList();
+        Map<String, Integer> componentVertexMap = new HashMap<>();
+        int vertexIndex = 0;
+
+        // Thêm đỉnh sản phẩm
+        for (Product product : products) {
+            graph.addVertex(vertexIndex, product.getTenSanPham()); // Lưu tên sản phẩm vào đỉnh
+            vertexIndex++;
+        }
+
+        // Thêm đỉnh cho thành phần và tạo cạnh
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
+            String[] components = product.getKhoiLuong().toLowerCase().split(",");
+
+            for (String component : components) {
+                component = component.trim();
+                if (!componentVertexMap.containsKey(component)) {
+                    componentVertexMap.put(component, vertexIndex);
+                    graph.addVertex(vertexIndex, component); // Lưu tên thành phần vào đỉnh
+                    vertexIndex++;
+                }
+                graph.insert(new Edge(i, componentVertexMap.get(component), 1));
+            }
+        }
+    }
+
+
+
+    public static List<Product> searchProductsByComponentsInGraph(String componentsString, ListGraph graph, List<Product> products) {
+        // Tách các thành phần cần tìm
+        String[] searchComponents = componentsString.toLowerCase().trim().split(",");
+        List<Integer> componentVertices = new ArrayList<>();
+        List<Product> result = new ArrayList<>();
+
+        System.out.println("Các thành phần cần tìm: " + Arrays.toString(searchComponents));
+
+        // Tìm đỉnh tương ứng với từng thành phần
+        for (String component : searchComponents) {
+            component = component.trim();
+            boolean found = false;
+            for (int i = products.size(); i < graph.getNumV(); i++) { // Các đỉnh thành phần nằm sau đỉnh sản phẩm
+                if (component.equalsIgnoreCase(graph.getVertexName(i))) {
+                    componentVertices.add(i);
+                    System.out.println("Đã tìm thấy thành phần \"" + component + "\" tại đỉnh: " + i);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.out.println("Không tìm thấy thành phần: " + component);
+            }
+        }
+
+        if (componentVertices.isEmpty()) {
+            System.out.println("Không tìm thấy bất kỳ thành phần nào. Dừng tìm kiếm.");
+            return result; // Không có thành phần nào khớp
+        }
+
+        // Duyệt qua tất cả các sản phẩm để kiểm tra nếu sản phẩm chứa tất cả các thành phần
+        System.out.println("Bắt đầu duyệt qua các sản phẩm...");
+        for (int i = 0; i < products.size(); i++) {
+            boolean matchesAll = true;
+
+            for (int componentVertex : componentVertices) {
+                if (!graph.isEdge(i, componentVertex)) { // Nếu không có cạnh giữa sản phẩm và thành phần
+                    System.out.println("Sản phẩm \"" + products.get(i).getTenSanPham() + "\" không chứa thành phần tại đỉnh: " + componentVertex);
+                    matchesAll = false;
+                    break;
+                }
+            }
+
+            if (matchesAll) { // Nếu sản phẩm chứa tất cả thành phần
+                System.out.println("Sản phẩm khớp: " + products.get(i).getTenSanPham());
+                result.add(products.get(i));
+            }
+        }
+
+        System.out.println("Số sản phẩm khớp tìm thấy: " + result.size());
+        return result;
+    }
+
+
     public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
         ReadDataAccount(); // dọc dữ liệu
@@ -488,75 +572,8 @@ public class Run {
             return; // Dừng chương trình nếu có sản phẩm không khớp
         }
 
-        Login login = new Login(); 
+        Login login = new Login();
         login.setVisible(true);   // khởi tạo jframe Login
-        String inputFilePath = "src/Database/FileDataProduct_CannedFood.txt"; // Đường dẫn file gốc
-        String outputFilePath = "src/Database/ProcessedProductData.txt";     // Đường dẫn file kết quả
-        try {
-            processProducts(inputFilePath, outputFilePath);
-            System.out.println("Dữ liệu đã được xử lý và lưu vào file: " + outputFilePath);
-        } catch (IOException e) {
-            System.err.println("Lỗi xử lý file: " + e.getMessage());
-        }
-    }
 
-    /**
-     * Xử lý sản phẩm và ghi ra file kết quả
-     *
-     * @param inputPath  Đường dẫn file đầu vào
-     * @param outputPath Đường dẫn file đầu ra
-     * @throws IOException Nếu có lỗi trong quá trình xử lý
-     */
-    public static void processProducts(String inputPath, String outputPath) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(inputPath));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
-
-            String line;
-            String currentProduct = null;
-
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-
-                if (line.isEmpty()) {
-                    continue; // Bỏ qua dòng trống
-                }
-
-                // Nếu là tên sản phẩm
-                if (isProductName(line)) {
-                    // Ghi tên sản phẩm
-                    if (currentProduct != null) {
-                        writer.write("\n");
-                    }
-                    currentProduct = line;
-                    writer.write(currentProduct + "\n");
-                } else if (isIngredientsLine(line)) {
-                    // Tách thành phần và ghi
-                    String[] ingredients = line.split(","); // Thành phần phân cách bằng dấu phẩy
-                    for (String ingredient : ingredients) {
-                        writer.write("    " + ingredient.trim() + "\n");
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * Xác định nếu dòng là tên sản phẩm
-     *
-     * @param line Dòng cần kiểm tra
-     * @return true nếu dòng là tên sản phẩm
-     */
-    private static boolean isProductName(String line) {
-        return Character.isUpperCase(line.charAt(0)) && !line.contains(",") && !line.matches(".*\\d.*");
-    }
-
-    /**
-     * Xác định nếu dòng là thành phần
-     *
-     * @param line Dòng cần kiểm tra
-     * @return true nếu dòng chứa thành phần
-     */
-    private static boolean isIngredientsLine(String line) {
-        return line.contains(",") && !line.matches(".*\\d.*"); // Thành phần chứa dấu phẩy, không chứa số
     }
 }
