@@ -40,10 +40,8 @@ public class Run {
     public static AccountManagerTree AccountTree = new AccountManagerTree();
     public static PhieuMuaManagerTree PhieuMuaTree = new PhieuMuaManagerTree();
     public static AmountSoldManagerTree AmountSoldTree = new AmountSoldManagerTree();
-
     public static SortedLinkedPriorityQueue<Integer, Product> queueSale = new SortedLinkedPriorityQueue();
-    public static ListGraph productGraph = new ListGraph(1000, false);
-
+    public static ListGraph productGraph;
     public static void ReadDatatoQueue() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
@@ -187,12 +185,12 @@ public class Run {
         try {
             scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"));
             System.out.println();
-            addProduct(ProductTree, scanner); // Vẫn giữ cây
-            convertTreeToGraph(ProductTree, productGraph); // Chuyển sang đồ thị
+            addProduct(ProductTree, scanner);
         } catch (FileNotFoundException e) {
             System.out.println("ReadDataProduct???");
         }
     }
+
 
     public static void addProduct(ProductManagerTree tree, Scanner scanner) {
         while (scanner.hasNext()) {
@@ -558,10 +556,30 @@ public class Run {
         UIManager.setLookAndFeel(new FlatLightLaf());
         ReadDataAccount(); // dọc dữ liệu
         ReadDataProduct(); // dọc dữ liệu
-        ReadDataPhieuMua(); // dọc dữ liệu
-        ReadDataAmountSold(); // dọc dữ liệu
-        ReadDatatoQueue();
+        // Lấy danh sách sản phẩm
+        List<Product> products = ProductTree.getInOrderList();
+        // Thu thập thành phần
+        Set<String> componentSet = new HashSet<>();
+        for (Product product : products) {
+            String[] components = product.getKhoiLuong().toLowerCase().split(",");
+            for (String comp : components) {
+                componentSet.add(comp.trim());
+            }
+        }
+        // Tính tổng số đỉnh
+        int totalVertices = products.size() + componentSet.size();
+        // In ra thông tin để kiểm tra
+        System.out.println("Số lượng sản phẩm: " + products.size());
+        System.out.println("Số lượng thành phần: " + componentSet.size());
+        System.out.println("Tổng số đỉnh dự kiến: " + totalVertices);
+        productGraph = new ListGraph(totalVertices, false);
+        // Sau khi khởi tạo productGraph, in ra số đỉnh thực tế
+        System.out.println("Số lượng đỉnh trong productGraph: " + productGraph.getNumV());
+        convertTreeToGraph(ProductTree, productGraph);
 
+        ReadDataPhieuMua();
+        ReadDataAmountSold();
+        ReadDatatoQueue();
         // Kiểm tra số lượng mua và bán
         List<MismatchInfo> mismatchedProducts = checkQuantityMatch();
         if (!mismatchedProducts.isEmpty()) {
