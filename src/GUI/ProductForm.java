@@ -37,17 +37,19 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng","Đã bán"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất",
+                                        "Thành phần", "Khối lượng","Ngày nhập kho", "Đã bán"};
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
         tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(3);
         tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(3);
         tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(5);
-        tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(150);
         tblSanPham.getColumnModel().getColumn(2).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(5).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(6).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(7).setPreferredWidth(5);
+        tblSanPham.getColumnModel().getColumn(8).setPreferredWidth(5);
      
     }
 /*
@@ -99,12 +101,13 @@ public class ProductForm extends javax.swing.JInternalFrame {
                             i.getMaSanPham(),
                             i.getTenSanPham(),
                             i.getSoLuong(),
-                            amountSold,
                             formatter.format(i.getGiaTien()) + "đ",
                             i.getNgaySanXuat(),
                             i.getHanSuDung(),
                             i.getKhoiLuong(),
-                            i.getThanhPhan()
+                            i.getThanhPhan(),
+                            i.getNgayNhapKho(),
+                            amountSold
                              // Use the amountSold value
                     });
                 } catch (Exception ex) {
@@ -158,8 +161,9 @@ public class ProductForm extends javax.swing.JInternalFrame {
             Run.ProductTree.get(product.getTenSanPham()).getProduct().setThanhPhan(product.getThanhPhan());
             Run.ProductTree.get(product.getTenSanPham()).getProduct().setSoLuong(product.getSoLuong());
             Run.ProductTree.get(product.getTenSanPham()).getProduct().setNgaySanXuat(product.getNgaySanXuat());
-            
-            
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setNgayNhapKho(product.getNgayNhapKho());
+
+
             try {
                 Run.WriteDataProduct();
             } catch (IOException ex) {
@@ -239,8 +243,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
-            }
-        });
+            }});
         jToolBar1.add(btnEdit);
 
         btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icon/icons8_eye_40px.png"))); // NOI18N
@@ -468,6 +471,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
         } else {
             UpdateProduct a = new UpdateProduct(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
             a.setVisible(true);
+            System.out.println("access edit button");
         }
     }//GEN-LAST:event_btnEditActionPerformed
 

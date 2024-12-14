@@ -37,9 +37,10 @@ public class UpdateProduct extends javax.swing.JDialog {
         txtTenSanPham.setText(a.getTenSanPham());
         txtDonGia.setText(Integer.toString((int) a.getGiaTien()));
         //thay đổi định dạng <---
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         txtCPU.setText(a.getNgaySanXuat().format(dateFormatter));
         txtRAM.setText(a.getHanSuDung().format(dateFormatter));
+        txtNNK.setText(a.getNgayNhapKho().format(dateFormatter));
         //<---
         txtROM.setText(a.getThanhPhan());
         txtGPU.setText(a.getKhoiLuong());
@@ -49,9 +50,11 @@ public class UpdateProduct extends javax.swing.JDialog {
                 Integer.parseInt(txtSoLuong.getText()),
                 Double.parseDouble(txtDonGia.getText()), 
                 txtCPU.getText(), 
-                txtRAM.getText(), 
-               txtGPU.getText(),
-               txtROM.getText());
+                txtRAM.getText(),
+                txtNNK.getText(),
+                txtGPU.getText(),
+                txtROM.getText());
+
         ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
         setIconImage(logo.getImage());
         setTitle("Cập nhật");
@@ -85,6 +88,8 @@ public class UpdateProduct extends javax.swing.JDialog {
         txtROM = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         txtGPU = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtNNK = new javax.swing.JTextField();
         btnAddProduct = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -137,6 +142,11 @@ public class UpdateProduct extends javax.swing.JDialog {
         jLabel9.setText("Card đồ hoạ");
 
         txtGPU.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
+
+        jLabel10.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
+        jLabel10.setText("Ngày nhập kho");
+
+        txtNNK.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
 
         btnAddProduct.setBackground(new java.awt.Color(204, 204, 255));
         btnAddProduct.setFont(new java.awt.Font("SF Pro Display", 0, 16)); // NOI18N
@@ -207,8 +217,11 @@ public class UpdateProduct extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtRAM, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCPU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                            .addComponent(txtNNK, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            )))
                 .addGap(124, 124, 124)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(43, 43, 43))
@@ -315,8 +328,9 @@ public class UpdateProduct extends javax.swing.JDialog {
         String ram = txtRAM.getText();
         String rom = txtROM.getText();
         String gpu = txtGPU.getText();
+        String nnk = txtNNK.getText();
         try {
-            if (maMay.equals("") || tenMay.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("") || txtDonGia.getText() == "" || txtSoLuong.getText() == "") {
+            if (maMay.equals("") || tenMay.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("") || txtDonGia.getText() == "" || txtSoLuong.getText() == "" || nnk.equals((""))) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin !");
             } else {
                 this.owner.functionStack.push(new FunctionWrapper<Product>(owner.new UpdProductStack(), this.p));
@@ -327,9 +341,10 @@ public class UpdateProduct extends javax.swing.JDialog {
                 this.owner.getProductSelect().setGiaTien(Double.parseDouble(txtDonGia.getText())); // Đảm bảo sử dụng Double
 
                 // Chuyển đổi chuỗi thành LocalDate
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 this.owner.getProductSelect().setNgaySanXuat(LocalDate.parse(cpu, formatter));
                 this.owner.getProductSelect().setHanSuDung(LocalDate.parse(ram, formatter));
+                this.owner.getProductSelect().setNgayNhapKho(LocalDate.parse(ram, formatter));
 
                 this.owner.getProductSelect().setKhoiLuong(gpu);
                 this.owner.getProductSelect().setThanhPhan(rom);
@@ -426,6 +441,7 @@ public class UpdateProduct extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -435,6 +451,8 @@ public class UpdateProduct extends javax.swing.JDialog {
     private javax.swing.JTextField txtMaSanPham;
     private javax.swing.JTextField txtRAM;
     private javax.swing.JTextField txtROM;
+
+    private javax.swing.JTextField txtNNK;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSanPham;
     // End of variables declaration//GEN-END:variables

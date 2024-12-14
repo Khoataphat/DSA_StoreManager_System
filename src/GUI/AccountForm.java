@@ -489,6 +489,7 @@ public class AccountForm extends javax.swing.JInternalFrame {
             FunctionWrapper<Account> funcWrapper = functionStack.pop();
             funcWrapper.executeFunction();
 
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Đã hoàn tác hết các bước gần đây");
         }

@@ -270,11 +270,12 @@ public class AddProduct extends javax.swing.JDialog {
         String ram = txtHanSuDung.getText();
         String rom = txtKhoiLuong.getText();
         String gpu = txtThanhPhan.getText();
+        String nnk = txtNgayNhapKho.getText();
 
-        if (maMay.equals("") && tenMay.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("")) {
+        if (maMay.equals("") && tenMay.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("") && nnk.equals("")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin !");
         } else {
-            Product pc = new Product(maMay, tenMay, soluong, dongia, cpu, ram, gpu, rom);
+            Product pc = new Product(maMay, tenMay, soluong, dongia, cpu, ram, gpu, rom, nnk);
              owner.functionStack.push(new FunctionWrapper<Product>(owner.new DelProductStack(), pc));
             Run.ProductTree.add(pc.getTenSanPham(), pc);
             AmountSold pc1 = new AmountSold(tenMay, 0);
@@ -341,6 +342,7 @@ public class AddProduct extends javax.swing.JDialog {
     private javax.swing.JTextField txtThanhPhan;
     private javax.swing.JTextField txtMaSanPham;
     private javax.swing.JTextField txtHanSuDung;
+    private javax.swing.JTextField txtNgayNhapKho;
     private javax.swing.JTextField txtKhoiLuong;
     private javax.swing.JTextField txtTenSanPham;
     private javax.swing.JTextField txtSoLuong;

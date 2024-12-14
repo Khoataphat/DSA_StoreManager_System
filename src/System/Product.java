@@ -31,7 +31,7 @@ public class Product {
     }
 
     public Product(String maSanPham, String tenSanPham, int soLuong, double giaTien,
-                   String ngaySanXuat, String hanSuDung, String khoiLuong, String thanhPhan) {
+                   String ngaySanXuat, String hanSuDung, String khoiLuong, String thanhPhan, String ngayNhapKho) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         setSoLuong(soLuong);  // Sử dụng phương thức set
@@ -40,6 +40,7 @@ public class Product {
         this.hanSuDung = LocalDate.parse(hanSuDung, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         this.khoiLuong = khoiLuong;
         this.thanhPhan = thanhPhan;
+        this.ngayNhapKho = LocalDate.parse(ngaySanXuat, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
     //<--------
@@ -161,7 +162,9 @@ public class Product {
                 Objects.equals(ngaySanXuat, other.ngaySanXuat) &&
                 Objects.equals(hanSuDung, other.hanSuDung) &&
                 Objects.equals(khoiLuong, other.khoiLuong) &&
-                Objects.equals(thanhPhan, other.thanhPhan);
+                Objects.equals(thanhPhan, other.thanhPhan) &&
+                Objects.equals(ngayNhapKho, other.ngayNhapKho);
+
     }
 
     @Override
@@ -176,6 +179,7 @@ public class Product {
                 ", hanSuDung=" + hanSuDung.format(formatter) +
                 ", khoiLuong='" + khoiLuong + '\'' +
                 ", thanhPhan='" + thanhPhan + '\'' +
+                ", ngayNhapKho='" + ngayNhapKho +'\'' +
                 '}';
     }
 

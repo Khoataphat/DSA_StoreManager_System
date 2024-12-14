@@ -16,12 +16,12 @@ Customer
 kou1
 kou
 kou123
-Customer
+admin
 123
 Như
 nhu
 nhu123
-customer
+Customer
 1234343
 Quản Lý Kho
 quanlykho
