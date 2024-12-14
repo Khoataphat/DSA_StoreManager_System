@@ -32,13 +32,14 @@ public class ProductForm extends javax.swing.JInternalFrame {
         ui.setNorthPane(null);
         tblSanPham.setDefaultEditor(Object.class, null);
         initTable();
+        System.out.println("Trong ProductForm constructor, số lượng sản phẩm trong ProductTree: " + Run.ProductTree.size());
         loadDataToTable(Run.ProductTree);
     }
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất",
-                                        "Thành phần", "Khối lượng","Ngày nhập kho", "Đã bán"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng","Ngày nhập kho", "Đã bán"};
+
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
         tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(3);
@@ -81,22 +82,25 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     public void loadDataToTable(ProductManagerTree tree) {
         try {
-            List<Product> acc = Run.ProductTree.getInOrderList(); // Fetch products
+            List<Product> acc = Run.ProductTree.getInOrderList();
+            System.out.println("loadDataToTable: Số lượng sản phẩm lấy được: " + (acc == null ? 0 : acc.size()));
+
             if (acc == null || acc.isEmpty()) {
                 System.out.println("No products found in ProductTree.");
                 return;
             }
 
-            tblModel.setRowCount(0); // Clear existing rows
+            tblModel.setRowCount(0);
             for (Product i : acc) {
                 try {
-                    // Check if AmountSoldTree contains the product
-                    Integer amountSold = 0; // Default value for missing entries
+                    Integer amountSold = 0;
                     if (Run.AmountSoldTree.get(i.getTenSanPham()) != null) {
                         amountSold = Run.AmountSoldTree.get(i.getTenSanPham()).getAmountSold().getAmountSold();
                     }
 
-                    // Add row to table
+                    // In ra thông tin sản phẩm để chắc chắn dữ liệu đọc đúng
+                    System.out.println("Đang thêm sản phẩm vào bảng: " + i.getTenSanPham());
+
                     tblModel.addRow(new Object[]{
                             i.getMaSanPham(),
                             i.getTenSanPham(),
@@ -104,11 +108,10 @@ public class ProductForm extends javax.swing.JInternalFrame {
                             formatter.format(i.getGiaTien()) + "đ",
                             i.getNgaySanXuat(),
                             i.getHanSuDung(),
+                            i.getThanhPhan(), // Đảm bảo thứ tự đã sửa lại
                             i.getKhoiLuong(),
-                            i.getThanhPhan(),
                             i.getNgayNhapKho(),
                             amountSold
-                             // Use the amountSold value
                     });
                 } catch (Exception ex) {
                     System.err.println("Error adding row for product: " + i.getTenSanPham());
@@ -565,6 +568,17 @@ public class ProductForm extends javax.swing.JInternalFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        try {
+            Run.ReadDataProduct(); // Đọc dữ liệu sản phẩm vào ProductTree
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Sau khi đọc dữ liệu, số lượng sản phẩm trong ProductTree: " + Run.ProductTree.size());
+
+        // Bây giờ mới tạo và hiển thị ProductForm
+        ProductForm pf = new ProductForm();
+        pf.setVisible(true);
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -674,17 +688,33 @@ public class ProductForm extends javax.swing.JInternalFrame {
     }
 
     public void loadDataToTableSearch(List<Product> result) {
-        try {
-            tblModel.setRowCount(0);
-            for (Product i : result) {
-                tblModel.addRow(new Object[]{
-                    i.getMaSanPham(), i.getTenSanPham(), i.getSoLuong(), formatter.format(i.getGiaTien()) + "đ", i.getNgaySanXuat(), i.getHanSuDung(), i.getKhoiLuong(), i.getThanhPhan(),
-                    Run.AmountSoldTree.get(i.getTenSanPham()).getAmountSold().getAmountSold()
-                });
+        tblModel.setRowCount(0);
+
+        for (Product i : result) {
+            Integer amountSold = 0;
+            // Kiểm tra tránh NullPointerException
+            if (Run.AmountSoldTree.get(i.getTenSanPham()) != null) {
+                amountSold = Run.AmountSoldTree.get(i.getTenSanPham()).getAmountSold().getAmountSold();
             }
-        } catch (Exception e) {
+
+            // Đưa dữ liệu theo đúng thứ tự cột:
+            // Mã sp, Tên sp, Còn lại, Đơn giá, Ngày sản xuất, Hạn sản xuất, Thành phần, Khối lượng, Ngày nhập kho, Đã bán
+            tblModel.addRow(new Object[]{
+                    i.getMaSanPham(),
+                    i.getTenSanPham(),
+                    i.getSoLuong(),
+                    formatter.format(i.getGiaTien()) + "đ",
+                    i.getNgaySanXuat(),
+                    i.getHanSuDung(),
+                    i.getThanhPhan(),   // Thành phần (cột 6)
+                    i.getKhoiLuong(),   // Khối lượng  (cột 7)
+                    i.getNgayNhapKho(), // Ngày nhập kho (cột 8)
+                    amountSold          // Đã bán (cột 9)
+            });
         }
     }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
