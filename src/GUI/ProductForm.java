@@ -38,7 +38,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng","Ngày nhập kho", "Đã bán"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng","Ngày nhập kho","Đã bán"};
 
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
@@ -279,7 +279,9 @@ public class ProductForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã máy", "Tên máy", "Số lượng", "Đơn giá", "RAM", "CPU", "Dung lượng", "Card màn hình"}));
+//        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã máy", "Tên máy", "Số lượng", "Đơn giá", "RAM", "CPU", "Dung lượng", "Card màn hình"}));
+        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng", "Đã bán"}));
+
         jComboBoxLuaChon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxLuaChonActionPerformed(evt);
@@ -613,31 +615,40 @@ public class ProductForm extends javax.swing.JInternalFrame {
     public List<Product> searchFn(String luaChon, String content) {
         List<Product> result = new ArrayList<>();
 
+
+
         switch (luaChon) {
             case "Tất cả":
                 result = Run.ProductTree.search(content);
                 break;
-            case "Mã máy":
+            case "Mã sản phẩm":
                 result = Run.ProductTree.searchMaMay(content);
                 break;
-            case "Tên máy":
+            case "Tên sản phẩm":
                 result = result = Run.ProductTree.search(content);
                 break;
-            case "Số lượng":
+            case "Còn lại":
                 result = result = Run.ProductTree.searchSoLuong(content);
                 break;
-            case "RAM":
+            case "Đơn giá":
                 result = result = Run.ProductTree.searchRam(content);
                 break;
-            case "CPU":
+            case "Ngày sản xuất":
                 result = result = Run.ProductTree.searchCPU(content);
                 break;
-            case "Dung lượng":
+            case "Hạn sản xuất":
                 result = result = Run.ProductTree.searchRom(content);
                 break;
-            case "Card màn hình":
+            case "Thành phần":
                 result = result = Run.ProductTree.searchGPU(content);
                 break;
+            case "Khối lượng":
+                result = result = Run.ProductTree.searchGPU(content);
+                break;
+            case "Đã bán":
+                result = result = Run.ProductTree.searchGPU(content);
+                break;
+
         }
         return result;
     }
