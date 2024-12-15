@@ -572,6 +572,19 @@ public class ProductManagerTree {
 
         return productList;
     }
+
+    public List<Product> searchDonGia(String price) {
+        List<Product> list = getInOrderList();
+        List<Product> productList = new ArrayList<>();
+
+        for (Product product : list) {
+            if (Integer.toString((int) product.getGiaTien()).contains(price)) {
+                productList.add(product);
+            }
+        }
+
+        return productList;
+    }
 /*
     public List<Product> searchRam(String name) {
         List<Product> list = getInOrderList();
@@ -660,6 +673,22 @@ public class ProductManagerTree {
         return productList;
     }
 
+    public List<Product> searchNNK(String name) {
+        List<Product> list = getInOrderList();
+        List<Product> productList = new ArrayList<>();
+
+        // Giả định rằng 'name' là một ngày theo định dạng "dd/MM/yyyy"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (Product product : list) {
+            // Chuyển đổi ngày nhập kho sang định dạng chuỗi để so sánh
+            if (product.getNgayNhapKho().format(formatter).toLowerCase().contains(name.toLowerCase())) {
+                productList.add(product);
+            }
+        }
+
+        return productList;
+    }
     /* @description:
         - Hàm nhận đầu vào là node cuối cùng của một quá trình chỉnh sửa cây (thêm hoặc bớt) (khác null)
         - Hàm sẽ duyệt từ node hiện tại, kiểm tra sự cân bằng của từng cây con.

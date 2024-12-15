@@ -31,7 +31,7 @@ public class Product {
     }
 
     public Product(String maSanPham, String tenSanPham, int soLuong, double giaTien,
-                   String ngaySanXuat, String hanSuDung, String khoiLuong, String thanhPhan, String ngayNhapKho) {
+                   String ngaySanXuat, String hanSuDung,  String thanhPhan, String khoiLuong, String ngayNhapKho) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         setSoLuong(soLuong);  // Sử dụng phương thức set
@@ -45,7 +45,7 @@ public class Product {
 
     //<--------
     public Product(String maSanPham, String tenSanPham, int soLuong, double giaTien,
-                   String ngaySanXuat, String hanSuDung, String khoiLuong, String thanhPhan, String ngayNhapKho, int soNgayGiaoHang) {
+                   String ngaySanXuat, String hanSuDung,  String thanhPhan, String khoiLuong, String ngayNhapKho, int soNgayGiaoHang) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         setSoLuong(soLuong);  // Sử dụng phương thức set
@@ -163,7 +163,8 @@ public class Product {
                 Objects.equals(hanSuDung, other.hanSuDung) &&
                 Objects.equals(khoiLuong, other.khoiLuong) &&
                 Objects.equals(thanhPhan, other.thanhPhan) &&
-                Objects.equals(ngayNhapKho, other.ngayNhapKho);
+                Objects.equals(ngayNhapKho, other.ngayNhapKho) &&
+                Objects.equals(soNgayGiaoHang, other.soNgayGiaoHang);
 
     }
 
@@ -180,6 +181,7 @@ public class Product {
                 ", khoiLuong='" + khoiLuong + '\'' +
                 ", thanhPhan='" + thanhPhan + '\'' +
                 ", ngayNhapKho='" + ngayNhapKho +'\'' +
+                ", soNgayGiaoHang='" + soNgayGiaoHang +'\'' +
                 '}';
     }
 

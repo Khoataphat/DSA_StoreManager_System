@@ -277,6 +277,7 @@ public class AddProduct extends javax.swing.JDialog {
         String rom = txtKhoiLuong.getText();
         String gpu = txtThanhPhan.getText();
         String nnk = txtNgayNhapKho.getText();
+
         int soNgayGiao = 0;
         try {
             soNgayGiao = Integer.parseInt(txtSoNgayGiao.getText());
@@ -287,7 +288,7 @@ public class AddProduct extends javax.swing.JDialog {
         if (maMay.equals("") && tenMay.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("") && nnk.equals("")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin !");
         } else {
-            Product pc = new Product(maMay, tenMay, soluong, dongia, cpu, ram, gpu, rom, nnk);
+            Product pc = new Product(maMay, tenMay, soluong, dongia, cpu, ram, gpu, rom, nnk, soNgayGiao);
              owner.functionStack.push(new FunctionWrapper<Product>(owner.new DelProductStack(), pc));
             Run.ProductTree.add(pc.getTenSanPham(), pc);
             AmountSold pc1 = new AmountSold(tenMay, 0);

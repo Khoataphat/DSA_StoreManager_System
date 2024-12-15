@@ -38,20 +38,21 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng","Ngày nhập kho","Đã bán"};
+//        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Khối lượng", "Thành phần", "Ngày nhập kho", "Số ngày giao","Đã bán"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần","Khối lượng",  "Ngày nhập kho", "Số ngày giao","Đã bán"};
 
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
         tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(3);
-        tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(3);
-        tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(150);
         tblSanPham.getColumnModel().getColumn(2).setPreferredWidth(5);
+        tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(3);
+        tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(5).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(6).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(7).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(8).setPreferredWidth(5);
-     
+        tblSanPham.getColumnModel().getColumn(9).setPreferredWidth(5);
     }
 /*
     public void loadDataToTable(ProductManagerTree tree) {
@@ -111,6 +112,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
                             i.getThanhPhan(), // Đảm bảo thứ tự đã sửa lại
                             i.getKhoiLuong(),
                             i.getNgayNhapKho(),
+                            i.getSoNgayGiaoHang(),
                             amountSold
                     });
                 } catch (Exception ex) {
@@ -165,6 +167,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
             Run.ProductTree.get(product.getTenSanPham()).getProduct().setSoLuong(product.getSoLuong());
             Run.ProductTree.get(product.getTenSanPham()).getProduct().setNgaySanXuat(product.getNgaySanXuat());
             Run.ProductTree.get(product.getTenSanPham()).getProduct().setNgayNhapKho(product.getNgayNhapKho());
+            Run.ProductTree.get(product.getTenSanPham()).getProduct().setSoNgayGiaoHang(product.getSoNgayGiaoHang());
 
 
             try {
@@ -279,8 +282,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Tìm kiếm"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-//        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã máy", "Tên máy", "Số lượng", "Đơn giá", "RAM", "CPU", "Dung lượng", "Card màn hình"}));
-        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng", "Đã bán"}));
+        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã sản phẩm", "Tên sản phẩm", "Còn lại", "Đơn giá", "Ngày sản xuất", "Hạn sản xuất", "Thành phần", "Khối lượng", "Ngày nhập kho", "Đã bán"}));
 
         jComboBoxLuaChon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -631,19 +633,22 @@ public class ProductForm extends javax.swing.JInternalFrame {
                 result = result = Run.ProductTree.searchSoLuong(content);
                 break;
             case "Đơn giá":
-                result = result = Run.ProductTree.searchRam(content);
+                result = result = Run.ProductTree.searchDonGia(content);
                 break;
             case "Ngày sản xuất":
                 result = result = Run.ProductTree.searchCPU(content);
                 break;
             case "Hạn sản xuất":
-                result = result = Run.ProductTree.searchRom(content);
+                result = result = Run.ProductTree.searchRam(content);
                 break;
             case "Thành phần":
-                result = result = Run.ProductTree.searchGPU(content);
+                result = result = Run.ProductTree.searchRom(content);
                 break;
             case "Khối lượng":
                 result = result = Run.ProductTree.searchGPU(content);
+                break;
+            case "Ngày nhập kho":
+                result = result = Run.ProductTree.searchNNK(content);
                 break;
             case "Đã bán":
                 result = result = Run.ProductTree.searchGPU(content);
@@ -720,6 +725,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
                     i.getThanhPhan(),   // Thành phần (cột 6)
                     i.getKhoiLuong(),   // Khối lượng  (cột 7)
                     i.getNgayNhapKho(), // Ngày nhập kho (cột 8)
+                    i.getSoNgayGiaoHang(),
                     amountSold          // Đã bán (cột 9)
             });
         }
