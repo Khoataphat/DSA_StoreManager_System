@@ -396,6 +396,8 @@ public class AccountForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtSearchInputMethodTextChanged
 
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
+        cbxLuachon.setSelectedIndex(0);
+        txtSearch.setText("");
         loadDataToTable(Run.AccountTree);        // TODO add your handling code here:
 
     }//GEN-LAST:event_btnresetActionPerformed

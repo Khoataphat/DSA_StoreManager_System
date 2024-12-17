@@ -21,7 +21,7 @@ Customer
 Như
 nhu
 nhu123
-customer
+Customer
 1234343
 Quản Lý Kho
 quanlykho

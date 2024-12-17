@@ -516,6 +516,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         jComboBoxLuaChon.setSelectedIndex(0);
+        jTextFieldSearch.setText("");
         loadDataToTable(Run.ProductTree);
     }//GEN-LAST:event_jButton7ActionPerformed
 

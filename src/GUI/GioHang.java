@@ -756,6 +756,8 @@ public class GioHang extends javax.swing.JInternalFrame {
                     CTPhieu = new ArrayList<ChiTietPhieu>();
                     txtSoLuong.setText("1");
                     textTongTien.setText("0đ");
+                    txtAddress.setText("");
+                    txtPhoneNumber.setText("");
 
                 } catch (Exception e) {
                     e.printStackTrace();
