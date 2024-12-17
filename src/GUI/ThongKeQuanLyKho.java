@@ -376,10 +376,20 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
 
     public void loadDataDoanhSo(List<Phieu> PhieuList) {
         try {
-            double tong = PhieuList.stream().mapToDouble(Phieu::getTongTien).sum();
-            txtQuantityNcc.setText(formatter.format(tong) + "đ");
-            tongTien1.setText(formatter.format(tong) + "đ");
-            soLuong1.setText(formatter.format(PhieuList.size()));
+            Double tongTien = 0.0;
+            int tongDon = 0;
+            //Chi tính đơn đã nhận thành công nha
+            for (Phieu i : PhieuList) {
+                if(i.getTracking() == 5) {
+                    tongTien += i.getTongTien();
+                    tongDon++;
+                }
+
+            }
+            txtQuantityNcc.setText(formatter.format(tongTien) + "đ");
+            tongTien1.setText(formatter.format(tongTien) + "đ");
+
+            soLuong1.setText(formatter.format(tongDon));
         } catch (Exception e) {
             e.printStackTrace(); // Log lỗi
         }
@@ -389,20 +399,18 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
 //<-----
     public class BestSellingProductFinder {
         public static List<AmountSold> findBestSellingProducts(List<AmountSold> products) {
-            List<AmountSold> bestSellingProducts = new ArrayList<>();
+            List<AmountSold> topSellingProducts = new ArrayList<>();
             if (products == null || products.isEmpty()) {
-                return bestSellingProducts;
+                return topSellingProducts;
             }
 
-            int maxAmountSold = products.stream().mapToInt(AmountSold::getAmountSold).max().orElse(0);
+            products.sort((p1, p2) -> Integer.compare(p2.getAmountSold(), p1.getAmountSold()));
 
-            for (AmountSold product : products) {
-                if (product.getAmountSold() == maxAmountSold) {
-                    bestSellingProducts.add(product);
-                }
+            for (int i = 0; i < Math.min(5, products.size()); i++) {
+                topSellingProducts.add(products.get(i));
             }
 
-            return bestSellingProducts;
+            return topSellingProducts;
         }
     }
 
@@ -493,7 +501,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         int soDonDaDuocXacNhan = 0;
         int soDonDangChuanBi = 0;
         int soDonDangVanChuyen = 0;
-
+        int soDonDangHoanHangVeKho = 0;
         // Đếm trạng thái đơn hàng
         for (Phieu phieu : phieuList) {
             String status = phieu.getTrackingStatus();
@@ -516,6 +524,9 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
                 case "Đang vận chuyển":
                     soDonDangVanChuyen++;
                     break;
+                case "Đã hoàn hàng về kho":
+                    soDonDangHoanHangVeKho++;
+                    break;
             }
         }
 
@@ -537,6 +548,9 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         });
         tblPurchaseStatus.addRow(new Object[]{
                 "Số đơn đang vận chuyển:", soDonDangVanChuyen
+        });
+        tblPurchaseStatus.addRow(new Object[]{
+                "Số đơn đã hoàn hàng về kho:", soDonDangHoanHangVeKho
         });
     }
 

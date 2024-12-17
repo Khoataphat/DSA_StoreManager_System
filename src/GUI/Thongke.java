@@ -148,7 +148,7 @@ public class Thongke extends javax.swing.JInternalFrame {
         try {
             Double tongTien = 0.0;
             int tongDon = 0;
-
+            //Chi tính đơn đã nhận thành công nha
             for (Phieu i : PhieuList) {
                 if(i.getTracking() == 5) {
                     tongTien += i.getTongTien();

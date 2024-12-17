@@ -240,7 +240,7 @@ public class PhieuHuy extends javax.swing.JInternalFrame {
                 }
             }
         }
-         loadDataToTable(list);
+        loadDataToTable(list);
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
 
 //Banh--------------------------------------
@@ -328,6 +328,7 @@ public class PhieuHuy extends javax.swing.JInternalFrame {
             }
 
             // Làm mới giao diện bảng
+            tblModel.setRowCount(0);
             List<Phieu> lichsumua = Run.PhieuMuaTree.getInOrderList();;
             List<Phieu> filteredList = lichsumua.stream()
                     .filter(phieu -> phieu.getTracking() == 6)
@@ -336,11 +337,11 @@ public class PhieuHuy extends javax.swing.JInternalFrame {
             Collections.sort(filteredList, new TimeComparator());
 
             loadDataToTable(filteredList);
-            loadDataToTable(filteredList);
         }
     }//GEN-LAST:event_btnNhapHangActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        tblModel.setRowCount(0);
         List<Phieu> lichsumua = Run.PhieuMuaTree.getInOrderList();;
         List<Phieu> filteredList = lichsumua.stream()
                 .filter(phieu -> phieu.getTracking() == 6)

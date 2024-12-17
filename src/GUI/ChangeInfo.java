@@ -325,6 +325,9 @@ public class ChangeInfo extends javax.swing.JDialog {
                         accCur.setPassword(newPass);
                         Run.AccountTree.get(this.accCur.getUser()).getAccount().setPassword(newPass);
                         JOptionPane.showMessageDialog(this, "Thay đổi mật khẩu thành công!");
+                        passCur.setText("");
+                        passAft.setText("");
+                        passCom.setText("");
                         try {
                             Run.WriteDataAccount();
                         } catch (IOException ex) {
@@ -332,11 +335,16 @@ public class ChangeInfo extends javax.swing.JDialog {
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Mật khẩu mới không khớp");
+                        passCur.setText("");
+                        passAft.setText("");
+                        passCom.setText("");
                     }
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Mật khẩu hiện tại không đúng ");
                 passCur.setText("");
+                passAft.setText("");
+                passCom.setText("");
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed

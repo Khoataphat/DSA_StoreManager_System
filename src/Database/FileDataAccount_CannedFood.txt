@@ -2,7 +2,7 @@ Admin
 admin
 admin123
 admin
-0939393939
+076463
 Banh
 banh
 banh123
@@ -16,12 +16,12 @@ Customer
 kou1
 kou
 kou123
-admin
+Customer
 123
 Như
 nhu
 nhu123
-Customer
+customer
 1234343
 Quản Lý Kho
 quanlykho
