@@ -533,19 +533,29 @@ public class ProductManagerTree {
     public List<Product> search(String name) {
         return new ArrayList<>(searchElementName(name));
     }
-
     public List<Product> searchElementName(String name) {
+        // Nếu name là null, không thể tìm kiếm, trả về danh sách trống
+        if (name == null) {
+            return new ArrayList<>();
+        }
+
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 
+        // Chuyển name sang lowercase một lần duy nhất để tránh gọi nhiều lần
+        String lowerName = name.toLowerCase();
+
         for (Product product : list) {
-            if (product.getTenSanPham().toLowerCase().contains(name.toLowerCase())) {
+            String tenSP = product.getTenSanPham(); // Lấy tên sản phẩm
+            // Kiểm tra null trước khi gọi toLowerCase()
+            if (tenSP != null && tenSP.toLowerCase().contains(lowerName)) {
                 productList.add(product);
             }
         }
 
         return productList;
     }
+
 
     public List<Product> searchMaMay(String name) {
         List<Product> list = getInOrderList();

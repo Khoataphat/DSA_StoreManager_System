@@ -23,7 +23,7 @@ import System.Function;
 import System.Phieu;
 import AVL.ProductManagerTree;
 import System.FunctionWrapper;
-
+import System.AmountSold;
 /**
  *
  * @author Vu Tuan Ngoc
@@ -666,18 +666,18 @@ public class GioHang extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void btnNhapHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapHangActionPerformed
-        if (CTPhieu.isEmpty()) { 
-            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm để đặt hàng !", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+    private void btnNhapHangActionPerformed(java.awt.event.ActionEvent evt) {
+        if (CTPhieu.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa chọn sản phẩm để đặt hàng!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         } else if ("".equals(txtAddress.getText()) || "".equals(txtPhoneNumber.getText())) {
             JOptionPane.showMessageDialog(this, "Không được để trống địa chỉ và số điện thoại!", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
         } else if (isOnlyDigits(txtPhoneNumber.getText())) {
-            int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn đặt hàng ?", "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
+            int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn đặt hàng?", "Xác nhận đặt hàng", JOptionPane.YES_NO_OPTION);
             if (check == JOptionPane.YES_OPTION) {
-                // Lay thoi gian hien tai
+                // Lấy thời gian hiện tại
                 long now = System.currentTimeMillis();
                 Timestamp sqlTimestamp = new Timestamp(now);
-                // Tạo đối tượng phieu để lưu lịch sử mua bán
+
                 try {
                     // Tính tổng tiền cho phiếu
                     double tongTien = 0;
@@ -687,11 +687,18 @@ public class GioHang extends javax.swing.JInternalFrame {
                         // Kiểm tra hàng sale và cập nhật giá
                         chiTietPhieu.setDonGia(chiTietPhieu.getGia() * checkOnSale(chiTietPhieu.getTenSanPham()));
 
-                        // Cập nhật lượng bán ra trong AmountSoldTree
-                        Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham())
-                                .getAmountSold()
-                                .setAmountSold(Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham())
-                                        .getAmountSold().getAmountSold() + chiTietPhieu.getSoLuong());
+                        // Kiểm tra và cập nhật lượng bán vào AmountSoldTree
+                        var amountSoldNode = Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham());
+                        if (amountSoldNode == null) {
+                            // Nếu chưa có sản phẩm trong AmountSoldTree, thêm mới với giá trị ban đầu là 0
+                            Run.AmountSoldTree.add(chiTietPhieu.getTenSanPham(), new AmountSold(0));
+                            amountSoldNode = Run.AmountSoldTree.get(chiTietPhieu.getTenSanPham());
+                        }
+
+                        // Cập nhật số lượng bán ra
+                        amountSoldNode.getAmountSold().setAmountSold(
+                                amountSoldNode.getAmountSold().getAmountSold() + chiTietPhieu.getSoLuong()
+                        );
 
                         // Cập nhật tổng tiền
                         tongTien += chiTietPhieu.getSoLuong() * chiTietPhieu.getGia();
@@ -702,8 +709,11 @@ public class GioHang extends javax.swing.JInternalFrame {
                         // Cập nhật số lượng sản phẩm trong ProductTree
                         Run.ProductTree.get(chiTietPhieu.getTenSanPham())
                                 .getProduct()
-                                .setSoLuong(Run.ProductTree.get(chiTietPhieu.getTenSanPham())
-                                        .getProduct().getSoLuong() - chiTietPhieu.getSoLuong());
+                                .setSoLuong(
+                                        Run.ProductTree.get(chiTietPhieu.getTenSanPham())
+                                                .getProduct()
+                                                .getSoLuong() - chiTietPhieu.getSoLuong()
+                                );
                     }
 
                     // Tạo đối tượng phiếu
@@ -729,31 +739,35 @@ public class GioHang extends javax.swing.JInternalFrame {
                     // Hiển thị thông báo thành công
                     JOptionPane.showMessageDialog(this, "Đặt hàng thành công!");
                     try {
-                        Run.WriteDataProduct();   //  ghi lại data sản phẩm vào txt sau khi cây được cập nhật
+                        Run.WriteDataProduct();   // Ghi dữ liệu sản phẩm sau khi cập nhật
                         Run.queueSale.clear();
-                         Run.ReadDatatoQueue();       // đọc lại dữ liệu vào queue sau khi số lượng sản phẩm thay đổi      
-                          owner.loadDtatatoSale();       // cập nhật lại xem queue sale có thay đổi không
-                        Run.WriteDataAmountSold(); // ghi lại data lượng bán ra vào txt sau khi cây được cập nhật
+                        Run.ReadDatatoQueue();    // Đọc lại dữ liệu vào queue sau thay đổi về số lượng sản phẩm
+                        owner.loadDtatatoSale();  // Cập nhật lại danh sách sale
+                        Run.WriteDataAmountSold(); // Ghi lại dữ liệu lượng bán ra
                     } catch (IOException ex) {
                         Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
                         System.out.println("lỗi");
                     }
-                    loadDataToTableProduct(Run.ProductTree); // load lại data vào bảng sản phẩm sau khi thuộc tính của sản phẩm có thể thay đổi
-                    DefaultTableModel l = (DefaultTableModel) tblNhapHang.getModel(); // đưa giao diện giỏ hàng về mặc định
-                    l.setRowCount(0);                                          // đưa giao diện giỏ hàng về mặc định  
-                    CTPhieu = new ArrayList<ChiTietPhieu>();                          // khởi tạo ArrayList<ChiTietPhieu> CTPhieu mới
-                    txtSoLuong.setText("1");                                        // đưa giao diện giỏ hàng về mặc định 
-                    textTongTien.setText(0 + "đ");                                    // đưa giao diện giỏ hàng về mặc định
+
+                    // Cập nhật lại giao diện sau khi đặt hàng thành công
+                    loadDataToTableProduct(Run.ProductTree);
+                    DefaultTableModel l = (DefaultTableModel) tblNhapHang.getModel();
+                    l.setRowCount(0);
+                    CTPhieu = new ArrayList<ChiTietPhieu>();
+                    txtSoLuong.setText("1");
+                    textTongTien.setText("0đ");
+
                 } catch (Exception e) {
                     e.printStackTrace();
-                    JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);                }
+                    JOptionPane.showMessageDialog(this, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
 
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng !");
-        }      // TODO add your handling code here:
-
-    }//GEN-LAST:event_btnNhapHangActionPerformed
+            JOptionPane.showMessageDialog(this, "Số điện thoại không đúng định dạng!");
+        }
+    }
+//GEN-LAST:event_btnNhapHangActionPerformed
 
     private void addProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductActionPerformed
         // Xử lý frondend thao tác người dùng thêm sản phẩm vào giỏ hàng add dần sản phẩm vào ArrayList<ChiTietPhieu> CTPhieu

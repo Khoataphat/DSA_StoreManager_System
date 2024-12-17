@@ -13,7 +13,7 @@ public class AmountSold {
     private int AmountSold;
 
 
-    public AmountSold() {
+    public AmountSold(int i) {
         super();
     }
 
