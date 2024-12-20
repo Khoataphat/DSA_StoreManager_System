@@ -22,7 +22,7 @@ import System.FunctionWrapper;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class AccountForm extends javax.swing.JInternalFrame {
 

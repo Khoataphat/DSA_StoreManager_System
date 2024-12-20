@@ -11,7 +11,7 @@ import System.Account;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class Admin extends javax.swing.JFrame {
 
@@ -28,9 +28,9 @@ public class Admin extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.currentAcc = t;
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
-        setTitle("Group 11 Store");
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
+        //setTitle("Group 11 Store");
     }
 
    
@@ -54,6 +54,7 @@ public class Admin extends javax.swing.JFrame {
         MainContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         NavbarMenu.setBackground(new java.awt.Color(204, 204, 255));
         NavbarMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

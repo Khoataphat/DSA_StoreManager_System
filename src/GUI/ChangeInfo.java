@@ -11,7 +11,7 @@ import System.Account;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class ChangeInfo extends javax.swing.JDialog {
 
@@ -32,8 +32,8 @@ public class ChangeInfo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Tài khoản của tôi");
     }
 

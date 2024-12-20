@@ -11,7 +11,7 @@ import System.FunctionWrapper;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class AddAccount extends javax.swing.JDialog {
 
@@ -25,8 +25,8 @@ public class AddAccount extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         this.owner = (AccountForm) parent;
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Thêm tài khoản");
     }
 
@@ -191,7 +191,7 @@ public class AddAccount extends javax.swing.JDialog {
                 Account acc = new Account(fullName, user, password, role, phone);
 
                 Run.AccountTree.add(acc.getUser(), acc);
-                owner.functionStack.push(new FunctionWrapper<>(owner.new DelAccountStack(), acc));
+                owner.functionStack.push(new FunctionWrapper<Account>(owner.new DelAccountStack(), acc));
                 this.dispose();
                 owner.loadDataToTable(Run.AccountTree);
                 JOptionPane.showMessageDialog(this, "Thêm thành công !");

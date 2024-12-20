@@ -1,6 +1,8 @@
 package GUI;
 
 import com.formdev.flatlaf.FlatLightLaf;
+
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -17,9 +19,9 @@ public class Login extends javax.swing.JFrame {
     public Login() throws IOException {
         initComponents();
         this.setLocationRelativeTo(null);
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
-        setTitle("Đăng nhập");
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
+        //setTitle("Đăng nhập");
     }
 
     @SuppressWarnings("unchecked")
@@ -40,20 +42,32 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(13, 39, 51));
+        jPanel1.setBackground(new java.awt.Color(168, 218, 220));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Cantarell", 1, 65));
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Đăng nhập");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 370, 80));
+        //jLabel1.setFont(new java.awt.Font("Cantarell", 1, 65));
+        //jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        //jLabel1.setText("Đăng nhập");
+        //jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 370, 80));
 
-        jLabel7.setIcon(new ImageIcon(getClass().getResource("/Icon/Untitled-1.png")));
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 260, 260));
+        //jLabel7.setIcon(new ImageIcon(getClass().getResource("/Icon/capy_1.jpg")));
+        //jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 260, 260));
+        // Tải hình ảnh gốc
+        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Icon/capy_1.jpg"));
+        Image originalImage = originalIcon.getImage();
+
+        // Thay đổi kích thước hình ảnh
+        Image scaledImage = originalImage.getScaledInstance(420, 580, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+
+        // Thiết lập hình ảnh vào JLabel
+        jLabel7.setIcon(scaledIcon);
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 580));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 580));
 
@@ -67,7 +81,7 @@ public class Login extends javax.swing.JFrame {
         jLabel8.setText("Mật khẩu");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 130, 40));
 
-        loginUser.setBackground(new java.awt.Color(13, 39, 51));
+        loginUser.setBackground(new java.awt.Color(168, 218, 220));
         loginUser.setFont(new java.awt.Font("SF Pro Display", 1, 18));
         loginUser.setForeground(new java.awt.Color(255, 255, 255));
         loginUser.setBorder(null);
@@ -83,7 +97,7 @@ public class Login extends javax.swing.JFrame {
         lineUnderUsername.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(lineUnderUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 260, 1));
 
-        passwordUser.setBackground(new java.awt.Color(13, 39, 51));
+        passwordUser.setBackground(new java.awt.Color(168, 218, 220));
         passwordUser.setForeground(new java.awt.Color(255, 255, 255));
         passwordUser.setBorder(null);
         passwordUser.setEchoChar('\u2022');
@@ -118,7 +132,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel1.add(eyeIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 30, 30));
 
-        JPaneLogin.setBackground(new java.awt.Color(204, 204, 255));
+        JPaneLogin.setBackground(new java.awt.Color(156, 218, 220));
         JPaneLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         JPaneLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -148,9 +162,10 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.add(JPaneLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 360, 270, 40));
 
-        jButton1.setBackground(new java.awt.Color(13, 39, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setBackground(new java.awt.Color(168, 218, 220));
+        jButton1.setForeground(new java.awt.Color(46, 68, 166));
         jButton1.setText("Đăng ký");
+        jButton1.setBorder(null);
         jButton1.addActionListener(evt -> {
             Signup signup = new Signup();
             signup.setVisible(true);

@@ -15,7 +15,7 @@ import System.AmountSold;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class Customer extends JFrame {
 
@@ -33,9 +33,9 @@ public class Customer extends JFrame {
         this.setLocationRelativeTo(null);
         this.currentAcc = t;
         setName();
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
-        setTitle("Group 11 Store");
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
+        //setTitle("Group 11 Store");
         loadDtatatoBestSeller();
         loadDtatatoSale();
     }
@@ -157,11 +157,12 @@ public class Customer extends JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        NavbarMenu.setBackground(new java.awt.Color(204, 204, 255));
+        NavbarMenu.setBackground(new java.awt.Color(161, 226, 228));
         NavbarMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SanPham.setBackground(new java.awt.Color(204, 204, 255));
+        SanPham.setBackground(new java.awt.Color(168, 218, 220));
         SanPham.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SanPham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -196,7 +197,7 @@ public class Customer extends JFrame {
 
         NavbarMenu.add(SanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 280, 40));
 
-        DangXuat.setBackground(new java.awt.Color(204, 204, 255));
+        DangXuat.setBackground(new java.awt.Color(168, 218, 220));
         DangXuat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -241,15 +242,17 @@ public class Customer extends JFrame {
         jLabel8.setText("Xin chào");
         NavbarMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 100, -1));
 
-        jPanel1.setBackground(new java.awt.Color(215, 215, 255));
+        jPanel1.setBackground(new java.awt.Color(161, 226, 228));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 47, 79));
         jLabel2.setIcon(new ImageIcon(getClass().getResource("/Icon/97029.png"))); // NOI18N
 
-        jPanel3.setBackground(new java.awt.Color(216, 216, 255));
+        jPanel3.setBackground(new java.awt.Color(161, 226, 228));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setBorder(null);
 
         jLabel4.setIcon(new ImageIcon(getClass().getResource("/Icon/top2_1.png"))); // NOI18N
 
@@ -276,8 +279,10 @@ public class Customer extends JFrame {
                 .addContainerGap())
         );
 
-        jPanel4.setBackground(new java.awt.Color(216, 216, 255));
+        jPanel4.setBackground(new java.awt.Color(161, 226, 228));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel4.setBorder(null);
+
 
         jLabel6.setIcon(new ImageIcon(getClass().getResource("/Icon/top3_1.png"))); // NOI18N
 
@@ -335,7 +340,7 @@ public class Customer extends JFrame {
 
         NavbarMenu.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 280, 330));
 
-        LichSuMua.setBackground(new java.awt.Color(204, 204, 255));
+        LichSuMua.setBackground(new java.awt.Color(168, 218, 220));
         LichSuMua.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         LichSuMua.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LichSuMua.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -370,7 +375,7 @@ public class Customer extends JFrame {
 
         NavbarMenu.add(LichSuMua, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 280, 40));
 
-        changeInfo.setBackground(new java.awt.Color(204, 204, 255));
+        changeInfo.setBackground(new java.awt.Color(168, 218, 220));
         changeInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         changeInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         changeInfo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -405,7 +410,7 @@ public class Customer extends JFrame {
 
         NavbarMenu.add(changeInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 280, 40));
 
-        jPanel5.setBackground(new java.awt.Color(226, 226, 255));
+        jPanel5.setBackground(new java.awt.Color(161, 226, 228));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -443,8 +448,10 @@ public class Customer extends JFrame {
             .addGap(0, 750, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(216, 216, 255));
+        jPanel2.setBackground(new java.awt.Color(161, 226, 228));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBorder(null);
+
 
         jLabel3.setIcon(new ImageIcon(getClass().getResource("/Icon/top1_1.png"))); // NOI18N
 

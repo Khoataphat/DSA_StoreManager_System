@@ -10,7 +10,7 @@ import System.Product;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class DetailProduct extends javax.swing.JDialog {
 
@@ -23,8 +23,8 @@ public class DetailProduct extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         this.owner = (ProductForm) parent;
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Thông tin sản phẩm");
 
         Product a = this.owner.getProductSelect();

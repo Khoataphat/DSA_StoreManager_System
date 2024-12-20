@@ -30,8 +30,8 @@ public class UpdateTracking extends javax.swing.JDialog {
         txtNgayMua.setEditable(false);
         txtTongTien.setEditable(false);
 
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Cập nhật");
     }
     UpdateTracking() {

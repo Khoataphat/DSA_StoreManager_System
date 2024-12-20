@@ -15,7 +15,7 @@ import System.TimeComparator;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
 

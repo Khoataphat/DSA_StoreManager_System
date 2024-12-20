@@ -4,6 +4,7 @@ package GUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,11 +19,13 @@ import javaswingdev.drawer.Drawer;
 import javaswingdev.drawer.DrawerController;
 import javaswingdev.drawer.EventDrawer;
 import javax.swing.ImageIcon;
+
+import static java.awt.SystemColor.text;
 //<----
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class QuanLyKho extends javax.swing.JFrame {
 
@@ -40,9 +43,9 @@ public class QuanLyKho extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.currentAcc = t;
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
-        setTitle("Group 11 Store");
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
+        //setTitle("Group 11 Store");
 /*
         //<----
         drawer = Drawer.newDrawer(this)
@@ -334,7 +337,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         */
 
         //<----
-
+/*
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout MainContentLayout = new javax.swing.GroupLayout(MainContent);
@@ -372,11 +375,11 @@ public class QuanLyKho extends javax.swing.JFrame {
         setPreferredSize(new Dimension(1400, 800)); // Kích thước tổng thể
 
         // Navbar Menu
-        NavbarMenu.setBackground(new Color(204, 204, 255));
+        NavbarMenu.setBackground(new Color(168, 218, 220));
         NavbarMenu.setLayout(new BoxLayout(NavbarMenu, BoxLayout.Y_AXIS));
 
         // SanPham Panel
-        PhieuHuy.setBackground(new Color(204, 204, 255));
+        PhieuHuy.setBackground(new Color(168, 218, 220));
         PhieuHuy.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         PhieuHuy.setCursor(new Cursor(Cursor.HAND_CURSOR));
         PhieuHuy.setPreferredSize(new Dimension(240, 1));
@@ -386,6 +389,13 @@ public class QuanLyKho extends javax.swing.JFrame {
             }
         });
 
+        // Greeting Label
+        jLabel8.setFont(new Font("SF Pro Display", Font.BOLD, 18));
+        jLabel8.setForeground(Color.WHITE);
+        jLabel8.setText("Xin chào");
+        NavbarMenu.add(jLabel8);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
         // Name User
         NameUser.setFont(new Font("SF Pro Display", Font.BOLD, 18));
         NameUser.setForeground(Color.WHITE);
@@ -394,15 +404,10 @@ public class QuanLyKho extends javax.swing.JFrame {
         NavbarMenu.add(NameUser);
         NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
 
-        // Greeting Label
-        jLabel8.setFont(new Font("SF Pro Display", Font.BOLD, 18));
-        jLabel8.setForeground(Color.WHITE);
-        jLabel8.setText("Xin chào");
-        NavbarMenu.add(jLabel8);
-        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
 
         // SanPham1 Panel
-        SanPham1.setBackground(new Color(204, 204, 255));
+        SanPham1.setBackground(new Color(168, 218, 220));
         SanPham1.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SanPham1.setCursor(new Cursor(Cursor.HAND_CURSOR));
         SanPham1.setPreferredSize(new Dimension(240, 1));
@@ -423,7 +428,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
 
         // ThongKe Panel
-        ThongKe.setBackground(new Color(204, 204, 255));
+        ThongKe.setBackground(new Color(168, 218, 220));
         ThongKe.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ThongKe.setCursor(new Cursor(Cursor.HAND_CURSOR));
         ThongKe.setPreferredSize(new Dimension(240, 1));
@@ -453,7 +458,7 @@ public class QuanLyKho extends javax.swing.JFrame {
 
 
         // Change Info Panel
-        changeInfo.setBackground(new Color(204, 204, 255));
+        changeInfo.setBackground(new Color(168, 218, 220));
         changeInfo.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         changeInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
         changeInfo.setPreferredSize(new Dimension(240, 1));
@@ -473,7 +478,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
 
         // DangXuat Panel
-        DangXuat.setBackground(new Color(204, 204, 255));
+        DangXuat.setBackground(new Color(168, 218, 220));
         DangXuat.setBorder(BorderFactory.createSoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         DangXuat.setCursor(new Cursor(Cursor.HAND_CURSOR));
         DangXuat.setPreferredSize(new Dimension(240, 1));
@@ -504,9 +509,131 @@ public class QuanLyKho extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null); // Đặt cửa sổ ở giữa màn hình
 
+ */
+
+        MainContent.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout MainContentLayout = new javax.swing.GroupLayout(MainContent);
+        MainContent.setLayout(MainContentLayout);
+        MainContentLayout.setHorizontalGroup(
+                MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 1180, Short.MAX_VALUE)
+        );
+        MainContentLayout.setVerticalGroup(
+                MainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(NavbarMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(MainContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(NavbarMenu, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE)
+                        .addComponent(MainContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(1400, 800)); // Kích thước tổng thể
+
+// Navbar Menu
+        NavbarMenu.setBackground(new Color(168, 218, 220));
+        NavbarMenu.setLayout(new BoxLayout(NavbarMenu, BoxLayout.Y_AXIS));
+
+// Greeting Label
+        jLabel8.setFont(new Font("SF Pro Display", Font.BOLD, 16)); // Kích thước font nhỏ hơn
+        jLabel8.setForeground(Color.WHITE);
+        jLabel8.setText("Xin chào");
+        NavbarMenu.add(jLabel8);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+// Name User
+        NameUser.setFont(new Font("SF Pro Display", Font.BOLD, 16)); // Kích thước font nhỏ hơn
+        NameUser.setForeground(Color.WHITE);
+        NameUser.setHorizontalAlignment(SwingConstants.CENTER);
+        NameUser.setText("Quản lý kho");
+        NavbarMenu.add(NameUser);
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+// Add buttons
+        NavbarMenu.add(createButtonPanel("SẢN PHẨM", new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                SanPham1MouseClicked(evt);
+            }
+        }));
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        NavbarMenu.add(createButtonPanel("THỐNG KÊ", new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                ThongKeMouseClicked(evt);
+            }
+        }));
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        NavbarMenu.add(createButtonPanel("Đơn hàng bị hủy", new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                PhieuHuyMouseClicked(evt);
+            }
+        }));
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        NavbarMenu.add(createButtonPanel("Thông tin", new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                changeInfoMouseClicked(evt);
+            }
+        }));
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+        NavbarMenu.add(createButtonPanel("ĐĂNG XUẤT", new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                DangXuatMouseClicked(evt);
+            }
+        }));
+        NavbarMenu.add(Box.createRigidArea(new Dimension(0, 10))); // Khoảng cách
+
+// MainContent Panel
+        MainContent.setBackground(Color.WHITE);
+        MainContent.setLayout(new BorderLayout());
+
+// Layout chính
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(NavbarMenu, BorderLayout.WEST);
+        getContentPane().add(MainContent, BorderLayout.CENTER);
+
+        pack();
+        setLocationRelativeTo(null);
 
 
     }// </editor-fold>//GEN-END:initComponents
+    // Helper method to create button panels
+    private JPanel createButtonPanel(String text, MouseAdapter listener) {
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(168, 218, 220));
+        panel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); // Border nhỏ hơn
+        panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        panel.setPreferredSize(new Dimension(120, 15)); // Kích thước nút
+
+        panel.addMouseListener(listener);
+
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("SF Pro Display", Font.BOLD, 16)); // Kích thước font
+        label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+
+        panel.setLayout(new BorderLayout());
+        panel.add(label, BorderLayout.CENTER);
+        return panel;
+    }
+
 
     private void PhieuHuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuHuyMouseClicked
         PhieuHuy ac = new PhieuHuy(currentAcc);

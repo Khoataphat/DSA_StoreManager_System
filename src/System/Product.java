@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class Product {
 

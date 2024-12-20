@@ -15,7 +15,7 @@ import System.Product;
 import System.FunctionWrapper;
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class UpdateProduct extends javax.swing.JDialog {
 
@@ -57,8 +57,8 @@ public class UpdateProduct extends javax.swing.JDialog {
                 txtThanhPhan.getText());
                 txtSoNgayGiao.getText();
 
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Cập nhật");
 
     }

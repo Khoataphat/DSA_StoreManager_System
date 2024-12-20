@@ -6,7 +6,7 @@ package System;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public interface Function<T> {
         void execute(T parameter);

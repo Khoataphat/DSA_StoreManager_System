@@ -1,7 +1,7 @@
 package System;
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  * 
  * để bọc tham số truyền vào push cùng với hàm
  */

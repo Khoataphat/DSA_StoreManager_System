@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class Phieu {
 

@@ -22,7 +22,7 @@ import System.AmountSold;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 /*
 public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {

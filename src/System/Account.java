@@ -3,7 +3,7 @@ package System;
 import java.util.Objects;
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class Account {
 

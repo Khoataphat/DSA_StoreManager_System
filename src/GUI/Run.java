@@ -253,30 +253,34 @@ public class Run {
     public static void ReadDataAmountSold() throws FileNotFoundException, IOException {
         Scanner scanner;
         try {
-            scanner = new Scanner(new File("src\\Database\\AmountSold_CannedFood.txt"));
+            File file = new File("src\\Database\\AmountSold_CannedFood.txt");
+            if (!file.exists() || file.length() == 0) {
+                System.out.println("File không tồn tại hoặc rỗng.");
+                return; // Thoát nếu file không hợp lệ
+            }
+
+            scanner = new Scanner(file);
             System.out.println();
             addAmountSold(AmountSoldTree, scanner);
-
         } catch (FileNotFoundException e) {
             System.out.println("ReadDataAmountSold???");
         }
     }
 
     public static void addAmountSold(AmountSoldManagerTree tree, Scanner scanner) {
-
-        while (scanner.hasNext()) {
-            String mamay = scanner.nextLine();
-            int AmountSold = scanner.nextInt();
-            scanner.nextLine();
-
-            AmountSold a = new AmountSold(mamay, AmountSold);
-
-            tree.add(a.getMaMay(), a);
-
+        while (scanner.hasNextLine()) {
+            String maMay = scanner.nextLine();
+            if (scanner.hasNextLine()) {
+                int amountSold = Integer.parseInt(scanner.nextLine());
+                AmountSold a = new AmountSold(maMay, amountSold);
+                tree.add(a.getMaMay(), a);
+            } else {
+                System.out.println("Dữ liệu không hợp lệ cho mã máy: " + maMay);
+            }
         }
 
         System.out.println("-Size - AmountSold: " + tree.size());
-        tree.printTree();
+        tree.printTree(); // In cây để xác nhận dữ liệu
     }
 
 
@@ -552,10 +556,94 @@ public class Run {
     }
 
 
+    //<-----
+    /*
+    public static void checkAndUpdateAmountSold() throws IOException {
+        List<Product> products = ProductTree.getInOrderList();
+        Set<String> existingProducts = new HashSet<>();
+
+        // Lấy tên sản phẩm đã có trong cây AmountSold
+        for (AmountSoldManagerTree.AmountSoldNode node : AmountSoldTree) {
+            existingProducts.add(node.getAmountSold().getMaMay());
+        }
+
+        // Kiểm tra từng sản phẩm trong ProductTree
+        for (Product product : products) {
+            String productName = product.getTenSanPham();
+            if (!existingProducts.contains(productName)) {
+                // Nếu sản phẩm chưa tồn tại trong AmountSold, thêm vào với số lượng 0
+                AmountSold newAmountSold = new AmountSold(productName, 0);
+                AmountSoldTree.add(productName, newAmountSold);
+                System.out.println("Đã thêm sản phẩm vào AmountSold: " + productName + " với số lượng = 0");
+            }
+        }
+    }
+
+     */
+    public static void updateAmountSoldFile() throws IOException {
+        Set<String> existingProducts = new HashSet<>();
+
+        // Đọc dữ liệu trong file AmountSold
+        try (Scanner scanner = new Scanner(new File("src\\Database\\AmountSold_CannedFood.txt"))) {
+            while (scanner.hasNextLine()) {
+                String productName = scanner.nextLine().trim();
+                if (scanner.hasNextLine()) {
+                    scanner.nextLine(); // Bỏ qua số lượng
+                    if (!productName.isEmpty()) {
+                        existingProducts.add(productName);
+                    }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File AmountSold không tồn tại: " + e.getMessage());
+        }
+
+        List<String> productNames = new ArrayList<>(); // Danh sách chỉ chứa tên sản phẩm
+
+        // Đọc dữ liệu sản phẩm từ file
+        try (Scanner scanner = new Scanner(new File("src\\Database\\FileDataProduct_CannedFood.txt"))) {
+            while (scanner.hasNextLine()) {
+                String maSanPham = scanner.nextLine().trim();
+                String tenSanPham = scanner.nextLine().trim();
+                // Bỏ qua các dòng không cần thiết
+                scanner.nextLine(); // Số lượng
+                scanner.nextLine(); // Đơn giá
+                scanner.nextLine(); // Ngày sản xuất
+                scanner.nextLine(); // Hạn sử dụng
+                scanner.nextLine(); // Thành phần
+                scanner.nextLine(); // Khối lượng
+                scanner.nextLine(); // Ngày nhập kho
+                scanner.nextLine(); // Số ngày giao hàng
+
+                if (!tenSanPham.isEmpty()) {
+                    productNames.add(tenSanPham); // Chỉ thêm tên sản phẩm
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File Product không tồn tại: " + e.getMessage());
+        }
+
+        // Kiểm tra và thêm sản phẩm chưa có vào file AmountSold
+        try (FileWriter fw = new FileWriter("src\\Database\\AmountSold_CannedFood.txt", true)) {
+            for (String productName : productNames) {
+                if (!existingProducts.contains(productName) && !productName.isEmpty()) {
+                    fw.write(productName + "\n0\n"); // Thêm sản phẩm mới với số lượng 0
+                    System.out.println("Đã thêm sản phẩm: " + productName + " với số lượng = 0");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Lỗi khi ghi vào file AmountSold: " + e.getMessage());
+        }
+    }
+    //<-----
+
+
     public static void main(String[] args) throws IOException, UnsupportedLookAndFeelException {
         UIManager.setLookAndFeel(new FlatLightLaf());
         ReadDataAccount(); // dọc dữ liệu
         ReadDataProduct(); // dọc dữ liệu
+
+        updateAmountSoldFile();
         // Lấy danh sách sản phẩm
         List<Product> products = ProductTree.getInOrderList();
         // Thu thập thành phần

@@ -19,7 +19,7 @@ import System.TimeComparator;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class LichSuBan extends javax.swing.JInternalFrame {
    private Account currentAcc;

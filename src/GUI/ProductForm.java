@@ -19,7 +19,7 @@ import AVL.ProductManagerTree;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class ProductForm extends javax.swing.JInternalFrame {
 

@@ -10,7 +10,7 @@ import System.Account;
 import System.FunctionWrapper;
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class UpdateAccount extends javax.swing.JDialog {
 
@@ -34,8 +34,8 @@ public class UpdateAccount extends javax.swing.JDialog {
         txtusername.setEditable(false);
         txtPassword.setText(acc.getPassword());
         acc1 = new Account(txtfullname.getText(),txtusername.getText(),  txtPassword.getText(), acc.getRole());
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Cập nhật");
 
     }
@@ -205,7 +205,7 @@ public class UpdateAccount extends javax.swing.JDialog {
         owner.getAccountSelect().setRole(role);
         owner.getAccountSelect().setPhone(phone);
 
-        owner.functionStack.push(new FunctionWrapper<>(owner.new UpdAccountStack(), this.acc1));
+        owner.functionStack.push(new FunctionWrapper<Account>(owner.new UpdAccountStack(), this.acc1));
         this.dispose();
         owner.loadDataToTable(Run.AccountTree);
         JOptionPane.showMessageDialog(this, "Cập nhật thành công !");

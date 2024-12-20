@@ -13,7 +13,7 @@ import System.FunctionWrapper;
 
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class AddProduct extends javax.swing.JDialog {
 
@@ -27,8 +27,8 @@ public class AddProduct extends javax.swing.JDialog {
         this.owner = (ProductForm) parent;
         initComponents();
         setLocationRelativeTo(null);
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Thêm sản phẩm");
 
     }

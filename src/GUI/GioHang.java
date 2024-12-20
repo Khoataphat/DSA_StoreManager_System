@@ -26,7 +26,7 @@ import System.FunctionWrapper;
 import System.AmountSold;
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class GioHang extends javax.swing.JInternalFrame {
     

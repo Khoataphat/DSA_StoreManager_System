@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import System.Product;
 /**
  *
- * @author Vu Tuan Ngoc
+ * @author
  */
 public class DetailProductCustomer extends javax.swing.JDialog {
 
@@ -22,8 +22,8 @@ public class DetailProductCustomer extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         this.owner = (GioHang) parent;
-        ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
-        setIconImage(logo.getImage());
+        //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
+        //setIconImage(logo.getImage());
         setTitle("Thông tin sản phẩm");
         Product a = this.owner.getDetailProductCustomer();
         txtMaSanPham.setText(a.getMaSanPham());
