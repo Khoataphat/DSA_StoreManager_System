@@ -643,7 +643,7 @@ public class Run {
         ReadDataAccount(); // dọc dữ liệu
         ReadDataProduct(); // dọc dữ liệu
 
-        updateAmountSoldFile();
+        //updateAmountSoldFile();
         // Lấy danh sách sản phẩm
         List<Product> products = ProductTree.getInOrderList();
         // Thu thập thành phần
