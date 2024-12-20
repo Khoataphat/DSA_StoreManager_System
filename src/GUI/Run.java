@@ -486,7 +486,7 @@ public class Run {
         // Thêm đỉnh cho thành phần và tạo cạnh
         for (int i = 0; i < products.size(); i++) {
             Product product = products.get(i);
-            String[] components = product.getKhoiLuong().toLowerCase().split(",");
+            String[] components = product.getThanhPhan().toLowerCase().split(",");
 
             for (String component : components) {
                 component = component.trim();
@@ -649,7 +649,7 @@ public class Run {
         // Thu thập thành phần
         Set<String> componentSet = new HashSet<>();
         for (Product product : products) {
-            String[] components = product.getKhoiLuong().toLowerCase().split(",");
+            String[] components = product.getThanhPhan().toLowerCase().split(",");
             for (String comp : components) {
                 componentSet.add(comp.trim());
             }

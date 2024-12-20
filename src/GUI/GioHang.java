@@ -433,7 +433,7 @@ public class GioHang extends javax.swing.JInternalFrame {
 
                 // Duyệt qua từng sản phẩm trong ProductTree
                 for (Product product : Run.ProductTree.getInOrderList()) {
-                    String[] productComponents = product.getKhoiLuong().toLowerCase().split(","); // Tách thành phần sản phẩm
+                    String[] productComponents = product.getThanhPhan().toLowerCase().split(","); // Tách thành phần sản phẩm
                     List<String> productComponentList = new ArrayList<>();
                     for (String comp : productComponents) {
                         productComponentList.add(comp.trim());
