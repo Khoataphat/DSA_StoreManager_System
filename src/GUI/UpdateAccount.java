@@ -33,7 +33,7 @@ public class UpdateAccount extends javax.swing.JDialog {
 
         txtusername.setEditable(false);
         txtPassword.setText(acc.getPassword());
-        acc1 = new Account(txtfullname.getText(),txtusername.getText(),  txtPassword.getText(), acc.getRole());
+        acc1 = new Account(txtfullname.getText(),txtusername.getText(),  txtPassword.getText(), acc.getRole(), acc.getPhone());
         //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
         //setIconImage(logo.getImage());
         setTitle("Cập nhật");

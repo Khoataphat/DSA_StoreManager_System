@@ -115,6 +115,8 @@ public class AccountForm extends javax.swing.JInternalFrame {
         public void execute(Account acc) {
             Run.AccountTree.get(acc.getUser()).getAccount().setFullName(acc.getFullName());
             Run.AccountTree.get(acc.getUser()).getAccount().setPassword(acc.getPassword());
+            Run.AccountTree.get(acc.getUser()).getAccount().setRole(acc.getRole());
+            Run.AccountTree.get(acc.getUser()).getAccount().setPhone(acc.getPhone());
             try {
                 Run.WriteDataAccount();
             } catch (IOException ex) {
