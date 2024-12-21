@@ -244,11 +244,12 @@ public class Customer extends JFrame {
 
         jPanel1.setBackground(new java.awt.Color(161, 226, 228));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setBorder(null);
 
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 47, 79));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 70)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setIcon(new ImageIcon(getClass().getResource("/Icon/97029.png"))); // NOI18N
+
 
         jPanel3.setBackground(new java.awt.Color(161, 226, 228));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

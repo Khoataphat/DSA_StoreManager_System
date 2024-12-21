@@ -293,6 +293,15 @@ public class LichSuMuaCustomer extends javax.swing.JInternalFrame {
 //GEN-LAST:event_jTextFieldSearchKeyReleased
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // Lấy lại danh sách hóa đơn mua hàng cho tài khoản hiện tại
+        List<Phieu> lichsumua = Run.PhieuMuaTree.search(currentAcc.getUser());
+        Collections.sort(lichsumua, new TimeComparator()); // Sắp xếp theo thời gian
+
+        // Tải lại dữ liệu vào bảng
+        loadDataToTable(lichsumua);
+
+        // Xóa nội dung ô tìm kiếm
+        jTextFieldSearch.setText("");
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
