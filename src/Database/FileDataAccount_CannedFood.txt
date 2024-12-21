@@ -6,7 +6,7 @@ admin
 Banh
 banh
 banh123
-customer
+Customer
 123
 Đăng Khoa
 khoa
@@ -16,8 +16,8 @@ Customer
 kou1
 kou
 kou123
-Customer
-123
+Quản lý kho
+0989
 Như
 nhu
 nhu123
