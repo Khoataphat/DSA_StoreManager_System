@@ -336,7 +336,7 @@ public class GioHang extends javax.swing.JInternalFrame {
         jPanel2.add(txtPhoneNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 590, 390, 40));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Số điện thoại");
+        jLabel1.setText("SDT nhận hàng: ");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 590, 120, 40));
 
         txtAddress.addActionListener(new java.awt.event.ActionListener() {

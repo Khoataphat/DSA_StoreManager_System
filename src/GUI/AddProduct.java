@@ -2,6 +2,9 @@
 package GUI;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -10,6 +13,7 @@ import javax.swing.JOptionPane;
 import System.AmountSold;
 import System.Product;
 import System.FunctionWrapper;
+import com.raven.datechooser.DateChooser;
 
 /**
  *
@@ -22,6 +26,9 @@ public class AddProduct extends javax.swing.JDialog {
      */
     private ProductForm owner;
 
+    private DateChooser chDate = new DateChooser();
+    private DateChooser chDate1 = new DateChooser();
+    private DateChooser chDate2 = new DateChooser();
     public AddProduct(javax.swing.JInternalFrame parent, JFrame owner, boolean modal) {
         super(owner, modal);
         this.owner = (ProductForm) parent;
@@ -30,6 +37,9 @@ public class AddProduct extends javax.swing.JDialog {
         //ImageIcon logo = new ImageIcon(getClass().getResource("/Icon/logo.png"));
         //setIconImage(logo.getImage());
         setTitle("Thêm sản phẩm");
+        chDate.setTextField(txtNgaySanXuat);
+        chDate1.setTextField(txtHanSuDung);
+        chDate2.setTextField(txtNgayNhapKho);
 
     }
 
@@ -261,22 +271,34 @@ public class AddProduct extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
-        String maMay = txtMaSanPham.getText();
-        String tenMay = txtTenSanPham.getText();
-        double dongia = 0;
-        int soluong = 0;
+    private String convertDateFormat(String date) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            dongia = Double.parseDouble(txtDonGia.getText());
-            soluong = Integer.parseInt(txtSoLuong.getText());
+            Date parsedDate = inputFormat.parse(date);
+            return outputFormat.format(parsedDate);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Ngày không hợp lệ! Vui lòng nhập theo định dạng dd-MM-yyyy.");
+            return null;
+        }
+    }
+
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
+        String maSanPham = txtMaSanPham.getText();
+        String tenSanPham = txtTenSanPham.getText();
+        double giaTien = 0;
+        int soLuong = 0;
+        try {
+            giaTien = Double.parseDouble(txtDonGia.getText());
+            soLuong = Integer.parseInt(txtSoLuong.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đơn giá ở dạng số !");
         }
-        String cpu = txtNgaySanXuat.getText();
-        String ram = txtHanSuDung.getText();
-        String rom = txtKhoiLuong.getText();
-        String gpu = txtThanhPhan.getText();
-        String nnk = txtNgayNhapKho.getText();
+        String ngaySanXuat = convertDateFormat(txtNgaySanXuat.getText());
+        String hanSuDung = convertDateFormat(txtHanSuDung.getText());
+        String khoiLuong = txtKhoiLuong.getText();
+        String thanhPhan = txtThanhPhan.getText();
+        String nnk = convertDateFormat(txtNgayNhapKho.getText());
 
         int soNgayGiao = 0;
         try {
@@ -285,13 +307,13 @@ public class AddProduct extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập số ngày giao hợp lệ !");
         }
 
-        if (maMay.equals("") && tenMay.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("") && nnk.equals("")) {
+        if (maSanPham.equals("") && tenSanPham.equals("") && ngaySanXuat.equals("") && hanSuDung.equals("") && khoiLuong.equals("") && thanhPhan.equals("") && nnk.equals("")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin !");
         } else {
-            Product pc = new Product(maMay, tenMay, soluong, dongia, cpu, ram, gpu, rom, nnk, soNgayGiao);
+            Product pc = new Product(maSanPham, tenSanPham, soLuong, giaTien, ngaySanXuat, hanSuDung, thanhPhan, khoiLuong, nnk, soNgayGiao);
              owner.functionStack.push(new FunctionWrapper<Product>(owner.new DelProductStack(), pc));
             Run.ProductTree.add(pc.getTenSanPham(), pc);
-            AmountSold pc1 = new AmountSold(tenMay, 0);
+            AmountSold pc1 = new AmountSold(tenSanPham, 0);
             Run.AmountSoldTree.add(pc1.getMaMay(),pc1);
             JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công !");
             owner.loadDataToTable(Run.ProductTree);

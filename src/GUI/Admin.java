@@ -56,10 +56,10 @@ public class Admin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        NavbarMenu.setBackground(new java.awt.Color(204, 204, 255));
+        NavbarMenu.setBackground(new java.awt.Color(168, 218, 220));
         NavbarMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        SanPham.setBackground(new java.awt.Color(204, 204, 255));
+        SanPham.setBackground(new java.awt.Color(168, 218, 220));
         SanPham.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         SanPham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,7 +94,7 @@ public class Admin extends javax.swing.JFrame {
 
         NavbarMenu.add(SanPham, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 240, 40));
 
-        DangXuat.setBackground(new java.awt.Color(204, 204, 255));
+        DangXuat.setBackground(new java.awt.Color(168, 218, 220));
         DangXuat.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         DangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,7 +140,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel8.setText("Xin chào");
         NavbarMenu.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 100, -1));
 
-        TaiKhoan1.setBackground(new java.awt.Color(204, 204, 255));
+        TaiKhoan1.setBackground(new java.awt.Color(168, 218, 220));
         TaiKhoan1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TaiKhoan1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TaiKhoan1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -175,7 +175,7 @@ public class Admin extends javax.swing.JFrame {
 
         NavbarMenu.add(TaiKhoan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 240, 40));
 
-        ThongKe.setBackground(new java.awt.Color(204, 204, 255));
+        ThongKe.setBackground(new java.awt.Color(168, 218, 220));
         ThongKe.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ThongKe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -210,7 +210,7 @@ public class Admin extends javax.swing.JFrame {
 
         NavbarMenu.add(ThongKe, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 240, 40));
 
-        changeInfo.setBackground(new java.awt.Color(204, 204, 255));
+        changeInfo.setBackground(new java.awt.Color(168, 218, 220));
         changeInfo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         changeInfo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         changeInfo.addMouseListener(new java.awt.event.MouseAdapter() {
