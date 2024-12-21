@@ -4,7 +4,6 @@ package GUI;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,21 +12,16 @@ import javax.swing.*;
 import System.Account;
 
 //<----
-import javaswingdev.drawer.DrawerItem;
 import java.awt.Color;
-import javaswingdev.drawer.Drawer;
-import javaswingdev.drawer.DrawerController;
-import javaswingdev.drawer.EventDrawer;
-import javax.swing.ImageIcon;
 
-import static java.awt.SystemColor.text;
+import javaswingdev.drawer.DrawerController;
 //<----
 
 /**
  *
  * @author
  */
-public class QuanLyKho extends javax.swing.JFrame {
+public class QuanLyKho3 extends javax.swing.JFrame {
 
     private Account currentAcc;
     private DrawerController drawer;
@@ -35,11 +29,11 @@ public class QuanLyKho extends javax.swing.JFrame {
     /**
      * Creates new form Admin
      */
-    private QuanLyKho() {
+    private QuanLyKho3() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public QuanLyKho(Account t) {
+    public QuanLyKho3(Account t) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.currentAcc = t;
@@ -337,7 +331,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         */
 
         //<----
-/*
+
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout MainContentLayout = new javax.swing.GroupLayout(MainContent);
@@ -509,7 +503,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null); // Đặt cửa sổ ở giữa màn hình
 
- */
+/*
 
         MainContent.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -632,6 +626,8 @@ public class QuanLyKho extends javax.swing.JFrame {
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.CENTER);
         return panel;
+
+ */
     }
 
 
@@ -659,7 +655,7 @@ public class QuanLyKho extends javax.swing.JFrame {
                 a.setVisible(true);
                 this.dispose();
             } catch (IOException ex) {
-                Logger.getLogger(QuanLyKho.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyKho3.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
 
@@ -736,13 +732,13 @@ public class QuanLyKho extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(QuanLyKho.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuanLyKho3.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            Logger.getLogger(QuanLyKho.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuanLyKho3.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(QuanLyKho.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuanLyKho3.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(QuanLyKho.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuanLyKho3.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -750,7 +746,7 @@ public class QuanLyKho extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuanLyKho().setVisible(true);
+                new QuanLyKho3().setVisible(true);
             }
         });
     }

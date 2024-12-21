@@ -1,35 +1,3 @@
-Bánh Hỏi Tây Ninh
-3
-Bánh Kẹo Tây Ninh
-1
-Bánh Tráng Tây Ninh
-2
-Bánh Xèo Tây Ninh
-6
-Chè Bắp Tây Ninh
-1
-Chả Giò Tây Ninh
-4
-Gỏi Cuốn Tây Ninh
-0
-Kẹo Me
-0
-Muối Ớt Tây Ninh
-5
-Mắm Tôm Tây Ninh
-1
-Nước Mắm Tây Ninh
-3
-null
-1
-Trứng Muối Tây Ninh
-3
-Xôi Gấc Tây Ninh
-2
-null
-1
-Đăng Khoa
-2
 Bánh Hỏi Bò Nướng
 0
 Bánh Hỏi Bò Thịt
@@ -38,6 +6,8 @@ Bánh Hỏi Gà
 0
 Bánh Hỏi Thịt Nướng
 0
+Bánh Hỏi Tây Ninh
+3
 Bánh Hỏi Tôm
 0
 Bánh Hỏi Tôm Chay
@@ -62,6 +32,8 @@ Bánh Kẹo Sầu Riêng
 0
 Bánh Kẹo Trái Cây
 0
+Bánh Kẹo Tây Ninh
+1
 Bánh Trung Thu Nhân Thập Cẩm
 0
 Bánh Trung Thu Nhân Trái Cây
@@ -84,18 +56,26 @@ Bánh Tráng Nướng Đặc Biệt
 0
 Bánh Tráng Thịt Bò
 0
+Bánh Tráng Tây Ninh
+2
 Bánh Tráng Đặc Biệt
 0
 Bánh Xèo Chay
 0
 Bánh Xèo Chay Đặc Biệt
 0
+Bánh Xèo Tây Ninh
+6
 Bánh Xèo Tôm Thịt
 0
 Bánh Xèo Đà Nẵng
 0
+Bò Cuốn
+0
 Chè Bưởi
 0
+Chè Bắp Tây Ninh
+1
 Chè Mè Đen
 0
 Chè Trái Cây
@@ -124,15 +104,21 @@ Chả Giò Hải Sản
 0
 Chả Giò Hải Sản Đặc Biệt
 0
+Chả Giò Tây Ninh
+4
 Chả Giò Tôm
 0
 Chả Giò Tôm Thịt
 0
 Chả Giò Đặc Biệt
 0
+Gà
+0
 Gỏi Cuốn Bò
 0
 Gỏi Cuốn Chay
+0
+Gỏi Cuốn Tây Ninh
 0
 Gỏi Cuốn Tôm Hải Sản
 0
@@ -142,12 +128,16 @@ Gỏi Cuốn Tôm Đặc Biệt
 0
 Gỏi Cuốn Đặc Biệt
 0
+Kẹo Me
+0
 Muối Ớt Chanh
 0
 Muối Ớt Nguyên Chất
 0
 Muối Ớt Nướng
 0
+Muối Ớt Tây Ninh
+5
 Muối Ớt Xanh
 0
 Muối Ớt Đặc Biệt
@@ -164,6 +154,8 @@ Mắm Tôm Chua
 0
 Mắm Tôm Nguyên Chất
 0
+Mắm Tôm Tây Ninh
+1
 Nước Chấm Gỏi
 0
 Nước Chấm Gỏi Cuốn
@@ -182,8 +174,10 @@ Nước Mắm Nguyên Chất
 0
 Nước Mắm Phú Quốc
 0
+Nước Mắm Tây Ninh
+3
 Sửa Ông Thọ
-0
+1
 Sữa Bột
 0
 Sữa Bột Dinh Dưỡng
@@ -196,6 +190,8 @@ Trứng Gà Lòng Đào
 0
 Trứng Gà Tươi
 0
+Trứng Muối Tây Ninh
+3
 Trứng Vịt Lòng Đào
 0
 Trứng Vịt Tươi
@@ -204,7 +200,13 @@ Xôi Gà
 0
 Xôi Gà Đặc Biệt
 0
+Xôi Gấc Tây Ninh
+2
 Xôi Đậu Phộng
 0
 Xôi Đậu Xanh
 0
+null
+1
+Đăng Khoa
+2

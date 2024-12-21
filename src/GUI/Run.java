@@ -371,7 +371,7 @@ public class Run {
             FileWriter fw = new FileWriter("src\\Database\\FileDataProduct_CannedFood.txt");
             fw.write("");
             for (Product product : ProductData) {
-                fw.write(product.getMaSanPham() + "\n" + product.getTenSanPham() + "\n" + product.getSoLuong() + "\n" + product.getGiaTien() + "\n" + product.getNgaySanXuat() + "\n" + product.getHanSuDung() + "\n" + product.getKhoiLuong() + "\n" + product.getThanhPhan() + "\n" + product.getNgayNhapKho() + "\n" + product.getSoNgayGiaoHang() + "\n");
+                fw.write(product.getMaSanPham() + "\n" + product.getTenSanPham() + "\n" + product.getSoLuong() + "\n" + product.getGiaTien() + "\n" + product.getNgaySanXuat() + "\n" + product.getHanSuDung() + "\n" + product.getThanhPhan() + "\n" + product.getKhoiLuong() + "\n" + product.getNgayNhapKho() + "\n" + product.getSoNgayGiaoHang() + "\n");
             }
             fw.close();
         } catch (IOException e) {

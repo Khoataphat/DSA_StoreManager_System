@@ -20,6 +20,11 @@ import System.ChiTietPhieu;
 import System.Product;
 import System.AmountSold;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 /**
  *
  * @author
@@ -239,6 +244,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
     private DefaultTableModel tblBestSellers;
     private DefaultTableModel tblCombinedWarning;
     private DefaultTableModel tblPurchaseStatus;
+    private DefaultTableModel tblPredictedStock;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
 
     public ThongKeQuanLyKho() {
@@ -266,83 +272,96 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         jPanel1.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(5, 5, 5, 5); // Giảm khoảng cách giữa các component
 
 // Khởi tạo bảng cho lịch sử bán hàng
         tblModel = createTableModel(new String[]{"Tên sản phẩm", "Số lượng", "Tổng giá", "Số điện thoại", "Địa chỉ"});
         tblSanPham.setModel(tblModel);
         JScrollPane jScrollPane1 = new JScrollPane(tblSanPham);
-        tblSanPham.setPreferredScrollableViewportSize(new Dimension(500, 150)); // Điều chỉnh kích thước
+        tblSanPham.setPreferredScrollableViewportSize(new Dimension(400, 100)); // Kích thước nhỏ hơn
 
 // Khởi tạo bảng cho sản phẩm bán chạy
         tblBestSellers = createTableModel(new String[]{"Sản phẩm bán chạy", "Số lượng bán"});
         JTable tblBestSellersTable = new JTable(tblBestSellers);
         JScrollPane jScrollPane2 = new JScrollPane(tblBestSellersTable);
-        tblBestSellersTable.setPreferredScrollableViewportSize(new Dimension(300, 150)); // Điều chỉnh kích thước
+        tblBestSellersTable.setPreferredScrollableViewportSize(new Dimension(250, 100)); // Kích thước nhỏ hơn
 
 // Khởi tạo bảng cho cảnh báo tồn kho
         tblCombinedWarning = createTableModel(new String[]{"Sản phẩm cần nhập", "Lý do"});
         JTable tblStockWarningTable = new JTable(tblCombinedWarning);
         JScrollPane jScrollPane3 = new JScrollPane(tblStockWarningTable);
-        tblStockWarningTable.setPreferredScrollableViewportSize(new Dimension(600, 150)); // Điều chỉnh kích thước
+        tblStockWarningTable.setPreferredScrollableViewportSize(new Dimension(300, 100)); // Kích thước nhỏ hơn
+
+// Khởi tạo bảng cho dự đoán số lượng cần nhập
+        tblPredictedStock = createTableModel(new String[]{"Sản phẩm", "Dự đoán số lượng cần nhập"});
+        JTable tblPredictedStockTable = new JTable(tblPredictedStock);
+        JScrollPane jScrollPanePredicted = new JScrollPane(tblPredictedStockTable);
+        tblPredictedStockTable.setPreferredScrollableViewportSize(new Dimension(250, 100)); // Kích thước nhỏ hơn
 
 // Thêm các panel thông tin lên trên cùng
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 0.3; // Chiếm 30% không gian cho jPanel9
-        gbc.weighty = 0.1; // Chiếm 10% không gian cho chiều cao
-        jPanel1.add(jPanel9, gbc); // Sản phẩm trong kho
+        gbc.weightx = 0.3;
+        gbc.weighty = 0.1;
+        jPanel1.add(jPanel9, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.weightx = 0.3; // Chiếm 30% không gian cho jPanel10
-        gbc.weighty = 0.1; // Chiếm 10% không gian cho chiều cao
-        jPanel1.add(jPanel10, gbc); // Doanh số
+        gbc.weightx = 0.3;
+        gbc.weighty = 0.1;
+        jPanel1.add(jPanel10, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
-        gbc.weightx = 0.3; // Chiếm 30% không gian cho jPanel11
-        gbc.weighty = 0.1; // Chiếm 10% không gian cho chiều cao
-        jPanel1.add(jPanel11, gbc); // Tổng đơn
+        gbc.weightx = 0.3;
+        gbc.weighty = 0.1;
+        jPanel1.add(jPanel11, gbc);
 
 // Thiết lập vị trí cho bảng lịch sử bán hàng
         gbc.gridx = 0;
-        gbc.gridy = 1; // Đặt xuống hàng dưới
-        gbc.weightx = 1.0; // Chiếm toàn bộ không gian chiều rộng
-        gbc.weighty = 0.4; // Chiếm 40% không gian chiều cao
-        gbc.gridwidth = 3; // Chiếm toàn bộ chiều rộng
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.3; // Giảm trọng số chiều cao
+        gbc.gridwidth = 3;
         jPanel1.add(jScrollPane1, gbc);
 
 // Thiết lập vị trí cho bảng sản phẩm bán chạy
         gbc.gridx = 0;
-        gbc.gridy = 2; // Đặt xuống hàng dưới
-        gbc.weightx = 0.5; // Chiếm 50% không gian cho bảng sản phẩm bán chạy
-        gbc.weighty = 0.2; // Chiếm 20% không gian cho chiều cao
-        gbc.gridwidth = 1; // Chiếm 1 cột
+        gbc.gridy = 2;
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.2;
+        gbc.gridwidth = 1;
         jPanel1.add(jScrollPane2, gbc);
 
 // Thiết lập vị trí cho bảng cảnh báo tồn kho
         gbc.gridx = 1;
-        gbc.gridy = 2; // Cùng hàng với bảng sản phẩm bán chạy
-        gbc.weightx = 0.5; // Chiếm 50% không gian cho bảng cảnh báo tồn kho
-        gbc.weighty = 0.2; // Chiếm 20% không gian cho chiều cao
-        gbc.gridwidth = 1; // Chiếm 1 cột
+        gbc.gridy = 2;
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.2;
+        gbc.gridwidth = 1;
         jPanel1.add(jScrollPane3, gbc);
+
+// Thiết lập vị trí cho bảng dự đoán số lượng cần nhập
+        gbc.gridx = 2; // Chuyển bảng dự đoán vào cột thứ ba
+        gbc.gridy = 2;
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.2;
+        gbc.gridwidth = 1;
+        jPanel1.add(jScrollPanePredicted, gbc);
 
 // Khởi tạo bảng cho trạng thái phiếu mua
         tblPurchaseStatus = createTableModel(new String[]{" ", "Trạng thái"});
         JTable tblPurchaseStatusTable = new JTable(tblPurchaseStatus);
         JScrollPane jScrollPanePurchaseStatus = new JScrollPane(tblPurchaseStatusTable);
-        tblPurchaseStatusTable.setPreferredScrollableViewportSize(new Dimension(300, 150)); // Điều chỉnh kích thước
+        tblPurchaseStatusTable.setPreferredScrollableViewportSize(new Dimension(250, 100)); // Kích thước nhỏ hơn
 
 // Thiết lập vị trí cho bảng trạng thái phiếu mua
         gbc.gridx = 0;
-        gbc.gridy = 3; // Đặt xuống hàng dưới
-        gbc.weightx = 1.0; // Chiếm toàn bộ không gian chiều rộng
-        gbc.weighty = 0.5; // Chiếm 50% không gian chiều cao
-        gbc.gridwidth = 3; // Chiếm toàn bộ chiều rộng
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.3; // Giảm trọng số chiều cao
+        gbc.gridwidth = 3;
         jPanel1.add(jScrollPanePurchaseStatus, gbc);
-
 
     }
 
@@ -433,61 +452,97 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
 
     // Kiểm tra số lượng và hạn sử dụng
     public void checkStockAndExpiry() {
-        List<Product> products = Run.ProductTree.getInOrderList(); // Lấy danh sách sản phẩm
+        List<Product> products = Run.ProductTree.getInOrderList();
         List<Phieu> phieulist = Run.PhieuMuaTree.getInOrderList();
 
-        tblCombinedWarning.setRowCount(0); // Đặt lại dữ liệu bảng
+        tblCombinedWarning.setRowCount(0);
+        tblPredictedStock.setRowCount(0);
         LocalDate currentDate = LocalDate.now();
 
         for (Product product : products) {
-            int stockQuantity = product.getSoLuong(); // Số lượng tồn kho
-            LocalDate expiryDate = product.getHanSuDung(); // Hạn sử dụng
+            int stockQuantity = product.getSoLuong();
+            LocalDate expiryDate = product.getHanSuDung();
 
-            // Kiểm tra hạn sử dụng hợp lệ
             if (expiryDate == null) {
                 tblCombinedWarning.addRow(new Object[]{
                         product.getTenSanPham(),
                         "Hạn sử dụng không hợp lệ."
                 });
-                continue; // Bỏ qua sản phẩm này
+                continue;
             }
 
-            // Lấy thông tin tiêu thụ
-            double dailyConsumption = product.getDailyConsumption(phieulist); // Tiêu thụ hàng ngày
-            int leadTimeDays = product.getSoNgayGiaoHang(); // Số ngày giao hàng
+            double dailyConsumption = product.getDailyConsumption(phieulist);
+            int leadTimeDays = product.getSoNgayGiaoHang();
 
             long daysUntilExpiry = ChronoUnit.DAYS.between(currentDate, expiryDate);
-            long totalShelfLife = ChronoUnit.DAYS.between(product.getNgaySanXuat(), expiryDate); // Tổng thời gian sử dụng
+            long totalShelfLife = ChronoUnit.DAYS.between(product.getNgaySanXuat(), expiryDate);
 
-            // Kiểm tra tổng thời gian sử dụng hợp lệ
             if (totalShelfLife <= 0) {
                 tblCombinedWarning.addRow(new Object[]{
                         product.getTenSanPham(),
                         "Thông tin ngày sản xuất hoặc hạn sử dụng không hợp lệ."
                 });
-                continue; // Bỏ qua sản phẩm này
+                continue;
             }
 
-            // Tính mức tối thiểu
             double minStockLevel = dailyConsumption * leadTimeDays;
-            BigDecimal minStockLevelRounded = BigDecimal.valueOf(minStockLevel).setScale(2, RoundingMode.HALF_UP); // Làm tròn đến 2 chữ số thập phân
-            // Kiểm tra số lượng tồn kho
-            if (stockQuantity < minStockLevelRounded.doubleValue()) {
+            if (stockQuantity < minStockLevel) {
                 tblCombinedWarning.addRow(new Object[]{
                         product.getTenSanPham(),
                         "Số lượng hàng tồn kho còn lại: " + stockQuantity + " (Mức tối thiểu: " + minStockLevel + ")"
                 });
             }
-            System.out.println("dailyConsumption: " + dailyConsumption + " leadTimeDays: " + leadTimeDays );
-            System.out.println("Số lượng hàng tồn kho còn lại: " + stockQuantity + " (Mức tối thiểu: " + minStockLevel);
 
-            // Kiểm tra hạn sử dụng
+            // Dự đoán số lượng cần nhập kho
+            int predictedStock = predictStockNeed(product, dailyConsumption, leadTimeDays);
+            if (predictedStock > 0) {
+                tblPredictedStock.addRow(new Object[]{
+                        product.getTenSanPham(),
+                        predictedStock
+                });
+            }
+
             if (daysUntilExpiry <= (0.3 * totalShelfLife)) {
                 tblCombinedWarning.addRow(new Object[]{
                         product.getTenSanPham(),
                         "Hạn sử dụng sắp hết: " + daysUntilExpiry + " ngày (30% hạn sử dụng)"
                 });
             }
+
+            writeToFile(product);
+        }
+    }
+
+    // Dự đoán số lượng cần nhập kho bằng cách sử dụng phương pháp đơn giản
+    private int predictStockNeed(Product product, double dailyConsumption, int leadTimeDays) {
+        // Tính toán số lượng cần nhập dựa trên tiêu thụ hàng ngày và thời gian giao hàng
+        int requiredStock = (int) Math.ceil(dailyConsumption * leadTimeDays);
+        return requiredStock; // Trả về giá trị dự đoán
+    }
+
+    // Ghi thông tin sản phẩm vào file
+    private void writeToFile(Product product) {
+        List<Phieu> phieulist = Run.PhieuMuaTree.getInOrderList();
+        List<AmountSold> amountSoldList = Run.AmountSoldTree.getInOrderList();
+        String filePath = "src/Database/product_info.txt";
+
+        int amountSold = amountSoldList.stream()
+                .filter(sold -> sold.getMaMay().equals(product.getTenSanPham()))
+                .mapToInt(AmountSold::getAmountSold)
+                .findFirst()
+                .orElse(0);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(product.getTenSanPham() + "\n");
+            writer.write(product.getSoLuong() + "\n");
+            writer.write(amountSold + "\n");
+            writer.write(product.getNgaySanXuat() + "\n");
+            writer.write(product.getNgayNhapKho() + "\n");
+            writer.write(product.getHanSuDung() + "\n");
+            writer.write(product.getGiaTien() + "\n");
+            writer.write(product.getDailyConsumption(phieulist) + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
