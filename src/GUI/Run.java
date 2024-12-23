@@ -59,8 +59,6 @@ public class Run {
         } catch (FileNotFoundException e) {
             System.out.println("ReadDatatoQueue???");
         }
-
-
     }
 
     public static void addQueue(SortedLinkedPriorityQueue<Integer, Product> queue, Scanner scanner) {
@@ -273,7 +271,7 @@ public class Run {
             if (scanner.hasNextLine()) {
                 int amountSold = Integer.parseInt(scanner.nextLine());
                 AmountSold a = new AmountSold(maMay, amountSold);
-                tree.add(a.getMaMay(), a);
+                tree.add(a.getMaSanPham(), a);
             } else {
                 System.out.println("Dữ liệu không hợp lệ cho mã máy: " + maMay);
             }
@@ -390,7 +388,7 @@ public class Run {
             FileWriter fw = new FileWriter("src\\Database\\AmountSold_CannedFood.txt");
             fw.write("");
             for (AmountSold product : amountSold) {
-                fw.write(product.getMaMay() + "\n" + product.getAmountSold() + "\n");
+                fw.write(product.getMaSanPham() + "\n" + product.getAmountSold() + "\n");
             }
             fw.close();
         } catch (IOException e) {

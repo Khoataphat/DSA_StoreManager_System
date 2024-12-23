@@ -7,7 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import System.AmountSold;
@@ -314,7 +313,7 @@ public class AddProduct extends javax.swing.JDialog {
              owner.functionStack.push(new FunctionWrapper<Product>(owner.new DelProductStack(), pc));
             Run.ProductTree.add(pc.getTenSanPham(), pc);
             AmountSold pc1 = new AmountSold(tenSanPham, 0);
-            Run.AmountSoldTree.add(pc1.getMaMay(),pc1);
+            Run.AmountSoldTree.add(pc1.getMaSanPham(),pc1);
             JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công !");
             owner.loadDataToTable(Run.ProductTree);
             try {

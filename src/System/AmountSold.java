@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class AmountSold {
 
-    private String maMay;
+    private String maSanPham;
     private int AmountSold;
 
 
@@ -17,19 +17,19 @@ public class AmountSold {
         super();
     }
 
-    public AmountSold(String maMay, int AmountSold) {
-        this.maMay = maMay;
+    public AmountSold(String maSanPham, int AmountSold) {
+        this.maSanPham = maSanPham;
         this.AmountSold = AmountSold;
         
 
     }
 
-    public String getMaMay() {
-        return maMay;
+    public String getMaSanPham() {
+        return maSanPham;
     }
 
-    public void setMaMay(String maMay) {
-        this.maMay = maMay;
+    public void setMaSanPham(String maSanPham) {
+        this.maSanPham = maSanPham;
     }
 
     public int getAmountSold() {
@@ -54,7 +54,7 @@ public class AmountSold {
             return false;
         }
         final AmountSold other = (AmountSold) obj;
-        if (this.maMay != other.maMay) {
+        if (this.maSanPham != other.maSanPham) {
             return false;
         }
         
@@ -64,7 +64,7 @@ public class AmountSold {
     @Override
     public String toString() {
         return "Product{"
-                + "maMay='" + maMay + '\''
+                + "maMay='" + maSanPham + '\''
                 
                 + ",AmountSold=" + AmountSold + '\''
                 + '}';

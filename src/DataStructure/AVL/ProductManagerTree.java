@@ -557,7 +557,7 @@ public class ProductManagerTree {
     }
 
 
-    public List<Product> searchMaMay(String name) {
+    public List<Product> searchMaSanPham(String name) {
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 
@@ -622,7 +622,7 @@ public class ProductManagerTree {
         return productList;
     }
  */
-    public List<Product> searchRam(String name) {
+    public List<Product> searchHanSuDung(String name) {
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 
@@ -639,7 +639,7 @@ public class ProductManagerTree {
         return productList;
     }
 
-    public List<Product> searchCPU(String name) {
+    public List<Product> searchNgaySanXuat(String name) {
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 
@@ -657,7 +657,7 @@ public class ProductManagerTree {
     }
 
 
-    public List<Product> searchRom(String name) {
+    public List<Product> searchThanhPhan(String name) {
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 
@@ -670,7 +670,7 @@ public class ProductManagerTree {
         return productList;
     }
 
-    public List<Product> searchGPU(String name) {
+    public List<Product> searchKhoiLuong(String name) {
         List<Product> list = getInOrderList();
         List<Product> productList = new ArrayList<>();
 

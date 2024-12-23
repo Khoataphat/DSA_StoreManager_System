@@ -625,7 +625,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
                 result = Run.ProductTree.search(content);
                 break;
             case "Mã sản phẩm":
-                result = Run.ProductTree.searchMaMay(content);
+                result = Run.ProductTree.searchMaSanPham(content);
                 break;
             case "Tên sản phẩm":
                 result = result = Run.ProductTree.search(content);
@@ -637,22 +637,22 @@ public class ProductForm extends javax.swing.JInternalFrame {
                 result = result = Run.ProductTree.searchDonGia(content);
                 break;
             case "Ngày sản xuất":
-                result = result = Run.ProductTree.searchCPU(content);
+                result = result = Run.ProductTree.searchNgaySanXuat(content);
                 break;
             case "Hạn sản xuất":
-                result = result = Run.ProductTree.searchRam(content);
+                result = result = Run.ProductTree.searchHanSuDung(content);
                 break;
             case "Thành phần":
-                result = result = Run.ProductTree.searchRom(content);
+                result = result = Run.ProductTree.searchThanhPhan(content);
                 break;
             case "Khối lượng":
-                result = result = Run.ProductTree.searchGPU(content);
+                result = result = Run.ProductTree.searchKhoiLuong(content);
                 break;
             case "Ngày nhập kho":
                 result = result = Run.ProductTree.searchNNK(content);
                 break;
             case "Đã bán":
-                result = result = Run.ProductTree.searchGPU(content);
+                result = result = Run.ProductTree.searchKhoiLuong(content);
                 break;
 
         }

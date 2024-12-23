@@ -447,7 +447,7 @@ public class AmountSoldManagerTree {
         List<AmountSold> AmountSoldList = new ArrayList<>();
 
         for (AmountSold product : list) {
-            if (product.getMaMay().toLowerCase().contains(name.toLowerCase())) {
+            if (product.getMaSanPham().toLowerCase().contains(name.toLowerCase())) {
                 AmountSoldList.add(product);
             }
         }

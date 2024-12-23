@@ -8,8 +8,6 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -441,7 +439,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
             tblBestSellers.setRowCount(0);
             for (AmountSold product : bestSellingProducts) {
                 tblBestSellers.addRow(new Object[]{
-                        product.getMaMay(),
+                        product.getMaSanPham(),
                         product.getAmountSold()
                 });
             }
@@ -527,7 +525,7 @@ public class ThongKeQuanLyKho extends javax.swing.JInternalFrame {
         String filePath = "src/Database/product_info.txt";
 
         int amountSold = amountSoldList.stream()
-                .filter(sold -> sold.getMaMay().equals(product.getTenSanPham()))
+                .filter(sold -> sold.getMaSanPham().equals(product.getTenSanPham()))
                 .mapToInt(AmountSold::getAmountSold)
                 .findFirst()
                 .orElse(0);

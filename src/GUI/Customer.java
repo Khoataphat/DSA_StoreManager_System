@@ -71,21 +71,21 @@ public class Customer extends JFrame {
 
         // Loại bỏ sản phẩm nào có số lượng bằng 0
         list.removeIf(amountSold -> {
-            String maMay = amountSold.getMaMay();
-            return Run.ProductTree.search(maMay).isEmpty() ||
-                    Run.ProductTree.search(maMay).get(0).getSoLuong() == 0;
+            String maSanPham = amountSold.getMaSanPham();
+            return Run.ProductTree.search(maSanPham).isEmpty() ||
+                    Run.ProductTree.search(maSanPham).get(0).getSoLuong() == 0;
         });
 
         // Kiểm tra nếu danh sách không rỗng trước khi đặt giá trị vào các trường văn bản
         if (!list.isEmpty()) {
             if (list.size() > 0) {
-                txtTop1.setText(list.get(0).getMaMay());
+                txtTop1.setText(list.get(0).getMaSanPham());
             }
             if (list.size() > 1) {
-                txtTop2.setText(list.get(1).getMaMay());
+                txtTop2.setText(list.get(1).getMaSanPham());
             }
             if (list.size() > 2) {
-                txtTop3.setText(list.get(2).getMaMay());
+                txtTop3.setText(list.get(2).getMaSanPham());
             }
         } else {
             // Xử lý khi danh sách rỗng (có thể đặt giá trị mặc định hoặc thông báo)
